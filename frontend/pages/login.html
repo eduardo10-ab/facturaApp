@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - Sistema DTE</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.5.0/axios.min.js"></script>
+    <link rel="stylesheet" href="../css/styles.css">
+</head>
+<body>
+    <!-- SECCIÓN LOGIN -->
+    <div id="loginSection" class="section">
+        <div class="login-container">
+            <div class="login-card">
+                <div class="login-left">
+                    <h1>Sistema de facturación electrónica</h1>
+                    <div class="company-logo">
+                        Logo y nombre de la empresa
+                    </div>
+                </div>
+                <div class="login-right">
+                    <h2>Bienvenido</h2>
+                    <div id="loginError" class="alert alert-error hidden"></div>
+                    <form id="loginForm">
+                        <div class="form-group">
+                            <label for="username">👤 Usuario</label>
+                            <input type="text" id="username" class="form-input" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="password">🔒 Contraseña</label>
+                            <input type="password" id="password" class="form-input" required>
+                        </div>
+                        <button type="submit" class="login-btn" id="loginBtn">
+                            Iniciar sesión
+                        </button>
+                        <p class="remember-text">
+                            Al usar el sistema, el usuario acepta los términos que para tal efecto ha creado.
+                        </p>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <script src="../js/utils.js"></script>
+    <script src="../js/auth.js"></script>
+    <script src="../js/products.js"></script>
+    <script src="../js/dte.js"></script>
+    <script src="../js/main.js"></script>
+</body>
+</html>

@@ -1,4 +1,4 @@
-// products.js - filas de producto, cálculos y validaciones
+// products.js - filas de producto, cálculos y validaciones - NAVEGACIÓN ENTRE PÁGINAS
 
 function addProductRow() {
     const tbody = document.getElementById('productsTableBody');
@@ -17,9 +17,12 @@ function addProductRow() {
             </select>
         </td>
         <td><input type="number" name="price[]" step="0.01" min="0" placeholder="0.00" onchange="calculateTotals()" required></td>
-        <td><button type="button" onclick="removeProductRow(this)" style="background:#dc2626;color:white;border:none;border-radius:4px;padding:5px 8px;cursor:pointer;">×</button></td>
+        <td><button type="button" onclick="removeProductRow(this)" class="remove-product-btn" title="Eliminar producto">×</button></td>
     `;
     tbody.appendChild(newRow);
+    
+    // Agregar event listeners para validación en tiempo real
+    addProductValidationListeners(newRow);
 }
 
 function removeProductRow(button) {
@@ -28,8 +31,46 @@ function removeProductRow(button) {
         button.closest('tr').remove();
         calculateTotals();
     } else {
-        alert('Debe mantener al menos un producto');
+        showAlert('Debe mantener al menos un producto', 'error');
     }
+}
+
+function addProductValidationListeners(row) {
+    const inputs = row.querySelectorAll('input[name="quantity[]"], input[name="price[]"]');
+    const select = row.querySelector('select[name="saleType[]"]');
+    
+    inputs.forEach(input => {
+        input.addEventListener('input', calculateTotals);
+        input.addEventListener('blur', validateProductField);
+    });
+    
+    if (select) {
+        select.addEventListener('change', calculateTotals);
+    }
+}
+
+function validateProductField(event) {
+    const field = event.target;
+    const value = field.value.trim();
+    
+    if (field.name === 'quantity[]') {
+        const quantity = parseFloat(value);
+        if (isNaN(quantity) || quantity <= 0) {
+            field.style.borderColor = '#dc2626';
+            return false;
+        }
+    }
+    
+    if (field.name === 'price[]') {
+        const price = parseFloat(value);
+        if (isNaN(price) || price < 0) {
+            field.style.borderColor = '#dc2626';
+            return false;
+        }
+    }
+    
+    field.style.borderColor = '';
+    return true;
 }
 
 function calculateTotals() {
@@ -47,8 +88,11 @@ function calculateTotals() {
             const saleType = saleTypeSelect.value;
             const subtotal = quantity * price;
 
-            if (saleType === '1') subtotalGravado += subtotal;
-            else if (saleType === '2') subtotalExento += subtotal;
+            if (saleType === '1') {
+                subtotalGravado += subtotal;
+            } else if (saleType === '2') {
+                subtotalExento += subtotal;
+            }
         }
     });
 
@@ -59,33 +103,157 @@ function calculateTotals() {
 }
 
 function updateTotalsDisplay(subtotal, exempt, iva, total) {
-    const subtotalElement = document.getElementById('subtotalAmount');
-    const exemptElement = document.getElementById('exemptAmount');
-    const ivaElement = document.getElementById('ivaAmount');
-    const totalElement = document.getElementById('totalAmount');
+    const elements = {
+        subtotalAmount: document.getElementById('subtotalAmount'),
+        exemptAmount: document.getElementById('exemptAmount'),
+        ivaAmount: document.getElementById('ivaAmount'),
+        totalAmount: document.getElementById('totalAmount')
+    };
 
-    if (subtotalElement) subtotalElement.textContent = (typeof formatCurrency === 'function') ? formatCurrency(subtotal) : `$${subtotal.toFixed(2)}`;
-    if (exemptElement) exemptElement.textContent = (typeof formatCurrency === 'function') ? formatCurrency(exempt) : `$${exempt.toFixed(2)}`;
-    if (ivaElement) ivaElement.textContent = (typeof formatCurrency === 'function') ? formatCurrency(iva) : `$${iva.toFixed(2)}`;
-    if (totalElement) totalElement.textContent = (typeof formatCurrency === 'function') ? formatCurrency(total) : `$${total.toFixed(2)}`;
+    if (elements.subtotalAmount) {
+        elements.subtotalAmount.textContent = formatCurrency(subtotal);
+    }
+    if (elements.exemptAmount) {
+        elements.exemptAmount.textContent = formatCurrency(exempt);
+    }
+    if (elements.ivaAmount) {
+        elements.ivaAmount.textContent = formatCurrency(iva);
+    }
+    if (elements.totalAmount) {
+        elements.totalAmount.textContent = formatCurrency(total);
+    }
 }
 
-// Validaciones
+// Validaciones mejoradas
 function validateNIT(nit) {
+    if (!nit) return true; // Permitir campo vacío
     return /^\d{4}-\d{6}-\d{3}-\d{1}$/.test(nit);
 }
+
+function validateNRC(nrc) {
+    if (!nrc) return true; // Permitir campo vacío
+    return /^\d+$/.test(nrc) && nrc.length >= 8 && nrc.length <= 15;
+}
+
 function validateEmail(email) {
+    if (!email) return true; // Permitir campo vacío
     return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
 }
 
-// Validación en tiempo real y auto-cálculo (si aún no lo hace main.js)
+function validatePhone(phone) {
+    if (!phone) return true; // Permitir campo vacío
+    return /^\d{4}-\d{4}$/.test(phone);
+}
+
+// Función para validar todo el formulario de productos
+function validateProductsForm() {
+    const rows = document.querySelectorAll('#productsTableBody tr');
+    let isValid = true;
+    let hasProducts = false;
+    
+    rows.forEach(row => {
+        const productInput = row.querySelector('input[name="product[]"]');
+        const priceInput = row.querySelector('input[name="price[]"]');
+        const saleTypeSelect = row.querySelector('select[name="saleType[]"]');
+        const quantityInput = row.querySelector('input[name="quantity[]"]');
+        
+        if (productInput && productInput.value.trim()) {
+            hasProducts = true;
+            
+            // Validar que tenga precio
+            if (!priceInput.value || parseFloat(priceInput.value) < 0) {
+                priceInput.style.borderColor = '#dc2626';
+                isValid = false;
+            }
+            
+            // Validar que tenga tipo de venta
+            if (!saleTypeSelect.value) {
+                saleTypeSelect.style.borderColor = '#dc2626';
+                isValid = false;
+            }
+            
+            // Validar cantidad
+            if (!quantityInput.value || parseFloat(quantityInput.value) <= 0) {
+                quantityInput.style.borderColor = '#dc2626';
+                isValid = false;
+            }
+        }
+    });
+    
+    if (!hasProducts) {
+        showAlert('Debe agregar al menos un producto', 'error');
+        return false;
+    }
+    
+    if (!isValid) {
+        showAlert('Complete todos los datos requeridos de los productos', 'error');
+    }
+    
+    return isValid;
+}
+
+// Función para limpiar validaciones visuales
+function clearFieldValidation(field) {
+    field.style.borderColor = '';
+}
+
+// Inicializar validaciones para productos existentes
+function initializeProductValidations() {
+    const existingRows = document.querySelectorAll('#productsTableBody tr');
+    existingRows.forEach(row => {
+        addProductValidationListeners(row);
+    });
+}
+
+// Auto-inicialización cuando se carga la página del formulario
+document.addEventListener('DOMContentLoaded', function() {
+    const currentPage = window.location.pathname.split('/').pop();
+    
+    if (currentPage === 'formulario.html') {
+        // Inicializar validaciones en productos existentes
+        setTimeout(initializeProductValidations, 100);
+        
+        // Configurar el botón de agregar producto
+        const addProductBtn = document.querySelector('.add-product-btn');
+        if (addProductBtn) {
+            addProductBtn.onclick = addProductRow;
+        }
+        
+        // Calcular totales iniciales
+        setTimeout(calculateTotals, 200);
+    }
+});
+
+// Validación en tiempo real global para campos del formulario
 document.addEventListener('input', function(e) {
+    // Validaciones específicas por campo
     if (e.target.name === 'nit') {
-        e.target.style.borderColor = validateNIT(e.target.value) || e.target.value === '' ? '' : '#dc2626';
+        const isValid = validateNIT(e.target.value);
+        e.target.style.borderColor = isValid ? '' : '#dc2626';
+        if (!isValid && e.target.value) {
+            e.target.title = 'Formato: 0000-000000-000-0';
+        }
     }
+    
+    if (e.target.name === 'nrc') {
+        const isValid = validateNRC(e.target.value);
+        e.target.style.borderColor = isValid ? '' : '#dc2626';
+    }
+    
     if (e.target.name === 'email') {
-        e.target.style.borderColor = validateEmail(e.target.value) || e.target.value === '' ? '' : '#dc2626';
+        const isValid = validateEmail(e.target.value);
+        e.target.style.borderColor = isValid ? '' : '#dc2626';
     }
+    
+    if (e.target.name === 'phone') {
+        const isValid = validatePhone(e.target.value);
+        e.target.style.borderColor = isValid ? '' : '#dc2626';
+        if (!isValid && e.target.value) {
+            e.target.title = 'Formato: 0000-0000';
+        }
+    }
+    
+    // Auto-cálculo para productos
     if (e.target.matches('input[name="quantity[]"], input[name="price[]"], select[name="saleType[]"]')) {
         calculateTotals();
     }

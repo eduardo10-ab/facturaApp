@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard - Sistema DTE</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.5.0/axios.min.js"></script>
+    <link rel="stylesheet" href="../css/styles.css">
+</head>
+<body>
+    <!-- SECCIÓN DASHBOARD -->
+    <div id="dashboardSection" class="section">
+        <div class="dashboard">
+            <div class="dashboard-header">
+                <button class="menu-btn" onclick="toggleUserMenu()">≡</button>
+                <div class="user-menu">
+                    <div class="user-info" onclick="toggleUserMenu()">
+                        <div class="user-avatar">👤</div>
+                        <span id="userName">Ing. Joel</span>
+                    </div>
+                    <div id="userDropdown" class="user-dropdown">
+                        <button class="dropdown-item" onclick="editProfile()">
+                            👤 Editar información del emisor
+                        </button>
+                        <button class="dropdown-item" onclick="logout()">
+                            🚪 Cerrar sesión
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="dashboard-content">
+                <div class="main-actions">
+                    <button class="action-card" onclick="showSection('documentSelectionSection')">
+                        <span class="action-icon">💳</span>
+                        Facturación
+                    </button>
+                    <button class="action-card" onclick="alert('Función de clientes en desarrollo')">
+                        <span class="action-icon">👥</span>
+                        Clientes
+                    </button>
+                    <button class="action-card" onclick="alert('Función de inventario en desarrollo')">
+                        <span class="action-icon">📋</span>
+                        Inventario
+                    </button>
+                </div>
+
+                <div class="recent-section">
+                    <h3>Últimas facturas enviadas</h3>
+                    <div class="recent-item">
+                        <div class="recent-avatar">DG</div>
+                        <div class="recent-info">
+                            <div class="recent-name">David Gálvez</div>
+                            <div class="recent-type">Comprobante de crédito fiscal</div>
+                        </div>
+                        <div class="recent-date">6/Sep/2025</div>
+                    </div>
+                    <div class="recent-item">
+                        <div class="recent-avatar">JF</div>
+                        <div class="recent-info">
+                            <div class="recent-name">Joel Fuentes</div>
+                            <div class="recent-type">Factura</div>
+                        </div>
+                        <div class="recent-date">6/Sep/2025</div>
+                    </div>
+                    <div class="recent-item">
+                        <div class="recent-avatar">SG</div>
+                        <div class="recent-info">
+                            <div class="recent-name">Son Goku</div>
+                            <div class="recent-type">Declaración de renta</div>
+                        </div>
+                        <div class="recent-date">6/Sep/2025</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <script src="../js/utils.js"></script>
+    <script src="../js/auth.js"></script>
+    <script src="../js/products.js"></script>
+    <script src="../js/dte.js"></script>
+    <script src="../js/main.js"></script>
+</body>
+</html>

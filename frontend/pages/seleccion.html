@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Selección de Documento - Sistema DTE</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.5.0/axios.min.js"></script>
+    <link rel="stylesheet" href="../css/styles.css">
+</head>
+<body>
+    <!-- SECCIÓN SELECCIÓN DE DOCUMENTO -->
+    <div id="documentSelectionSection" class="section">
+        <div class="dashboard">
+            <div class="dashboard-header">
+                <button class="menu-btn" onclick="toggleUserMenu()">≡</button>
+                <div class="user-menu">
+                    <div class="user-info" onclick="toggleUserMenu()">
+                        <div class="user-avatar">👤</div>
+                        <span id="userName2">Ing. Joel</span>
+                    </div>
+                    <div id="userDropdown2" class="user-dropdown">
+                        <button class="dropdown-item" onclick="editProfile()">
+                            👤 Editar información del emisor
+                        </button>
+                        <button class="dropdown-item" onclick="logout()">
+                            🚪 Cerrar sesión
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="document-selection active">
+                <button class="back-btn" onclick="showSection('dashboardSection')">
+                    ← Regresar al inicio
+                </button>
+                
+                <div class="document-card">
+                    <div class="document-icon">💰</div>
+                    <h2>Seleccione el tipo de factura a realizar</h2>
+                    <div class="document-types">
+                        <button class="doc-type-btn" onclick="createDocument('ccf')">
+                            Comprobante de crédito fiscal
+                        </button>
+                        <button class="doc-type-btn" onclick="createDocument('factura')">
+                            Factura
+                        </button>
+                        <button class="doc-type-btn" onclick="createDocument('declaracion')">
+                            Declaración de renta
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <script src="../js/utils.js"></script>
+    <script src="../js/auth.js"></script>
+    <script src="../js/products.js"></script>
+    <script src="../js/dte.js"></script>
+    <script src="../js/main.js"></script>
+</body>
+</html>
