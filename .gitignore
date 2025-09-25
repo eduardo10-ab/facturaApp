@@ -1,0 +1,94 @@
+# ---------------------
+# General
+# ---------------------
+*.log
+*.tmp
+*.bak
+*.swp
+*.swo
+.DS_Store
+Thumbs.db
+
+# ---------------------
+# Logs
+# ---------------------
+/logs/
+
+# ---------------------
+# Frontend (HTML, CSS, JS)
+# ---------------------
+/frontend/node_modules/
+/frontend/dist/
+/frontend/build/
+
+# ---------------------
+# Java / Spring Boot (Maven)
+# ---------------------
+/target/
+/pom.xml.tag
+/pom.xml.releaseBackup
+/pom.xml.versionsBackup
+/pom.xml.next
+/release.properties
+/dependency-reduced-pom.xml
+/buildNumber.properties
+/.mvn/timing.properties
+
+# Maven Wrapper
+.mvn/wrapper/maven-wrapper.jar
+mvnw
+mvnw.cmd
+
+# ---------------------
+# IDEs
+# ---------------------
+# IntelliJ IDEA
+.idea/
+*.iml
+*.ipr
+*.iws
+
+# Eclipse
+*.classpath
+*.project
+*.settings/
+
+# NetBeans
+/nbproject/private/
+/nbbuild/
+/dist/
+/nbdist/
+/.nb-gradle/
+
+# VS Code
+.vscode/
+
+# ---------------------
+# Environment / Config
+# ---------------------
+.env
+.env.local
+application-*.yml
+application-*.properties
+
+# ---------------------
+# Docker
+# ---------------------
+/docker-compose.override.yml
+/.docker/
+.dockerignore
+
+# ---------------------
+# PostgreSQL
+# ---------------------
+*.db
+*.sql
+*.pgsql
+*.pgdata/
+
+# ---------------------
+# Coverage / Testing
+# ---------------------
+/coverage/
+/test-output/
+/jacoco.exec

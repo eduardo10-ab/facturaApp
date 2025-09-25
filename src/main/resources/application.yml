@@ -1,0 +1,176 @@
+spring:
+  application:
+    name: dte-system
+  
+  profiles:
+    active: dev
+  
+  datasource:
+    url: jdbc:postgresql://localhost:5432/dte_system
+    username: postgres
+    password: 1234
+    driver-class-name: org.postgresql.Driver
+    hikari:
+      maximum-pool-size: 20
+      minimum-idle: 10
+      connection-timeout: 20000
+      idle-timeout: 300000
+      max-lifetime: 1200000
+      leak-detection-threshold: 60000
+  
+  jpa:
+    hibernate:
+      ddl-auto: validate
+      naming:
+        physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+        format_sql: true
+        use_sql_comments: true
+        jdbc:
+          batch_size: 25
+          order_inserts: true
+          order_updates: true
+    show-sql: false
+  
+  flyway:
+    enabled: true
+    clean-disabled: false
+    baseline-on-migrate: false
+    validate-on-migrate: false
+    locations: classpath:db/migration
+    default-schema: public
+    schemas: public
+    url: jdbc:postgresql://localhost:5432/dte_system
+    user: postgres
+    password: 1234
+  
+  jackson:
+    serialization:
+      write-dates-as-timestamps: false
+    deserialization:
+      fail-on-unknown-properties: false
+  
+  cache:
+    type: caffeine
+    caffeine:
+      spec: maximumSize=1000,expireAfterWrite=24h
+  
+  security:
+    require-ssl: false
+    
+  # NUEVA CONFIGURACIÓN PARA CORS
+  web:
+    cors:
+      allow-credentials: true
+      allowed-origins: 
+        - http://localhost:3000
+        - http://localhost:8080
+        - http://127.0.0.1:3000
+        - http://127.0.0.1:8080
+        - http://localhost:5500
+        - http://127.0.0.1:5500
+      allowed-methods: 
+        - GET
+        - POST
+        - PUT
+        - DELETE
+        - OPTIONS
+      allowed-headers: "*"
+      max-age: 3600
+
+server:
+  port: 8080
+  servlet:
+    context-path: /api/v1
+  compression:
+    enabled: true
+  error:
+    include-stacktrace: never
+    whitelabel:
+      enabled: false
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info,metrics,prometheus
+  endpoint:
+    health:
+      show-details: when-authorized
+  health:
+    db:
+      enabled: true
+
+logging:
+  level:
+    org.flywaydb: DEBUG
+    com.mh.dte: DEBUG
+    org.springframework.security: DEBUG
+    org.springframework.web.cors: DEBUG
+    org.hibernate.SQL: DEBUG
+    org.springframework.web: DEBUG
+    org.springframework.boot.autoconfigure: DEBUG
+    com.mh.dte.controller: DEBUG
+    org.springframework.web.servlet.DispatcherServlet: DEBUG
+    org.hibernate.type.descriptor.sql.BasicBinder: TRACE
+  pattern:
+    console: "%d{yyyy-MM-dd HH:mm:ss} - %msg%n"
+    file: "%d{yyyy-MM-dd HH:mm:ss} [%thread] %-5level %logger{36} - %msg%n"
+  file:
+    name: logs/dte-system.log
+
+# Configuraciones específicas del sistema DTE
+dte:
+  api:
+    base-url: https://apitest.dtes.mh.gob.sv
+    timeout: 8000
+    max-retries: 2
+    
+  signature:
+    service-url: http://localhost:8113
+    timeout: 30000
+    
+
+  security:
+    jwt:
+      secret: ${JWT_SECRET:bXlTdXBlclNlY3JldEtleUZvckpXVFRva2VuU2lnbmluZ1dpdGhIUzUxMkFsZ29yaXRobVRoYXRJc1ZlcnlTZWN1cmVBbmRMb25nRW5vdWdoRm9yUHJvZHVjdGlvblVzZQ==}
+      expiration: 86400000
+
+  batch:
+    max-size: 100
+    max-batches-test: 300
+    max-batches-prod: 400
+    processing-time-minutes: 3
+    
+  contingency:
+    enabled: true
+    retry-interval-minutes: 5
+    
+  qr:
+    base-url: https://admin.factura.gob.sv/consultaPublica
+
+# Configuración de Resilience4j
+resilience4j:
+  circuitbreaker:
+    instances:
+      mh-api:
+        register-health-indicator: true
+        sliding-window-size: 10
+        failure-rate-threshold: 50
+        wait-duration-in-open-state: 30s
+        permitted-number-of-calls-in-half-open-state: 3
+        minimum-number-of-calls: 5
+        
+  retry:
+    instances:
+      mh-api:
+        max-attempts: 3
+        wait-duration: 2s
+        exponential-backoff-multiplier: 2
+        
+  timelimiter:
+    instances:
+      mh-api:
+        timeout-duration: 8s

@@ -1,0 +1,387 @@
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sistema DTE - Facturación Electrónica</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.5.0/axios.min.js"></script>
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+    <!-- SECCIÓN LOGIN -->
+    <div id="loginSection" class="section">
+        <div class="login-container">
+            <div class="login-card">
+                <div class="login-left">
+                    <h1>Sistema de facturación electrónica</h1>
+                    <div class="company-logo">
+                        Logo y nombre de la empresa
+                    </div>
+                </div>
+                <div class="login-right">
+                    <h2>Bienvenido</h2>
+                    <div id="loginError" class="alert alert-error hidden"></div>
+                    <form id="loginForm">
+                        <div class="form-group">
+                            <label for="username">👤 Usuario</label>
+                            <input type="text" id="username" class="form-input" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="password">🔒 Contraseña</label>
+                            <input type="password" id="password" class="form-input" required>
+                        </div>
+                        <button type="submit" class="login-btn" id="loginBtn">
+                            Iniciar sesión
+                        </button>
+                        <p class="remember-text">
+                            Al usar el sistema, el usuario acepta los términos que para tal efecto ha creado.
+                        </p>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- SECCIÓN DASHBOARD -->
+    <div id="dashboardSection" class="section hidden">
+        <div class="dashboard">
+            <div class="dashboard-header">
+                <button class="menu-btn" onclick="toggleUserMenu()">≡</button>
+                <div class="user-menu">
+                    <div class="user-info" onclick="toggleUserMenu()">
+                        <div class="user-avatar">👤</div>
+                        <span id="userName">Ing. Joel</span>
+                    </div>
+                    <div id="userDropdown" class="user-dropdown">
+                        <button class="dropdown-item" onclick="editProfile()">
+                            👤 Editar información del emisor
+                        </button>
+                        <button class="dropdown-item" onclick="logout()">
+                            🚪 Cerrar sesión
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="dashboard-content">
+                <div class="main-actions">
+                    <button class="action-card" onclick="showSection('documentSelectionSection')">
+                        <span class="action-icon">💳</span>
+                        Facturación
+                    </button>
+                    <button class="action-card" onclick="alert('Función de clientes en desarrollo')">
+                        <span class="action-icon">👥</span>
+                        Clientes
+                    </button>
+                    <button class="action-card" onclick="alert('Función de inventario en desarrollo')">
+                        <span class="action-icon">📋</span>
+                        Inventario
+                    </button>
+                </div>
+
+                <div class="recent-section">
+                    <h3>Últimas facturas enviadas</h3>
+                    <div class="recent-item">
+                        <div class="recent-avatar">DG</div>
+                        <div class="recent-info">
+                            <div class="recent-name">David Gálvez</div>
+                            <div class="recent-type">Comprobante de crédito fiscal</div>
+                        </div>
+                        <div class="recent-date">6/Sep/2025</div>
+                    </div>
+                    <div class="recent-item">
+                        <div class="recent-avatar">JF</div>
+                        <div class="recent-info">
+                            <div class="recent-name">Joel Fuentes</div>
+                            <div class="recent-type">Factura</div>
+                        </div>
+                        <div class="recent-date">6/Sep/2025</div>
+                    </div>
+                    <div class="recent-item">
+                        <div class="recent-avatar">SG</div>
+                        <div class="recent-info">
+                            <div class="recent-name">Son Goku</div>
+                            <div class="recent-type">Declaración de renta</div>
+                        </div>
+                        <div class="recent-date">6/Sep/2025</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- SECCIÓN SELECCIÓN DE DOCUMENTO -->
+    <div id="documentSelectionSection" class="section hidden">
+        <div class="dashboard">
+            <div class="dashboard-header">
+                <button class="menu-btn" onclick="toggleUserMenu()">≡</button>
+                <div class="user-menu">
+                    <div class="user-info" onclick="toggleUserMenu()">
+                        <div class="user-avatar">👤</div>
+                        <span id="userName2">Ing. Joel</span>
+                    </div>
+                    <div id="userDropdown2" class="user-dropdown">
+                        <button class="dropdown-item" onclick="editProfile()">
+                            👤 Editar información del emisor
+                        </button>
+                        <button class="dropdown-item" onclick="logout()">
+                            🚪 Cerrar sesión
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="document-selection active">
+                <button class="back-btn" onclick="showSection('dashboardSection')">
+                    ← Regresar al inicio
+                </button>
+                
+                <div class="document-card">
+                    <div class="document-icon">💰</div>
+                    <h2>Seleccione el tipo de factura a realizar</h2>
+                    <div class="document-types">
+                        <button class="doc-type-btn" onclick="createDocument('ccf')">
+                            Comprobante de crédito fiscal
+                        </button>
+                        <button class="doc-type-btn" onclick="createDocument('factura')">
+                            Factura
+                        </button>
+                        <button class="doc-type-btn" onclick="createDocument('declaracion')">
+                            Declaración de renta
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- SECCIÓN FORMULARIO DE DOCUMENTO -->
+    <div id="documentFormSection" class="section hidden">
+        <div class="dashboard">
+            <div class="dashboard-header">
+                <button class="menu-btn" onclick="toggleUserMenu()">≡</button>
+                <div class="user-menu">
+                    <div class="user-info" onclick="toggleUserMenu()">
+                        <div class="user-avatar">👤</div>
+                        <span id="userName3">Ing. Joel</span>
+                    </div>
+                    <div id="userDropdown3" class="user-dropdown">
+                        <button class="dropdown-item" onclick="editProfile()">
+                            👤 Editar información del emisor
+                        </button>
+                        <button class="dropdown-item" onclick="logout()">
+                            🚪 Cerrar sesión
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="document-form active">
+                <button class="back-btn" onclick="showSection('documentSelectionSection')">←</button>
+                
+                <div class="form-header">
+                    <h2 id="documentTitle">Comprobante de crédito fiscal</h2>
+                </div>
+
+                <div id="documentFormAlert" class="alert alert-success hidden"></div>
+
+                <form id="dteForm">
+                    <div class="form-columns">
+                        <!-- Left Column - Datos del receptor -->
+                        <div class="form-section">
+                            <div class="section-header">Datos del receptor</div>
+                            
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label>NIT</label>
+                                    <input type="text" name="nit" class="form-input" placeholder="0000-000000-000-0" required>
+                                </div>
+                                <div class="form-group">
+                                    <label>NRC</label>
+                                    <input type="text" name="nrc" class="form-input" placeholder="000000000000000">
+                                </div>
+                            </div>
+
+                            <div class="form-row full">
+                                <div class="form-group">
+                                    <label>Nombre del cliente</label>
+                                    <input type="text" name="clientName" class="form-input" placeholder="Nombre del cliente" required>
+                                </div>
+                            </div>
+
+                            <div class="form-row full">
+                                <div class="form-group">
+                                    <label>Nombre comercial</label>
+                                    <input type="text" name="commercialName" class="form-input" placeholder="Nombre comercial">
+                                </div>
+                            </div>
+
+                            <div class="form-row full">
+                                <div class="form-group">
+                                    <label>Actividad económica</label>
+                                    <input type="text" name="economicActivity" class="form-input" placeholder="Actividad económica">
+                                </div>
+                            </div>
+
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label>Departamento</label>
+                                    <select name="department" class="form-input" required>
+                                        <option value="">Elija una opción</option>
+                                        <option value="01">Ahuachapán</option>
+                                        <option value="02">Cabañas</option>
+                                        <option value="03">Chalatenango</option>
+                                        <option value="04">Cuscatlán</option>
+                                        <option value="05">La Libertad</option>
+                                        <option value="06">La Paz</option>
+                                        <option value="07">La Unión</option>
+                                        <option value="08">Morazán</option>
+                                        <option value="09">San Miguel</option>
+                                        <option value="10">San Salvador</option>
+                                        <option value="11">San Vicente</option>
+                                        <option value="12">Santa Ana</option>
+                                        <option value="13">Sonsonate</option>
+                                        <option value="14">Usulután</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label>Municipio</label>
+                                    <select name="municipality" class="form-input" required>
+                                        <option value="">Elija una opción</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="form-row full">
+                                <div class="form-group">
+                                    <label>Complemento de dirección</label>
+                                    <input type="text" name="address" class="form-input" placeholder="Complemento de dirección">
+                                </div>
+                            </div>
+
+                            <div class="form-row full">
+                                <div class="form-group">
+                                    <label>Correo electrónico</label>
+                                    <input type="email" name="email" class="form-input" placeholder="receptor@correo.com">
+                                </div>
+                            </div>
+
+                            <div class="form-row full">
+                                <div class="form-group">
+                                    <label>Teléfono</label>
+                                    <input type="tel" name="phone" class="form-input" placeholder="0000-0000">
+                                </div>
+                            </div>
+
+                            <button type="button" class="login-btn" onclick="saveReceiverInfo()">
+                                Guardar información
+                            </button>
+                        </div>
+
+                        <!-- Right Column - Products and Totals -->
+                        <div class="form-section">
+                            <div class="section-header">Productos y Servicios</div>
+                            
+                            <table class="products-table">
+                                <thead>
+                                    <tr>
+                                        <th>Cant.</th>
+                                        <th>Unidad</th>
+                                        <th>Producto</th>
+                                        <th>Tipo de venta</th>
+                                        <th>Precio</th>
+                                        <th></th>
+                                    </tr>
+                                </thead>
+                                <tbody id="productsTableBody">
+                                    <tr>
+                                        <td><input type="number" name="quantity[]" value="1" min="1" step="1" onchange="calculateTotals()"></td>
+                                        <td><input type="text" name="unit[]" placeholder="Unidad"></td>
+                                        <td><input type="text" name="product[]" placeholder="Descripción del producto" required></td>
+                                        <td>
+                                            <select name="saleType[]" onchange="calculateTotals()" required>
+                                                <option value="">Seleccionar</option>
+                                                <option value="1">Gravado</option>
+                                                <option value="2">Exento</option>
+                                            </select>
+                                        </td>
+                                        <td><input type="number" name="price[]" step="0.01" min="0" placeholder="0.00" onchange="calculateTotals()" required></td>
+                                        <td></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+
+                            <button type="button" class="add-product-btn" onclick="addProductRow()">+</button>
+
+                            <div style="text-align: center; color: #6b7280; margin: 20px 0;">
+                                Suma total de operaciones
+                            </div>
+
+                            <div style="text-align: center; margin: 20px 0;">
+                                <strong>IVA: <span id="ivaAmount">$0.00</span></strong>
+                            </div>
+
+                            <div class="totals-section">
+                                <div class="total-row">
+                                    <span>Subtotal:</span>
+                                    <span id="subtotalAmount">$0.00</span>
+                                </div>
+                                <div class="total-row">
+                                    <span>(-) IVA exento:</span>
+                                    <span id="exemptAmount">$0.00</span>
+                                </div>
+                                <div class="total-row final">
+                                    <span>Total a pagar:</span>
+                                    <span id="totalAmount">$0.00</span>
+                                </div>
+                            </div>
+
+                            <div class="form-group" style="margin-top: 30px;">
+                                <label>Forma de pago</label>
+                                <select name="paymentMethod" class="form-input" required>
+                                    <option value="">Elija una opción</option>
+                                    <option value="01">Efectivo</option>
+                                    <option value="02">Cheque</option>
+                                    <option value="03">Transferencia</option>
+                                    <option value="04">Tarjeta de crédito</option>
+                                    <option value="05">Tarjeta de débito</option>
+                                </select>
+                            </div>
+
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label>N° de documento del emisor</label>
+                                    <input type="text" name="issuerDocNum" class="form-input" placeholder="N° de documento del emisor">
+                                </div>
+                                <div class="form-group">
+                                    <label>Nombre del emisor</label>
+                                    <input type="text" name="issuerName" class="form-input" placeholder="Nombre del emisor">
+                                </div>
+                            </div>
+
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label>N° de documento del receptor</label>
+                                    <input type="text" name="receiverDocNum" class="form-input" placeholder="N° de documento del receptor">
+                                </div>
+                                <div class="form-group">
+                                    <label>Nombre del receptor</label>
+                                    <input type="text" name="receiverName" class="form-input" placeholder="Nombre del receptor">
+                                </div>
+                            </div>
+
+                            <button type="submit" class="submit-btn" id="submitDocumentBtn">
+                                Generar documento
+                            </button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    
+    <script src="js/utils.js"></script>
+    <script src="js/auth.js"></script>
+    <script src="js/products.js"></script>
+    <script src="js/dte.js"></script>
+    <script src="js/main.js"></script>
+</body>
+</html>

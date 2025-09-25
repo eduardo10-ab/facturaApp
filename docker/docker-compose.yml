@@ -1,0 +1,23 @@
+version: '3.8'
+
+services:
+  postgres-dev:
+    image: postgres:15-alpine
+    container_name: dte-postgres-dev
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_DB: dte_system
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: 1234
+      POSTGRES_INITDB_ARGS: "--encoding=UTF8"
+
+    restart: unless-stopped
+    command: >
+      postgres
+      -c max_connections=200
+      -c shared_buffers=256MB
+
+volumes:
+  postgres_data_dev:
+    driver: local
