@@ -250,3 +250,69 @@ function validateRequiredFields(formElement) {
     
     return isValid;
 }
+
+// ============ VALIDACIONES ESPECÍFICAS POR TIPO DE CAMPO ============
+
+function validateLettersOnly(value) {
+    // Acepta letras, espacios, acentos y caracteres especiales del español
+    return /^[a-záéíóúñüA-ZÁÉÍÓÚÑÜ\s]+$/.test(value);
+}
+
+function validateNumbersOnly(value) {
+    // Solo acepta números y guiones (para formato de teléfono y NIT)
+    return /^[\d-]+$/.test(value);
+}
+
+function validateAlphanumeric(value) {
+    // Acepta letras, números, espacios y algunos caracteres especiales
+    return /^[a-záéíóúñüA-ZÁÉÍÓÚÑÜ0-9\s.,#-]+$/.test(value);
+}
+
+// Aplicar validaciones en tiempo real
+function setupFieldValidations() {
+    // Campos que solo aceptan letras
+    const letterFields = [
+        'clientName',
+        'economicActivity', 
+        'receiverName',
+        'issuerName',
+        'product[]'
+    ];
+    
+    // Campos que solo aceptan números
+    const numberFields = [
+        'nit',
+        'phone'
+    ];
+    
+    document.addEventListener('input', function(e) {
+        const fieldName = e.target.name;
+        const value = e.target.value;
+        
+        // Validar campos de solo letras
+        if (letterFields.includes(fieldName)) {
+            if (value && !validateLettersOnly(value)) {
+                e.target.style.borderColor = '#dc2626';
+                e.target.title = 'Solo se permiten letras';
+                // Eliminar caracteres no válidos
+                e.target.value = value.replace(/[^a-záéíóúñüA-ZÁÉÍÓÚÑÜ\s]/g, '');
+            } else {
+                e.target.style.borderColor = '';
+                e.target.title = '';
+            }
+        }
+        
+        // Validar campos de solo números
+        if (numberFields.includes(fieldName)) {
+            if (value && !validateNumbersOnly(value)) {
+                e.target.style.borderColor = '#dc2626';
+                e.target.title = 'Solo se permiten números';
+                // Eliminar caracteres no válidos (excepto guiones)
+                e.target.value = value.replace(/[^\d-]/g, '');
+            } else {
+                e.target.style.borderColor = '';
+                e.target.title = '';
+            }
+        }
+    });
+}

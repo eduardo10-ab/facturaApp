@@ -6,31 +6,38 @@
     <title>Formulario de Documento - Sistema DTE</title>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.5.0/axios.min.js"></script>
     <link rel="stylesheet" href="../css/styles.css">
+    <script src="https://code.iconify.design/3/3.1.0/iconify.min.js"></script>
 </head>
 <body>
     <!-- SECCIÓN FORMULARIO DE DOCUMENTO -->
     <div id="documentFormSection" class="section">
         <div class="dashboard">
-            <div class="dashboard-header">
-                <button class="menu-btn" onclick="toggleUserMenu()">≡</button>
+             <div class="dashboard-header">
                 <div class="user-menu">
-                    <div class="user-info" onclick="toggleUserMenu()">
-                        <div class="user-avatar">👤</div>
-                        <span id="userName3">Ing. Joel</span>
-                    </div>
-                    <div id="userDropdown3" class="user-dropdown">
-                        <button class="dropdown-item" onclick="editProfile()">
-                            👤 Editar información del emisor
-                        </button>
-                        <button class="dropdown-item" onclick="logout()">
-                            🚪 Cerrar sesión
-                        </button>
-                    </div>
+                    <button class="menu-btn" onclick="toggleUserMenu()"><span  class="iconify" data-icon="material-symbols:menu-rounded" data-width="40" data-height="40"></span></button>
+                    <div id="userDropdown" class="user-dropdown">
+                            <button class="dropdown-item" onclick="editProfile()">
+                                <span  class="iconify" data-icon="material-symbols:person-edit-rounded" data-width="30" data-height="30"></span><span class="config-drop"> Editar información del emisor</span> 
+                            </button>
+                            <button class="dropdown-item1" onclick="logout()">
+                                <span  class="iconify" data-icon="material-symbols:logout-rounded" data-width="30" data-height="30"></span> <span>Cerrar sesión</span> 
+                            </button>
+                        </div>
                 </div>
-            </div>
 
+                
+                    <div class="user-info">
+                       <span  class="iconify" data-icon="mingcute:user-4-fill" data-width="30" data-height="30"></span>
+                        <span id="userName">Ing. Joel</span>
+                    </div>
+                   
+               
+            </div>
+          <!-- Boton de regresar -->
             <div class="document-form active">
-                <button class="back-btn" onclick="showSection('documentSelectionSection')">←</button>
+                <button class="back-btn2" onclick="showSection('documentSelectionSection')">
+                     <span  class="iconify" data-icon="material-symbols:arrow-back-rounded" data-width="35" data-height="25"></span>
+                </button>
                 
                 <div class="form-header">
                     <h2 id="documentTitle">Comprobante de crédito fiscal</h2>
@@ -44,7 +51,9 @@
                         <div class="form-section">
                             <div class="section-header">Datos del receptor</div>
                             
-                            <div class="form-row">
+                           
+                            <div class="caja1">
+                                 <div class="form-row">
                                 <div class="form-group">
                                     <label>NIT</label>
                                     <input type="text" name="nit" class="form-input" placeholder="0000-000000-000-0" required>
@@ -54,29 +63,28 @@
                                     <input type="text" name="nrc" class="form-input" placeholder="000000000000000">
                                 </div>
                             </div>
+                                <div class="form-row full">
+                                    <div class="form-group">
+                                        <label>Nombre del cliente</label>
+                                        <input type="text" name="clientName" class="form-input" placeholder="Nombre del cliente" required>
+                                    </div>
+                                </div>
 
-                            <div class="form-row full">
-                                <div class="form-group">
-                                    <label>Nombre del cliente</label>
-                                    <input type="text" name="clientName" class="form-input" placeholder="Nombre del cliente" required>
+                                <div class="form-row full">
+                                    <div class="form-group">
+                                        <label>Nombre comercial</label>
+                                        <input type="text" name="commercialName" class="form-input" placeholder="Nombre comercial">
+                                    </div>
+                                </div>
+
+                                <div class="form-row full">
+                                    <div class="form-group">
+                                        <label>Actividad económica</label>
+                                        <input type="text" name="economicActivity" class="form-input" placeholder="Actividad económica">
+                                    </div>
                                 </div>
                             </div>
-
-                            <div class="form-row full">
-                                <div class="form-group">
-                                    <label>Nombre comercial</label>
-                                    <input type="text" name="commercialName" class="form-input" placeholder="Nombre comercial">
-                                </div>
-                            </div>
-
-                            <div class="form-row full">
-                                <div class="form-group">
-                                    <label>Actividad económica</label>
-                                    <input type="text" name="economicActivity" class="form-input" placeholder="Actividad económica">
-                                </div>
-                            </div>
-
-                            <div class="form-row">
+                            <div class="form-row2">
                                 <div class="form-group">
                                     <label>Departamento</label>
                                     <select name="department" class="form-input" required>
@@ -111,35 +119,35 @@
                                     <input type="text" name="address" class="form-input" placeholder="Complemento de dirección">
                                 </div>
                             </div>
+                            <div class="caja3">
+                                <div class="form-row full">
+                                    <div class="form-group">
+                                        <label>Correo electrónico</label>
+                                        <input type="email" name="email" class="form-input" placeholder="receptor@correo.com">
+                                    </div>
+                                </div>
 
-                            <div class="form-row full">
-                                <div class="form-group">
-                                    <label>Correo electrónico</label>
-                                    <input type="email" name="email" class="form-input" placeholder="receptor@correo.com">
+                                <div class="form-row full">
+                                    <div class="form-group">
+                                        <label>Teléfono</label>
+                                        <input type="tel" name="phone" class="form-input" placeholder="0000-0000">
+                                    </div>
                                 </div>
                             </div>
-
-                            <div class="form-row full">
-                                <div class="form-group">
-                                    <label>Teléfono</label>
-                                    <input type="tel" name="phone" class="form-input" placeholder="0000-0000">
-                                </div>
-                            </div>
-
                             <button type="button" class="login-btn" onclick="saveReceiverInfo()">
                                 Guardar información
                             </button>
                         </div>
 
                         <!-- Right Column - Products and Totals -->
-                        <div class="form-section">
+                        <div class="form-section2">
                             <div class="section-header">Productos y Servicios</div>
                             
                             <table class="products-table">
                                 <thead>
                                     <tr>
-                                        <th>Cant.</th>
-                                        <th>Unidad</th>
+                                        <th>Cantidad</th>
+                                        <th>Unidad de medida</th>
                                         <th>Producto</th>
                                         <th>Tipo de venta</th>
                                         <th>Precio</th>
@@ -148,9 +156,9 @@
                                 </thead>
                                 <tbody id="productsTableBody">
                                     <tr>
-                                        <td><input type="number" name="quantity[]" value="1" min="1" step="1" onchange="calculateTotals()"></td>
+                                       <td><input type="number" name="quantity[]" value="1" min="1" step="1" onchange="calculateTotals()"></td>
                                         <td><input type="text" name="unit[]" placeholder="Unidad"></td>
-                                        <td><input type="text" name="product[]" placeholder="Descripción del producto" required></td>
+                                        <td><input type="text" name="product[]" placeholder="Descripción" required></td>
                                         <td>
                                             <select name="saleType[]" onchange="calculateTotals()" required>
                                                 <option value="">Seleccionar</option>
@@ -201,7 +209,7 @@
                                 </select>
                             </div>
 
-                            <div class="form-row">
+                            <div class="form-row3">
                                 <div class="form-group">
                                     <label>N° de documento del emisor</label>
                                     <input type="text" name="issuerDocNum" class="form-input" placeholder="N° de documento del emisor">
@@ -222,13 +230,14 @@
                                     <input type="text" name="receiverName" class="form-input" placeholder="Nombre del receptor">
                                 </div>
                             </div>
-
-                            <button type="submit" class="submit-btn" id="submitDocumentBtn">
-                                Generar documento
-                            </button>
+                             
                         </div>
+                       
                     </div>
                 </form>
+                <button type="submit" class="submit-btn" id="submitDocumentBtn">
+                                Generar documento
+                            </button>
             </div>
         </div>
     </div>

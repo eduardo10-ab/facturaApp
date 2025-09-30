@@ -26,17 +26,11 @@ document.addEventListener('DOMContentLoaded', function() {
         default:
             console.warn('Página no reconocida:', currentPage);
     }
-    // Agregar botón de debug temporal
-    //setTimeout(() => {
-        //if (typeof addDebugButton === 'function') {
-           // addDebugButton();
-        //}
-   // }, 500)
-   
 });
 
 function initializeCommonFeatures() {
-    // Funciones comunes para todas las páginas
+    // Configurar validaciones de campos
+    setupFieldValidations();
     
     // Manejo de menús de usuario
     document.addEventListener('click', function(event) {
@@ -51,21 +45,6 @@ function initializeCommonFeatures() {
         
         if (!clickedInside) {
             closeUserMenus();
-        }
-    });
-
-    // Validaciones globales
-    document.addEventListener('input', function(e) {
-        // Validación de NIT
-        if (e.target.name === 'nit') {
-            const isValid = validateNIT(e.target.value) || e.target.value === '';
-            e.target.style.borderColor = isValid ? '' : '#dc2626';
-        }
-        
-        // Validación de email
-        if (e.target.name === 'email') {
-            const isValid = validateEmail(e.target.value) || e.target.value === '';
-            e.target.style.borderColor = isValid ? '' : '#dc2626';
         }
     });
 }
@@ -205,7 +184,7 @@ function initializeFormPage() {
     }
     
     // Configurar botón de regreso
-    const backBtn = document.querySelector('.back-btn');
+    const backBtn = document.querySelector('.back-btn2');
     if (backBtn) {
         backBtn.onclick = function() {
             navigateToPage('seleccion.html');

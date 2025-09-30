@@ -124,9 +124,10 @@ function updateTotalsDisplay(subtotal, exempt, iva, total) {
     }
 }
 
-// Validaciones mejoradas
+// Validaciones mejoradas con formatos específicos
 function validateNIT(nit) {
     if (!nit) return true; // Permitir campo vacío
+    // Formato: 0000-000000-000-0 (solo números y guiones)
     return /^\d{4}-\d{6}-\d{3}-\d{1}$/.test(nit);
 }
 
@@ -142,6 +143,7 @@ function validateEmail(email) {
 
 function validatePhone(phone) {
     if (!phone) return true; // Permitir campo vacío
+    // Formato: 0000-0000 (solo números y guión)
     return /^\d{4}-\d{4}$/.test(phone);
 }
 
@@ -226,12 +228,14 @@ document.addEventListener('DOMContentLoaded', function() {
 
 // Validación en tiempo real global para campos del formulario
 document.addEventListener('input', function(e) {
-    // Validaciones específicas por campo
+    // Validaciones específicas por campo con formatos
     if (e.target.name === 'nit') {
         const isValid = validateNIT(e.target.value);
         e.target.style.borderColor = isValid ? '' : '#dc2626';
         if (!isValid && e.target.value) {
-            e.target.title = 'Formato: 0000-000000-000-0';
+            e.target.title = 'Formato: 0000-000000-000-0 (solo números)';
+        } else {
+            e.target.title = '';
         }
     }
     
@@ -249,7 +253,9 @@ document.addEventListener('input', function(e) {
         const isValid = validatePhone(e.target.value);
         e.target.style.borderColor = isValid ? '' : '#dc2626';
         if (!isValid && e.target.value) {
-            e.target.title = 'Formato: 0000-0000';
+            e.target.title = 'Formato: 0000-0000 (solo números)';
+        } else {
+            e.target.title = '';
         }
     }
     

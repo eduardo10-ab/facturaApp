@@ -6,6 +6,8 @@
     <title>Login - Sistema DTE</title>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.5.0/axios.min.js"></script>
     <link rel="stylesheet" href="../css/styles.css">
+        <!-- Cargar Iconify desde CDN -->
+    <script src="https://code.iconify.design/3/3.1.0/iconify.min.js"></script>
 </head>
 <body>
     <!-- SECCIÓN LOGIN -->
@@ -13,28 +15,32 @@
         <div class="login-container">
             <div class="login-card">
                 <div class="login-left">
-                    <h1>Sistema de facturación electrónica</h1>
-                    <div class="company-logo">
-                        Logo y nombre de la empresa
+                    <span class="titulo-app">Sistema de facturación electrónica</span>
+                    <div class="company-logo"> 
+                        <img src="../img/logo.png" alt="Logo" class="logo">
+                       
                     </div>
                 </div>
                 <div class="login-right">
-                    <h2>Bienvenido</h2>
+                 
+                    <span class="bienvenido">Bienvenido</span>
                     <div id="loginError" class="alert alert-error hidden"></div>
                     <form id="loginForm">
                         <div class="form-group">
-                            <label for="username">👤 Usuario</label>
-                            <input type="text" id="username" class="form-input" required>
+                            <label for="username" class="conta"> 
+                                    <span  class="iconify" data-icon="mingcute:user-3-fill" data-width="15" data-height="15"></span> Usuario
+                            </label>
+                            <input type="text" id="username" class="form-input" required placeholder= " Ingrese su usuario">
                         </div>
                         <div class="form-group">
-                            <label for="password">🔒 Contraseña</label>
-                            <input type="password" id="password" class="form-input" required>
+                            <label for="password"><span  class="iconify" data-icon="ic:baseline-lock" data-width="25" data-height="25"> </span> Contraseña</label>
+                            <input type="password" id="password" class="form-input" required placeholder="Ingrese su contraseña">
                         </div>
                         <button type="submit" class="login-btn" id="loginBtn">
                             Iniciar sesión
                         </button>
                         <p class="remember-text">
-                            Al usar el sistema, el usuario acepta los términos que para tal efecto ha creado.
+                           En caso de olvidadar la contraseña comuníquese con soporte técnico.
                         </p>
                     </form>
                 </div>

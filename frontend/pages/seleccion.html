@@ -6,38 +6,46 @@
     <title>Selección de Documento - Sistema DTE</title>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.5.0/axios.min.js"></script>
     <link rel="stylesheet" href="../css/styles.css">
+     <script src="https://code.iconify.design/3/3.1.0/iconify.min.js"></script>
 </head>
 <body>
     <!-- SECCIÓN SELECCIÓN DE DOCUMENTO -->
     <div id="documentSelectionSection" class="section">
         <div class="dashboard">
-            <div class="dashboard-header">
-                <button class="menu-btn" onclick="toggleUserMenu()">≡</button>
+              <div class="dashboard-header">
                 <div class="user-menu">
-                    <div class="user-info" onclick="toggleUserMenu()">
-                        <div class="user-avatar">👤</div>
-                        <span id="userName2">Ing. Joel</span>
-                    </div>
-                    <div id="userDropdown2" class="user-dropdown">
-                        <button class="dropdown-item" onclick="editProfile()">
-                            👤 Editar información del emisor
-                        </button>
-                        <button class="dropdown-item" onclick="logout()">
-                            🚪 Cerrar sesión
-                        </button>
-                    </div>
+                    <button class="menu-btn" onclick="toggleUserMenu()"><span  class="iconify" data-icon="material-symbols:menu-rounded" data-width="40" data-height="40"></span></button>
+                    <div id="userDropdown" class="user-dropdown">
+                            <button class="dropdown-item" onclick="editProfile()">
+                                <span  class="iconify" data-icon="material-symbols:person-edit-rounded" data-width="30" data-height="30"></span><span class="config-drop"> Editar información del emisor</span> 
+                            </button>
+                            <button class="dropdown-item1" onclick="logout()">
+                                <span  class="iconify" data-icon="material-symbols:logout-rounded" data-width="30" data-height="30"></span> <span>Cerrar sesión</span> 
+                            </button>
+                        </div>
                 </div>
+
+                
+                    <div class="user-info">
+                       <span  class="iconify" data-icon="mingcute:user-4-fill" data-width="30" data-height="30"></span>
+                        <span id="userName">Ing. Joel</span>
+                    </div>
+                   
+               
             </div>
 
             <div class="document-selection active">
                 <button class="back-btn" onclick="showSection('dashboardSection')">
-                    ← Regresar al inicio
+                     <span  class="iconify" data-icon="material-symbols:arrow-back-rounded" data-width="35" data-height="25"></span> Regresar al inicio
                 </button>
                 
                 <div class="document-card">
-                    <div class="document-icon">💰</div>
+                    
                     <h2>Seleccione el tipo de factura a realizar</h2>
+                    <div class="document-content">
+                    <div class="document-icon"> <span  class="iconify" data-icon="material-symbols:order-approve-rounded" data-width="250" data-height="200"></span></div>
                     <div class="document-types">
+                      
                         <button class="doc-type-btn" onclick="createDocument('ccf')">
                             Comprobante de crédito fiscal
                         </button>
@@ -49,6 +57,7 @@
                         </button>
                     </div>
                 </div>
+                </div>  
             </div>
         </div>
     </div>

@@ -3,50 +3,60 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dashboard - Sistema DTE</title>
+    <title>Inicio - Sistema DTE</title>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.5.0/axios.min.js"></script>
     <link rel="stylesheet" href="../css/styles.css">
+    <!-- Cargar Iconify desde CDN -->
+    <script src="https://code.iconify.design/3/3.1.0/iconify.min.js"></script>
+
 </head>
 <body>
     <!-- SECCIÓN DASHBOARD -->
     <div id="dashboardSection" class="section">
         <div class="dashboard">
             <div class="dashboard-header">
-                <button class="menu-btn" onclick="toggleUserMenu()">≡</button>
                 <div class="user-menu">
-                    <div class="user-info" onclick="toggleUserMenu()">
-                        <div class="user-avatar">👤</div>
+                    <button class="menu-btn" onclick="toggleUserMenu()"><span  class="iconify" data-icon="material-symbols:menu-rounded" data-width="40" data-height="40"></span></button>
+                    <div id="userDropdown" class="user-dropdown">
+                            <button class="dropdown-item" onclick="editProfile()">
+                                <span  class="iconify" data-icon="material-symbols:person-edit-rounded" data-width="30" data-height="30"></span><span class="config-drop"> Editar información del emisor</span> 
+                            </button>
+                            <button class="dropdown-item1" onclick="logout()">
+                                <span  class="iconify" data-icon="material-symbols:logout-rounded" data-width="30" data-height="30"></span> <span>Cerrar sesión</span> 
+                            </button>
+                        </div>
+                </div>
+
+                
+                    <div class="user-info">
+                       <span  class="iconify" data-icon="mingcute:user-4-fill" data-width="30" data-height="30"></span>
                         <span id="userName">Ing. Joel</span>
                     </div>
-                    <div id="userDropdown" class="user-dropdown">
-                        <button class="dropdown-item" onclick="editProfile()">
-                            👤 Editar información del emisor
-                        </button>
-                        <button class="dropdown-item" onclick="logout()">
-                            🚪 Cerrar sesión
-                        </button>
-                    </div>
-                </div>
+                   
+               
             </div>
 
             <div class="dashboard-content">
                 <div class="main-actions">
                     <button class="action-card" onclick="showSection('documentSelectionSection')">
-                        <span class="action-icon">💳</span>
-                        Facturación
+                        <span class="texto-titulo">Facturación</span><br>
+                        <span  class="iconify" data-icon="material-symbols:order-approve-rounded" data-width="80" data-height="80"></span>
+                        
                     </button>
                     <button class="action-card" onclick="alert('Función de clientes en desarrollo')">
-                        <span class="action-icon">👥</span>
-                        Clientes
+                        <span class="texto-titulo">Clientes</span><br>
+                        <span  class="iconify" data-icon="mdi:user-group" data-width="80" data-height="80"></span>
+                        
                     </button>
                     <button class="action-card" onclick="alert('Función de inventario en desarrollo')">
-                        <span class="action-icon">📋</span>
-                        Inventario
+                        <span class="texto-titulo">Inventario</span><br>
+                        <span  class="iconify" data-icon="material-symbols:assignment-add" data-width="80" data-height="80"></span>
+                        
                     </button>
                 </div>
 
                 <div class="recent-section">
-                    <h3>Últimas facturas enviadas</h3>
+                    <span class="bienvenido">Últimas facturas enviadas</span>
                     <div class="recent-item">
                         <div class="recent-avatar">DG</div>
                         <div class="recent-info">
