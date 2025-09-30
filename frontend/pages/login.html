@@ -6,6 +6,7 @@
     <title>Login - Sistema DTE</title>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.5.0/axios.min.js"></script>
     <link rel="stylesheet" href="../css/styles.css">
+    <link rel="stylesheet" href="../css/login.css">
         <!-- Cargar Iconify desde CDN -->
     <script src="https://code.iconify.design/3/3.1.0/iconify.min.js"></script>
 </head>
@@ -26,15 +27,15 @@
                     <span class="bienvenido">Bienvenido</span>
                     <div id="loginError" class="alert alert-error hidden"></div>
                     <form id="loginForm">
-                        <div class="form-group">
+                        <div class="form-group-login">
                             <label for="username" class="conta"> 
                                     <span  class="iconify" data-icon="mingcute:user-3-fill" data-width="15" data-height="15"></span> Usuario
                             </label>
-                            <input type="text" id="username" class="form-input" required placeholder= " Ingrese su usuario">
+                            <input type="text" id="username" class="form-input-login" required placeholder= " Ingrese su usuario">
                         </div>
-                        <div class="form-group">
+                        <div class="form-group-login">
                             <label for="password"><span  class="iconify" data-icon="ic:baseline-lock" data-width="25" data-height="25"> </span> Contraseña</label>
-                            <input type="password" id="password" class="form-input" required placeholder="Ingrese su contraseña">
+                            <input type="password" id="password" class="form-input-login" required placeholder="Ingrese su contraseña">
                         </div>
                         <button type="submit" class="login-btn" id="loginBtn">
                             Iniciar sesión
