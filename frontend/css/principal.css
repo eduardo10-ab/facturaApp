@@ -1,7 +1,7 @@
 /* Dashboard Styles */
 .dashboard {
     min-height: 100vh;
-    background: var(--light-bg);
+    background: var(--gradient-bg);
 }
 
 .dashboard-content {
@@ -50,9 +50,8 @@
 .recent-section {
     background: var(--white);
     border-radius: 16px;
-    padding: 30px;
-    border-color: #1f2937;
-    border: 2px solid #bcb5e1;
+    padding: 45px 70px 45px 70px;
+  
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
 }
 

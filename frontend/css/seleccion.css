@@ -1,7 +1,7 @@
 /* Document Selection Styles */
-.seleccion {
+.section {
     min-height: 100vh;
-    background: var(--light-bg);
+    background: var(--gradient-bg);
 }
 
 .document-selection {
@@ -43,8 +43,9 @@
 .document-card {
     background: var(--primary-color);
     color: var(--white);
-    border-radius: 28px;
+    border-radius: 20px;
     padding: 40px;
+    margin-top: 50px;
     text-align: center;
     margin-bottom: 30px;
     display: flex;  

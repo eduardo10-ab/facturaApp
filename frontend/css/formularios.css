@@ -1,12 +1,7 @@
 .formulario {
     min-height: 100vh;
-    background: var(--light-bg);
-}
-
-/* Formulario Styles */
-.formulario {
-    min-height: 100vh;
-    background: var(--light-bg);
+    background: var(--gradient-bg);
+    
 }
 
 /* Form Elements */
@@ -246,7 +241,8 @@
     padding: 20px 20px;
     border-radius: 20px;
     cursor: pointer;
-    margin-bottom: 0px;
+    margin-top: 15px;
+    margin-bottom: 15px;
     display: flex;
     align-items: center;
     gap: 8px;
@@ -264,6 +260,7 @@
     padding-bottom: 30px;
     max-width: 1200px;
     margin: 0 auto;
+ 
 }
 
 .document-form.active {
@@ -282,6 +279,7 @@
 }
 
 .form-columns {
+    margin-top: 50px;
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: 30px;
@@ -301,6 +299,26 @@
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
     max-height: fit-content;
     max-width: 645px;
+}
+
+.button-group {
+    display: flex;
+    gap: 20px;
+    width: 100%;
+    margin-top: 30px;
+}
+
+.button-group .submit-btn {
+    flex: 1;
+    margin-top: 0;
+}
+
+.cancel-btn {
+    background: var(--secondary-color) !important;
+}
+
+.cancel-btn:hover {
+    background: var(--dark-color) !important;
 }
 
 

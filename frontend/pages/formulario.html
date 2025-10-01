@@ -6,43 +6,111 @@
     <title>Formulario de Documento - Sistema DTE</title>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.5.0/axios.min.js"></script>
     <link rel="stylesheet" href="../css/styles.css">
+    <link rel="stylesheet" href="../css/sidebar.css">
     <link rel="stylesheet" href="../css/formularios.css">
     <script src="https://code.iconify.design/3/3.1.0/iconify.min.js"></script>
 </head>
 <body>
-    <!-- SECCIÓN FORMULARIO DE DOCUMENTO -->
-    <div id="documentFormSection" class="section">
-        <div class="formulario">
-             <div class="header">
-                <div class="user-menu">
-                    <button class="menu-btn" onclick="toggleUserMenu()"><span  class="iconify" data-icon="material-symbols:menu-rounded" data-width="40" data-height="40"></span></button>
-                    <div id="userDropdown" class="user-dropdown">
-                            <button class="dropdown-item" onclick="editProfile()">
-                                <span  class="iconify" data-icon="material-symbols:person-edit-rounded" data-width="30" data-height="30"></span><span class="config-drop"> Editar información del emisor</span> 
-                            </button>
-                            <button class="dropdown-item1" onclick="logout()">
-                                <span  class="iconify" data-icon="material-symbols:logout-rounded" data-width="30" data-height="30"></span> <span>Cerrar sesión</span> 
-                            </button>
-                        </div>
+    <!-- SIDEBAR -->
+    <div class="sidebar" id="sidebar">
+        <div class="sidebar-header">
+            <span class="iconify" data-icon="mdi:domain" data-width="28" data-height="28"></span>
+            <span class="company-name">Sistema DTE</span>
+        </div>
+
+        <div class="sidebar-menu">
+            <div class="menu-section">
+                <div class="menu-section-title">Principal</div>
+                <button class="menu-item" onclick="showSection('dashboardSection')">
+                    <span class="iconify" data-icon="material-symbols:dashboard" data-width="22" data-height="22"></span>
+                    <span>Inicio</span>
+                </button>
+            </div>
+
+            <div class="menu-section">
+                <div class="menu-section-title">Módulos</div>
+                <button class="menu-item active" onclick="showSection('documentSelectionSection')">
+                    <span class="iconify" data-icon="material-symbols:order-approve-rounded" data-width="22" data-height="22"></span>
+                    <span>Facturación</span>
+                </button>
+                <button class="menu-item" onclick="alert('Función de clientes en desarrollo')">
+                    <span class="iconify" data-icon="mdi:user-group" data-width="22" data-height="22"></span>
+                    <span>Clientes</span>
+                </button>
+                <button class="menu-item" onclick="alert('Función de inventario en desarrollo')">
+                    <span class="iconify" data-icon="material-symbols:assignment-add" data-width="22" data-height="22"></span>
+                    <span>Inventario</span>
+                </button>
+            </div>
+
+            <div class="menu-section">
+                <div class="menu-section-title">Otros</div>
+
+                <button class="menu-item" onclick="editProfile()">
+                    <span class="iconify" data-icon="material-symbols:settings-outline" data-width="22" data-height="22"></span>
+                    <span>Configuración</span>
+                </button>
+            </div>
+        </div>
+
+        <div class="sidebar-footer">
+            <button class="menu-item" onclick="logout()">
+                <span class="iconify" data-icon="material-symbols:logout-rounded" data-width="22" data-height="22"></span>
+                <span>Cerrar sesión</span>
+            </button>
+        </div>
+    </div>
+
+    <!-- HEADER SUPERIOR -->
+    <div class="header-with-sidebar">
+        <button class="mobile-menu-toggle" onclick="toggleSidebar()">
+            <span class="iconify" data-icon="material-symbols:menu-rounded" data-width="24" data-height="24"></span>
+        </button>
+
+        <div class="header-title">
+            <h1 id="documentTitle">Comprobante de crédito fiscal</h1>
+            <p>Completa la información del documento</p>
+        </div>
+
+        <div class="header-actions">
+            <div class="search-box">
+                <span class="iconify" data-icon="material-symbols:search" data-width="20" data-height="20"></span>
+                <input type="text" placeholder="Buscar...">
+            </div>
+
+            <button class="notification-btn">
+                <span class="iconify" data-icon="material-symbols:notifications-outline" data-width="22" data-height="22"></span>
+                <span class="notification-badge">4</span>
+            </button>
+
+            <div class="user-menu-sidebar">
+                <div class="user-info-sidebar" onclick="toggleUserMenuSidebar()">
+                    <div class="user-avatar">
+                        <span class="iconify" data-icon="mingcute:user-4-fill" data-width="20" data-height="20"></span>
+                    </div>
+                    <span>Ing. Joel</span>
+                    <span class="iconify" data-icon="material-symbols:arrow-drop-down" data-width="20" data-height="20"></span>
                 </div>
 
-                
-                    <div class="user-info">
-                       <span  class="iconify" data-icon="mingcute:user-4-fill" data-width="30" data-height="30"></span>
-                        <span id="userName">Ing. Joel</span>
-                    </div>
-                   
-               
-            </div>
-          <!-- Boton de regresar -->
-            <div class="document-form active">
-                <button class="back-btn2" onclick="showSection('documentSelectionSection')">
-                     <span  class="iconify" data-icon="material-symbols:arrow-back-rounded" data-width="35" data-height="25"></span>
-                </button>
-                
-                <div class="form-header">
-                    <h2 id="documentTitle">Comprobante de crédito fiscal</h2>
+                <div id="userDropdownSidebar" class="user-dropdown-sidebar">
+                    <button class="dropdown-item" onclick="editProfile()">
+                        <span class="iconify" data-icon="material-symbols:person-edit-rounded" data-width="20" data-height="20"></span>
+                        <span>Editar información del emisor</span>
+                    </button>
+                    <button class="dropdown-item1" onclick="logout()">
+                        <span class="iconify" data-icon="material-symbols:logout-rounded" data-width="20" data-height="20"></span>
+                        <span>Cerrar sesión</span>
+                    </button>
                 </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- CONTENIDO PRINCIPAL -->
+    <div class="main-content-with-sidebar">
+        <div id="documentFormSection" class="formulario">
+            <div class="document-form active">
+
 
                 <div id="documentFormAlert" class="alert alert-success hidden"></div>
 
@@ -52,18 +120,17 @@
                         <div class="form-section">
                             <div class="section-header">Datos del receptor</div>
                             
-                           
                             <div class="caja1">
-                                 <div class="form-row">
-                                <div class="form-group">
-                                    <label>NIT</label>
-                                    <input type="text" name="nit" class="form-input" placeholder="0000-000000-000-0" required>
+                                <div class="form-row">
+                                    <div class="form-group">
+                                        <label>NIT</label>
+                                        <input type="text" name="nit" class="form-input" placeholder="0000-000000-000-0" required>
+                                    </div>
+                                    <div class="form-group">
+                                        <label>NRC</label>
+                                        <input type="text" name="nrc" class="form-input" placeholder="000000000000000">
+                                    </div>
                                 </div>
-                                <div class="form-group">
-                                    <label>NRC</label>
-                                    <input type="text" name="nrc" class="form-input" placeholder="000000000000000">
-                                </div>
-                            </div>
                                 <div class="form-row full">
                                     <div class="form-group">
                                         <label>Nombre del cliente</label>
@@ -157,7 +224,7 @@
                                 </thead>
                                 <tbody id="productsTableBody">
                                     <tr>
-                                       <td><input type="number" name="quantity[]" value="1" min="1" step="1" onchange="calculateTotals()"></td>
+                                        <td><input type="number" name="quantity[]" value="1" min="1" step="1" onchange="calculateTotals()"></td>
                                         <td><input type="text" name="unit[]" placeholder="Unidad"></td>
                                         <td><input type="text" name="product[]" placeholder="Descripción" required></td>
                                         <td>
@@ -231,17 +298,45 @@
                                     <input type="text" name="receiverName" class="form-input" placeholder="Nombre del receptor">
                                 </div>
                             </div>
-                             
                         </div>
-                       
                     </div>
                 </form>
-                <button type="submit" class="submit-btn" id="submitDocumentBtn">
-                                Generar documento
-                            </button>
+                <div class="button-group">
+                    
+                    <button type="button" class="submit-btn cancel-btn" onclick="showSection('documentSelectionSection')">
+                        Cancelar
+                    </button>
+                    
+                    <button type="submit" class="submit-btn" id="submitDocumentBtn">
+                        Generar documento
+                    </button>
+                    
+                </div>
+
             </div>
         </div>
     </div>
+
+    <script>
+        function toggleSidebar() {
+            const sidebar = document.getElementById('sidebar');
+            sidebar.classList.toggle('active');
+        }
+
+        function toggleUserMenuSidebar() {
+            const dropdown = document.getElementById('userDropdownSidebar');
+            dropdown.classList.toggle('active');
+        }
+
+        document.addEventListener('click', function(event) {
+            const userMenu = document.querySelector('.user-menu-sidebar');
+            const dropdown = document.getElementById('userDropdownSidebar');
+            
+            if (userMenu && !userMenu.contains(event.target)) {
+                dropdown.classList.remove('active');
+            }
+        });
+    </script>
     
     <script src="../js/utils.js"></script>
     <script src="../js/auth.js"></script>

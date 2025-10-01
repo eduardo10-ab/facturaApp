@@ -6,87 +6,165 @@
     <title>Inicio - Sistema DTE</title>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.5.0/axios.min.js"></script>
     <link rel="stylesheet" href="../css/styles.css">
+    <link rel="stylesheet" href="../css/sidebar.css">
     <link rel="stylesheet" href="../css/principal.css">
-    <!-- Cargar Iconify desde CDN -->
     <script src="https://code.iconify.design/3/3.1.0/iconify.min.js"></script>
-
 </head>
 <body>
-    <!-- SECCIÓN DASHBOARD -->
-    <div id="dashboardSection" class="section">
-        <div class="dashboard">
-            <div class="header">
-                <div class="user-menu">
-                    <button class="menu-btn" onclick="toggleUserMenu()"><span  class="iconify" data-icon="material-symbols:menu-rounded" data-width="40" data-height="40"></span></button>
-                    <div id="userDropdown" class="user-dropdown">
-                            <button class="dropdown-item" onclick="editProfile()">
-                                <span  class="iconify" data-icon="material-symbols:person-edit-rounded" data-width="30" data-height="30"></span><span class="config-drop"> Editar información del emisor</span> 
-                            </button>
-                            <button class="dropdown-item1" onclick="logout()">
-                                <span  class="iconify" data-icon="material-symbols:logout-rounded" data-width="30" data-height="30"></span> <span>Cerrar sesión</span> 
-                            </button>
-                        </div>
-                </div>
+    <!-- SIDEBAR -->
+    <div class="sidebar" id="sidebar">
+        <div class="sidebar-header">
+            <span class="iconify" data-icon="mdi:domain" data-width="28" data-height="28"></span>
+            <span class="company-name">Sistema DTE</span>
+        </div>
 
-                
-                    <div class="user-info">
-                       <span  class="iconify" data-icon="mingcute:user-4-fill" data-width="30" data-height="30"></span>
-                        <span id="userName">Ing. Joel</span>
-                    </div>
-                   
-               
+        <div class="sidebar-menu">
+            <div class="menu-section">
+                <div class="menu-section-title">Principal</div>
+                <button class="menu-item active" onclick="showSection('dashboardSection')">
+                    <span class="iconify" data-icon="material-symbols:dashboard" data-width="22" data-height="22"></span>
+                    <span>Inicio</span>
+                </button>
             </div>
 
-            <div class="dashboard-content">
-                <div class="main-actions">
-                    <button class="action-card" onclick="showSection('documentSelectionSection')">
-                        <span class="texto-titulo">Facturación</span><br>
-                        <span  class="iconify" data-icon="material-symbols:order-approve-rounded" data-width="80" data-height="80"></span>
-                        
-                    </button>
-                    <button class="action-card" onclick="alert('Función de clientes en desarrollo')">
-                        <span class="texto-titulo">Clientes</span><br>
-                        <span  class="iconify" data-icon="mdi:user-group" data-width="80" data-height="80"></span>
-                        
-                    </button>
-                    <button class="action-card" onclick="alert('Función de inventario en desarrollo')">
-                        <span class="texto-titulo">Inventario</span><br>
-                        <span  class="iconify" data-icon="material-symbols:assignment-add" data-width="80" data-height="80"></span>
-                        
-                    </button>
+            <div class="menu-section">
+                <div class="menu-section-title">Módulos</div>
+                <button class="menu-item" onclick="showSection('documentSelectionSection')">
+                    <span class="iconify" data-icon="material-symbols:order-approve-rounded" data-width="22" data-height="22"></span>
+                    <span>Facturación</span>
+                </button>
+                <button class="menu-item" onclick="alert('Función de clientes en desarrollo')">
+                    <span class="iconify" data-icon="mdi:user-group" data-width="22" data-height="22"></span>
+                    <span>Clientes</span>
+                </button>
+                <button class="menu-item" onclick="alert('Función de inventario en desarrollo')">
+                    <span class="iconify" data-icon="material-symbols:assignment-add" data-width="22" data-height="22"></span>
+                    <span>Inventario</span>
+                </button>
+            </div>
+
+            <div class="menu-section">
+                <div class="menu-section-title">Otros</div>
+
+                <button class="menu-item" onclick="editProfile()">
+                    <span class="iconify" data-icon="material-symbols:settings-outline" data-width="22" data-height="22"></span>
+                    <span>Configuración</span>
+                </button>
+            </div>
+        </div>
+
+        <div class="sidebar-footer">
+            <button class="menu-item" onclick="logout()">
+                <span class="iconify" data-icon="material-symbols:logout-rounded" data-width="22" data-height="22"></span>
+                <span>Cerrar sesión</span>
+            </button>
+        </div>
+    </div>
+
+    <!-- HEADER SUPERIOR -->
+    <div class="header-with-sidebar">
+        <button class="mobile-menu-toggle" onclick="toggleSidebar()">
+            <span class="iconify" data-icon="material-symbols:menu-rounded" data-width="24" data-height="24"></span>
+        </button>
+
+        <div class="header-title">
+            <h1>Bienvenido, <span id="userName">Ing. Joel</span></h1>
+            <p>Aquí están las estadísticas de hoy de tu sistema</p>
+        </div>
+
+        <div class="header-actions">
+            <div class="search-box">
+                <span class="iconify" data-icon="material-symbols:search" data-width="20" data-height="20"></span>
+                <input type="text" placeholder="Buscar...">
+            </div>
+
+            <button class="notification-btn">
+                <span class="iconify" data-icon="material-symbols:notifications-outline" data-width="22" data-height="22"></span>
+                <span class="notification-badge">4</span>
+            </button>
+
+            <div class="user-menu-sidebar">
+                <div class="user-info-sidebar" onclick="toggleUserMenuSidebar()">
+                    <div class="user-avatar">
+                        <span class="iconify" data-icon="mingcute:user-4-fill" data-width="20" data-height="20"></span>
+                    </div>
+                    <span>Ing. Joel</span>
+                    <span class="iconify" data-icon="material-symbols:arrow-drop-down" data-width="20" data-height="20"></span>
                 </div>
 
-                <div class="recent-section">
-                    <span class="bienvenido">Últimas facturas enviadas</span>
-                    <div class="recent-item">
-                        <div class="recent-avatar">DG</div>
-                        <div class="recent-info">
-                            <div class="recent-name">David Gálvez</div>
-                            <div class="recent-type">Comprobante de crédito fiscal</div>
+                <div id="userDropdownSidebar" class="user-dropdown-sidebar">
+                    <button class="dropdown-item" onclick="editProfile()">
+                        <span class="iconify" data-icon="material-symbols:person-edit-rounded" data-width="20" data-height="20"></span>
+                        <span>Editar información del emisor</span>
+                    </button>
+                    <button class="dropdown-item1" onclick="logout()">
+                        <span class="iconify" data-icon="material-symbols:logout-rounded" data-width="20" data-height="20"></span>
+                        <span>Cerrar sesión</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- CONTENIDO PRINCIPAL -->
+    <div class="main-content-with-sidebar">
+        <div id="dashboardSection" class="section">
+            <div class="dashboard">
+                <div class="dashboard-content">
+                    <div class="recent-section">
+                        <span class="bienvenido">Últimas facturas enviadas</span>
+                        <div class="recent-item">
+                            <div class="recent-avatar">DG</div>
+                            <div class="recent-info">
+                                <div class="recent-name">David Gálvez</div>
+                                <div class="recent-type">Comprobante de crédito fiscal</div>
+                            </div>
+                            <div class="recent-date">6/Sep/2025</div>
                         </div>
-                        <div class="recent-date">6/Sep/2025</div>
-                    </div>
-                    <div class="recent-item">
-                        <div class="recent-avatar">JF</div>
-                        <div class="recent-info">
-                            <div class="recent-name">Joel Fuentes</div>
-                            <div class="recent-type">Factura</div>
+                        <div class="recent-item">
+                            <div class="recent-avatar">JF</div>
+                            <div class="recent-info">
+                                <div class="recent-name">Joel Fuentes</div>
+                                <div class="recent-type">Factura</div>
+                            </div>
+                            <div class="recent-date">6/Sep/2025</div>
                         </div>
-                        <div class="recent-date">6/Sep/2025</div>
-                    </div>
-                    <div class="recent-item">
-                        <div class="recent-avatar">SG</div>
-                        <div class="recent-info">
-                            <div class="recent-name">Son Goku</div>
-                            <div class="recent-type">Declaración de renta</div>
+                        <div class="recent-item">
+                            <div class="recent-avatar">SG</div>
+                            <div class="recent-info">
+                                <div class="recent-name">Son Goku</div>
+                                <div class="recent-type">Declaración de renta</div>
+                            </div>
+                            <div class="recent-date">6/Sep/2025</div>
                         </div>
-                        <div class="recent-date">6/Sep/2025</div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-    
+
+    <script>
+        function toggleSidebar() {
+            const sidebar = document.getElementById('sidebar');
+            sidebar.classList.toggle('active');
+        }
+
+        function toggleUserMenuSidebar() {
+            const dropdown = document.getElementById('userDropdownSidebar');
+            dropdown.classList.toggle('active');
+        }
+
+        // Cerrar dropdown al hacer clic fuera
+        document.addEventListener('click', function(event) {
+            const userMenu = document.querySelector('.user-menu-sidebar');
+            const dropdown = document.getElementById('userDropdownSidebar');
+            
+            if (userMenu && !userMenu.contains(event.target)) {
+                dropdown.classList.remove('active');
+            }
+        });
+    </script>
+
     <script src="../js/utils.js"></script>
     <script src="../js/auth.js"></script>
     <script src="../js/products.js"></script>
