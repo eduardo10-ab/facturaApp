@@ -2,3 +2,315 @@
     min-height: 100vh;
     background: var(--light-bg);
 }
+
+/* Formulario Styles */
+.formulario {
+    min-height: 100vh;
+    background: var(--light-bg);
+}
+
+/* Form Elements */
+.form-group {
+    margin-bottom: 15px;
+}
+
+.section-header {
+    background: var(--primary-color);
+    color: var(--white);
+    padding: 15px 20px;
+    margin: -25px -25px 20px -25px;
+    border-radius: 16px 16px 0 0;
+    font-weight: 600;
+}
+
+.text-center {
+    text-align: center;
+}
+
+.caja1 {
+    margin-top: 5px;
+}
+
+.caja3 {
+    margin-top: 50px;
+    margin-bottom: 40px;
+}
+.form-group label {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 19px;
+    margin-bottom: 8px;
+    color: var(--text-secondary);
+    font-weight: 600;
+}
+
+.form-group label .iconify {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 20px;
+    height: 20px;
+    flex-shrink: 0;
+}
+
+.form-input {
+    width: 100%;
+    padding: 12px 20px;
+    border: 1px solid var(--border-color);
+    border-radius: 12px;
+    font-size: 16px;
+    transition: all 0.3s ease;
+    background: #fafafa;
+}
+
+.form-input:focus {
+    outline: none;
+    border-color: var(--primary-color);
+    background: var(--white);
+    box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.1);
+}
+
+.form-input::placeholder {
+    color: #9ca3af;
+}
+
+.login-btn {
+    width: 100%;
+    padding: 15px;
+    background: var(--primary-gradient);
+    color: var(--white);
+    border: none;
+    border-radius: 12px;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    margin-bottom: 20px;
+}
+
+.login-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 25px rgba(99, 102, 241, 0.3);
+}
+
+.login-btn:disabled {
+    opacity: 0.7;
+    cursor: not-allowed;
+    transform: none;
+}
+
+.form-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 15px;
+    margin-bottom: 2px;
+}
+
+.form-row2 {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 15px;
+    margin-top: 50px;
+    margin-bottom: 10px;
+}
+
+.form-row3 {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 15px;
+    margin-bottom: 30px;
+    margin-top: 50px;
+}
+
+.form-row.full {
+    grid-template-columns: 1fr;
+}
+
+.select-group {
+    margin-bottom: 20px;
+}
+
+.select-group select {
+    width: 100%;
+    padding: 12px 15px;
+    border: 2px solid var(--border-color);
+    border-radius: 8px;
+    background: var(--white);
+    font-size: 14px;
+}
+
+/* Product table */
+.products-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 20px;
+    background: var(--white);
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+.products-table th {
+    background: var(--light-bg);
+    padding: 12px 8px;
+    text-align: left;
+    font-weight: 600;
+    font-size: 12px;
+    border-bottom: 2px solid var(--border-color);
+}
+
+.products-table td {
+    padding: 12px 8px;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.products-table input,
+.products-table select {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #d1d5db;
+    border-radius: 4px;
+    font-size: 12px;
+    width: 100px;
+}
+
+.add-product-btn {
+    background: var(--primary-color);
+    color: var(--white);
+    border: none;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    font-size: 24px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 20px auto;
+    transition: background 0.3s ease;
+}
+
+.add-product-btn:hover {
+    background: var(--primary-dark);
+}
+
+.totals-section {
+    text-align: right;
+    margin-top: 20px;
+    padding-top: 20px;
+    border-top: 2px solid var(--border-color);
+}
+
+.total-row {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 5px;
+    font-size: 14px;
+}
+
+.total-row.final {
+    font-weight: bold;
+    font-size: 16px;
+    border-top: 1px solid var(--border-color);
+    padding-top: 5px;
+}
+
+.submit-btn {
+    background: var(--primary-color);
+    color: var(--white);
+    border: none;
+    padding: 15px 40px;
+    border-radius: 18px;
+    font-size: 25px;
+    font-weight: 600;
+    cursor: pointer;
+    width: 100%;
+    margin-top: 30px;
+    transition: background 0.3s ease;
+}
+
+.submit-btn:hover {
+    background: var(--primary-dark);
+}
+
+.submit-btn:disabled {
+    opacity: 0.7;
+    cursor: not-allowed;
+}
+
+/* Buttons */
+.back-btn2 {
+    background: var(--primary-color);
+    color: var(--white);
+    border: none;
+    padding: 20px 20px;
+    border-radius: 20px;
+    cursor: pointer;
+    margin-bottom: 0px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    transition: background 0.3s ease;
+}
+
+.back-btn2:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 15px 30px rgba(99, 102, 241, 0.4);
+    background: var(--primary-dark);
+}
+
+/* Document Form */
+.document-form {
+    padding-bottom: 30px;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.document-form.active {
+    display: block;
+}
+
+.form-header {
+    margin-bottom: 30px;
+}
+
+.form-header h2 {
+    color: var(--primary-color);
+    font-size: 30px;
+    margin-bottom: 10px;
+    text-align: center;
+}
+
+.form-columns {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 30px;
+}
+
+.form-section {
+    background: var(--white);
+    border-radius: 16px;
+    padding: 25px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+}
+
+.form-section2 {
+    background: var(--white);
+    border-radius: 16px;
+    padding: 25px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+    max-height: fit-content;
+    max-width: 645px;
+}
+
+
+/* Responsive Design para Formulario */
+@media (max-width: 768px) {
+    .header {
+        padding: 15px 20px;
+    }
+
+    .user-info span {
+        display: none;
+    }
+}
