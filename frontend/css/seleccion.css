@@ -6,7 +6,7 @@
 
 .document-selection {
     padding: 10px;
-    max-width: 1000px;
+    max-width: 1200px;
     margin: 0 auto;
 }
 
@@ -14,98 +14,224 @@
     display: block;
 }
 
-.back-btn {
-    background: var(--primary-color);
-    color: var(--white);
-    border: none;
-    padding: 20px 20px;
-    border-radius: 28px;
-    cursor: pointer;
-    margin-bottom: 30px;
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    transition: background 0.3s ease;
-    min-width: 150px;
-    max-width: 300px;
-    min-height: 50px;
-    max-height: 100px;
-    font-size: 18px;
-    font-weight: 700;
-}
-
-.back-btn:hover {
-    transform: translateY(-1px);
-    box-shadow: 0 15px 30px rgba(99, 102, 241, 0.4);
-    background: var(--primary-dark);
-}
-
 .document-card {
-    background: var(--primary-color);
     color: var(--white);
     border-radius: 20px;
-    padding: 40px;
-    margin-top: 50px;
+    padding: 10px;
+    margin-top: 20px;
     text-align: center;
     margin-bottom: 30px;
-    display: flex;  
-    flex-direction: column;            
-    align-items: center; 
-    gap: 40px;
 }
 
 .document-card h2 {
     font-size: 34px;
-    margin-bottom: 0px;
+    margin-bottom: 50px;
     width: 100%;             
     text-align: center;
 }
 
 .document-content {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 30px;
+    padding: 20px 0;
+}
+
+/* Cards estilo imagen 2 */
+.doc-type-card {
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 30px;
+    padding: 25px 25px;
+    cursor: pointer;
+    transition: all 0.4s ease;
+    border: 2px solid transparent;
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+    height: 225px;
+}
+
+.doc-type-card.hidden {
+    display: none;
+}
+
+.doc-type-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+    transform: scaleX(0);
+    transition: transform 0.4s ease;
+}
+
+.doc-type-card:hover::before {
+    transform: scaleX(1);
+}
+
+.doc-type-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 20px 40px rgba(99, 102, 241, 0.3);
+    border-color: rgba(99, 102, 241, 0.3);
+}
+
+.card-decoration {
+    position: relative;
+    width: 100%;
+    height: 0px;
     display: flex;
     align-items: center;
-    justify-content: center; 
-    gap: 60px;
+    justify-content: center;
+    margin-bottom: 0px;
 }
 
-.document-icon .iconify {
-    width: 300px;         
-    margin-bottom: 0;         
-    opacity: 1;                
-    flex-shrink: 0;
+.card-accent {
+    position: absolute;
+    top: 10px;
+    right: 30px;
+    font-size: 40px;
 }
 
-.document-types {
-    display: flex;
-    flex-direction: column;    
-    gap: 15px;
+.card-content {
+    text-align: center;
     flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 15px;
 }
 
-.doc-type-btn {
-    background: rgba(255, 255, 255, 0.2);
-    color: var(--white);
-    border: none;
-    padding: 25px 25px;
-    border-radius: 25px;
+.card-title {
+    font-size: 20px;
+    font-weight: 700;
+    color: #1e293b;
+    margin: 0;
+}
+
+.card-subtitle {
+    font-size: 14px;
+    color: #64748b;
+    margin: 0;
+}
+
+.card-price {
+    margin-top: auto;
+    padding-top: 20px;
+}
+
+.card-amount {
+    font-size: 42px;
+    font-weight: 800;
+    color: #059669;
+    line-height: 1;
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    gap: 5px;
+}
+
+.card-currency {
+    font-size: 28px;
+    margin-top: 8px;
+}
+
+.card-period {
+    font-size: 14px;
+    color: #64748b;
+    margin-top: 5px;
+}
+
+.card-cta {
+    background: transparent;
+    border: 2px solid #e2e8f0;
+    color: #475569;
+    padding: 12px 24px;
+    border-radius: 10px;
+    font-weight: 600;
+    font-size: 15px;
     cursor: pointer;
     transition: all 0.3s ease;
-    font-weight: 600;
-    font-size: 25px;
+    margin-top: 15px;
 }
 
-.doc-type-btn:hover {
-    background: rgba(255, 255, 255, 0.3);
-    border-color: rgba(255, 255, 255, 0.5);
+.card-cta:hover {
+    background: var(--primary-color);
+    color: white;
+    border-color: var(--primary-color);
+}
+
+/* Botón Ver todos / Compactar */
+.toggle-card {
+    background: linear-gradient(135deg, rgba(99, 102, 241, 0.1), rgba(139, 92, 246, 0.15));
+    border-radius: 30px;
+    padding: 25px 25px;
+    cursor: pointer;
+    transition: all 0.4s ease;
+    border: 2px dashed rgba(99, 102, 241, 0.3);
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 15px;
+    height: 225px;
+}
+
+.toggle-card:hover {
     transform: translateY(-5px);
-    box-shadow: 0 15px 30px rgba(99, 102, 241, 0.4);
-    background: var(--primary-dark);
+    box-shadow: 0 15px 30px rgba(99, 102, 241, 0.2);
+    border-color: rgba(99, 102, 241, 0.5);
+    background: linear-gradient(135deg, rgba(99, 102, 241, 0.15), rgba(139, 92, 246, 0.2));
 }
 
-/* Responsive Design para Selección de Documento */
+.toggle-card .iconify {
+    color: var(--primary-color);
+    transition: transform 0.3s ease;
+}
+
+.toggle-card:hover .iconify {
+    transform: scale(1.1);
+}
+
+.toggle-card-text {
+    font-size: 20px;
+    font-weight: 700;
+    color: var(--primary-color);
+    margin: 0;
+}
+
+.toggle-card-subtitle {
+    font-size: 14px;
+    color: #4b5562;
+    margin: 0;
+}
+
+/* Responsive Design */
 @media (max-width: 768px) {
     .document-selection {
         padding: 20px;
     }
-}
 
+    .document-content {
+        grid-template-columns: 1fr;
+        gap: 20px;
+    }
+
+    .document-card h2 {
+        font-size: 26px;
+        margin-bottom: 30px;
+    }
+
+    .card-title {
+        font-size: 20px;
+    }
+
+    .card-amount {
+        font-size: 36px;
+    }
+}

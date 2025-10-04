@@ -111,22 +111,140 @@
             <div class="document-selection active">
                 
                 <div class="document-card">
-                    <h2>Seleccione el tipo de factura a realizar</h2>
-                    <div class="document-content">
-                        <div class="document-icon">
-                            <span class="iconify" data-icon="material-symbols:order-approve-rounded" data-width="250" data-height="200"></span>
-                        </div>
-                        <div class="document-types">
-                            <button class="doc-type-btn" onclick="createDocument('ccf')">
-                                Comprobante de crédito fiscal
-                            </button>
-                            <button class="doc-type-btn" onclick="createDocument('factura')">
-                                Factura
-                            </button>
-                            <button class="doc-type-btn" onclick="createDocument('declaracion')">
-                                Declaración de renta
+                    <div class="document-content" id="documentContent">
+                        <!-- Card 1: Comprobante de crédito fiscal -->
+                        <div class="doc-type-card" data-card-index="1" onclick="createDocument('ccf')">
+                            <div class="card-decoration"></div>
+                            
+                            <div class="card-content">
+                                <h3 class="card-title">Comprobante de crédito fiscal</h3>
+                                <p class="card-subtitle">Documento oficial para operaciones con IVA</p>
+                            </div>
+                            
+                            <button class="card-cta" onclick="event.stopPropagation(); createDocument('ccf')">
+                                Crear documento
                             </button>
                         </div>
+
+                        <!-- Card 2: Factura -->
+                        <div class="doc-type-card" data-card-index="2" onclick="createDocument('factura')">
+                            <div class="card-decoration"></div>
+                            
+                            <div class="card-content">
+                                <h3 class="card-title">Factura</h3>
+                                <p class="card-subtitle">Comprobante de venta estándar</p>
+                            </div>
+                            
+                            <button class="card-cta" onclick="event.stopPropagation(); createDocument('factura')">
+                                Crear documento
+                            </button>
+                        </div>
+
+                        <!-- Card 3: Declaración de renta -->
+                        <div class="doc-type-card" data-card-index="3" onclick="createDocument('declaracion')">
+                            <div class="card-decoration"></div>
+                            
+                            <div class="card-content">
+                                <h3 class="card-title">Declaración de renta</h3>
+                                <p class="card-subtitle">Documento tributario oficial</p>
+                            </div>
+                            
+                            <button class="card-cta" onclick="event.stopPropagation(); createDocument('declaracion')">
+                                Crear documento
+                            </button>
+                        </div>
+
+                        <!-- Card 4: Nota de remisión -->
+                        <div class="doc-type-card" data-card-index="4" onclick="createDocument('nota-remision')">
+                            <div class="card-decoration"></div>
+                            
+                            <div class="card-content">
+                                <h3 class="card-title">Nota de remisión</h3>
+                                <p class="card-subtitle">Documento que verifica una entrega</p>
+                            </div>
+                            
+                            <button class="card-cta" onclick="event.stopPropagation(); createDocument('nota-remision')">
+                                Crear documento
+                            </button>
+                        </div>
+
+                        <!-- Card 5: Nota de crédito -->
+                        <div class="doc-type-card" data-card-index="5" onclick="createDocument('nota-credito')">
+                            <div class="card-decoration"></div>
+                            
+                            <div class="card-content">
+                                <h3 class="card-title">Nota de crédito</h3>
+                                <p class="card-subtitle">Reducción de factura</p>
+                            </div>
+                            
+                            <button class="card-cta" onclick="event.stopPropagation(); createDocument('nota-credito')">
+                                Crear documento
+                            </button>
+                        </div>
+
+                        <!-- Botón Ver todos / Compactar -->
+                        <div class="toggle-card" id="toggleButton" onclick="toggleCards()">
+                            <span class="iconify" data-icon="material-symbols:expand-more-rounded" data-width="50" data-height="50"></span>
+                            <p class="toggle-card-text" id="toggleText">Ver todos</p>
+                            <p class="toggle-card-subtitle" id="toggleSubtitle">Mostrar 4 documentos más</p>
+                        </div>
+
+                        <!-- Card 6: Nota de débito -->
+                        <div class="doc-type-card hidden" data-card-index="6" onclick="createDocument('nota-debito')">
+                            <div class="card-decoration"></div>
+                            
+                            <div class="card-content">
+                                <h3 class="card-title">Nota de débito</h3>
+                                <p class="card-subtitle">Aumento del valor facturado</p>
+                            </div>
+                            
+                            <button class="card-cta" onclick="event.stopPropagation(); createDocument('nota-debito')">
+                                Crear documento
+                            </button>
+                        </div>
+
+                        <!-- Card 7: Comprobante de retención -->
+                        <div class="doc-type-card hidden" data-card-index="7" onclick="createDocument('comprobante-retencion')">
+                            <div class="card-decoration"></div>
+                            
+                            <div class="card-content">
+                                <h3 class="card-title">Comprobante de retención</h3>
+                                <p class="card-subtitle">Constancia de impuestos retenidos</p>
+                            </div>
+                            
+                            <button class="card-cta" onclick="event.stopPropagation(); createDocument('comprobante-retencion')">
+                                Crear documento
+                            </button>
+                        </div>
+
+                        <!-- Card 8: Factura de exportación -->
+                        <div class="doc-type-card hidden" data-card-index="8" onclick="createDocument('factura-exportacion')">
+                            <div class="card-decoration"></div>
+                            
+                            <div class="card-content">
+                                <h3 class="card-title">Factura de exportación</h3>
+                                <p class="card-subtitle">Documento de venta internacional</p>
+                            </div>
+                            
+                            <button class="card-cta" onclick="event.stopPropagation(); createDocument('factura-exportacion')">
+                                Crear documento
+                            </button>
+                        </div>
+
+                        <!-- Card 9: Factura de sujeto excluido-->
+                        <div class="doc-type-card hidden" data-card-index="9" onclick="createDocument('factura-excluido')">
+                            <div class="card-decoration"></div>
+                            
+                            <div class="card-content">
+                                <h3 class="card-title">Factura de sujeto excluido</h3>
+                                <p class="card-subtitle">Factura sin débito fiscal</p>
+                            </div>
+                            
+                            <button class="card-cta" onclick="event.stopPropagation(); createDocument('factura-excluido')">
+                                Crear documento
+                            </button>
+                        </div>
+
                     </div>
                 </div>  
             </div>
@@ -134,6 +252,93 @@
     </div>
 
     <script>
+        let isExpanded = false;
+
+        function toggleCards() {
+            const allCards = document.querySelectorAll('.doc-type-card');
+            const toggleButton = document.getElementById('toggleButton');
+            const toggleText = document.getElementById('toggleText');
+            const toggleSubtitle = document.getElementById('toggleSubtitle');
+            const toggleIcon = toggleButton.querySelector('.iconify');
+            const documentContent = document.getElementById('documentContent');
+
+            if (!isExpanded) {
+                // Expandir - mostrar todas las cards
+                allCards.forEach(card => {
+                    card.classList.remove('hidden');
+                });
+                
+                // Mover el botón al final
+                documentContent.appendChild(toggleButton);
+                
+                // Cambiar texto e icono
+                toggleText.textContent = 'Compactar';
+                toggleSubtitle.textContent = 'Mostrar menos documentos';
+                toggleIcon.setAttribute('data-icon', 'material-symbols:expand-less-rounded');
+                
+                isExpanded = true;
+            } else {
+                // Compactar - ocultar cards con índice mayor a 5
+                allCards.forEach(card => {
+                    const cardIndex = parseInt(card.getAttribute('data-card-index'));
+                    if (cardIndex > 5) {
+                        card.classList.add('hidden');
+                    }
+                });
+                
+                // Mover el botón después de la card 5
+                const card5 = document.querySelector('[data-card-index="5"]');
+                card5.insertAdjacentElement('afterend', toggleButton);
+                
+                // Cambiar texto e icono
+                toggleText.textContent = 'Ver todos';
+                toggleSubtitle.textContent = 'Mostrar 4 documentos más';
+                toggleIcon.setAttribute('data-icon', 'material-symbols:expand-more-rounded');
+                
+                isExpanded = false;
+            }
+        }
+            const hiddenCards = document.querySelectorAll('.doc-type-card.hidden');
+            const toggleButton = document.getElementById('toggleButton');
+            const toggleText = document.getElementById('toggleText');
+            const toggleSubtitle = document.getElementById('toggleSubtitle');
+            const toggleIcon = toggleButton.querySelector('.iconify');
+            const documentContent = document.getElementById('documentContent');
+
+            if (!isExpanded) {
+                // Expandir - mostrar todas las cards
+                hiddenCards.forEach(card => {
+                    card.classList.remove('hidden');
+                });
+                
+                // Mover el botón al final
+                documentContent.appendChild(toggleButton);
+                
+                // Cambiar texto e icono
+                toggleText.textContent = 'Compactar';
+                toggleSubtitle.textContent = 'Mostrar menos documentos';
+                toggleIcon.setAttribute('data-icon', 'material-symbols:expand-less-rounded');
+                
+                isExpanded = true;
+            } else {
+                // Compactar - ocultar cards 6-9
+                hiddenCards.forEach(card => {
+                    card.classList.add('hidden');
+                });
+                
+                // Mover el botón después de la card 5
+                const card5 = document.querySelector('[data-card-index="5"]');
+                card5.insertAdjacentElement('afterend', toggleButton);
+                
+                // Cambiar texto e icono
+                toggleText.textContent = 'Ver todos';
+                toggleSubtitle.textContent = 'Mostrar 4 documentos más';
+                toggleIcon.setAttribute('data-icon', 'material-symbols:expand-more-rounded');
+                
+                isExpanded = false;
+            }
+        
+
         function toggleSidebar() {
             const sidebar = document.getElementById('sidebar');
             sidebar.classList.toggle('active');

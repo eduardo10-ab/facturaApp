@@ -48,7 +48,7 @@
 }
 
 .recent-section {
-    background: var(--white);
+    background: rgba(255, 255, 255, 0.95);
     border-radius: 16px;
     padding: 45px 70px 45px 70px;
   
