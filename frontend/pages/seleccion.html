@@ -114,7 +114,7 @@
                     <div class="document-content" id="documentContent">
                         <!-- Card 1: Comprobante de crédito fiscal -->
                         <div class="doc-type-card" data-card-index="1" onclick="createDocument('ccf')">
-                            <div class="card-decoration"></div>
+                           
                             
                             <div class="card-content">
                                 <h3 class="card-title">Comprobante de crédito fiscal</h3>
@@ -128,7 +128,7 @@
 
                         <!-- Card 2: Factura -->
                         <div class="doc-type-card" data-card-index="2" onclick="createDocument('factura')">
-                            <div class="card-decoration"></div>
+                 
                             
                             <div class="card-content">
                                 <h3 class="card-title">Factura</h3>
@@ -142,7 +142,7 @@
 
                         <!-- Card 3: Declaración de renta -->
                         <div class="doc-type-card" data-card-index="3" onclick="createDocument('declaracion')">
-                            <div class="card-decoration"></div>
+                     
                             
                             <div class="card-content">
                                 <h3 class="card-title">Declaración de renta</h3>
@@ -156,7 +156,7 @@
 
                         <!-- Card 4: Nota de remisión -->
                         <div class="doc-type-card" data-card-index="4" onclick="createDocument('nota-remision')">
-                            <div class="card-decoration"></div>
+                            
                             
                             <div class="card-content">
                                 <h3 class="card-title">Nota de remisión</h3>
@@ -170,7 +170,7 @@
 
                         <!-- Card 5: Nota de crédito -->
                         <div class="doc-type-card" data-card-index="5" onclick="createDocument('nota-credito')">
-                            <div class="card-decoration"></div>
+                   
                             
                             <div class="card-content">
                                 <h3 class="card-title">Nota de crédito</h3>
@@ -191,7 +191,7 @@
 
                         <!-- Card 6: Nota de débito -->
                         <div class="doc-type-card hidden" data-card-index="6" onclick="createDocument('nota-debito')">
-                            <div class="card-decoration"></div>
+                            
                             
                             <div class="card-content">
                                 <h3 class="card-title">Nota de débito</h3>
@@ -205,7 +205,7 @@
 
                         <!-- Card 7: Comprobante de retención -->
                         <div class="doc-type-card hidden" data-card-index="7" onclick="createDocument('comprobante-retencion')">
-                            <div class="card-decoration"></div>
+                          
                             
                             <div class="card-content">
                                 <h3 class="card-title">Comprobante de retención</h3>
@@ -219,7 +219,7 @@
 
                         <!-- Card 8: Factura de exportación -->
                         <div class="doc-type-card hidden" data-card-index="8" onclick="createDocument('factura-exportacion')">
-                            <div class="card-decoration"></div>
+                           
                             
                             <div class="card-content">
                                 <h3 class="card-title">Factura de exportación</h3>
@@ -233,7 +233,7 @@
 
                         <!-- Card 9: Factura de sujeto excluido-->
                         <div class="doc-type-card hidden" data-card-index="9" onclick="createDocument('factura-excluido')">
-                            <div class="card-decoration"></div>
+                          
                             
                             <div class="card-content">
                                 <h3 class="card-title">Factura de sujeto excluido</h3>
@@ -252,92 +252,104 @@
     </div>
 
     <script>
-        let isExpanded = false;
+// Obtener estado guardado o usar false por defecto
+let isExpanded = false;
 
-        function toggleCards() {
-            const allCards = document.querySelectorAll('.doc-type-card');
-            const toggleButton = document.getElementById('toggleButton');
-            const toggleText = document.getElementById('toggleText');
-            const toggleSubtitle = document.getElementById('toggleSubtitle');
-            const toggleIcon = toggleButton.querySelector('.iconify');
-            const documentContent = document.getElementById('documentContent');
+// Inicializar al cargar la página
+document.addEventListener('DOMContentLoaded', function() {
+    initializeCardState();
+});
 
-            if (!isExpanded) {
-                // Expandir - mostrar todas las cards
-                allCards.forEach(card => {
-                    card.classList.remove('hidden');
-                });
-                
-                // Mover el botón al final
-                documentContent.appendChild(toggleButton);
-                
-                // Cambiar texto e icono
-                toggleText.textContent = 'Compactar';
-                toggleSubtitle.textContent = 'Mostrar menos documentos';
-                toggleIcon.setAttribute('data-icon', 'material-symbols:expand-less-rounded');
-                
-                isExpanded = true;
-            } else {
-                // Compactar - ocultar cards con índice mayor a 5
-                allCards.forEach(card => {
-                    const cardIndex = parseInt(card.getAttribute('data-card-index'));
-                    if (cardIndex > 5) {
-                        card.classList.add('hidden');
-                    }
-                });
-                
-                // Mover el botón después de la card 5
-                const card5 = document.querySelector('[data-card-index="5"]');
-                card5.insertAdjacentElement('afterend', toggleButton);
-                
-                // Cambiar texto e icono
-                toggleText.textContent = 'Ver todos';
-                toggleSubtitle.textContent = 'Mostrar 4 documentos más';
-                toggleIcon.setAttribute('data-icon', 'material-symbols:expand-more-rounded');
-                
-                isExpanded = false;
-            }
-        }
-            const hiddenCards = document.querySelectorAll('.doc-type-card.hidden');
-            const toggleButton = document.getElementById('toggleButton');
-            const toggleText = document.getElementById('toggleText');
-            const toggleSubtitle = document.getElementById('toggleSubtitle');
-            const toggleIcon = toggleButton.querySelector('.iconify');
-            const documentContent = document.getElementById('documentContent');
-
-            if (!isExpanded) {
-                // Expandir - mostrar todas las cards
-                hiddenCards.forEach(card => {
-                    card.classList.remove('hidden');
-                });
-                
-                // Mover el botón al final
-                documentContent.appendChild(toggleButton);
-                
-                // Cambiar texto e icono
-                toggleText.textContent = 'Compactar';
-                toggleSubtitle.textContent = 'Mostrar menos documentos';
-                toggleIcon.setAttribute('data-icon', 'material-symbols:expand-less-rounded');
-                
-                isExpanded = true;
-            } else {
-                // Compactar - ocultar cards 6-9
-                hiddenCards.forEach(card => {
-                    card.classList.add('hidden');
-                });
-                
-                // Mover el botón después de la card 5
-                const card5 = document.querySelector('[data-card-index="5"]');
-                card5.insertAdjacentElement('afterend', toggleButton);
-                
-                // Cambiar texto e icono
-                toggleText.textContent = 'Ver todos';
-                toggleSubtitle.textContent = 'Mostrar 4 documentos más';
-                toggleIcon.setAttribute('data-icon', 'material-symbols:expand-more-rounded');
-                
-                isExpanded = false;
-            }
+function initializeCardState() {
+    const allCards = document.querySelectorAll('.doc-type-card');
+    const toggleButton = document.getElementById('toggleButton');
+    const toggleText = document.getElementById('toggleText');
+    const toggleSubtitle = document.getElementById('toggleSubtitle');
+    const toggleIcon = toggleButton?.querySelector('.iconify');
+    const documentContent = document.getElementById('documentContent');
+    
+    if (isExpanded) {
+        // Mostrar todas las cards
+        allCards.forEach(card => card.classList.remove('hidden'));
         
+        // Mover el botón al final
+        if (toggleButton && documentContent) {
+            documentContent.appendChild(toggleButton);
+        }
+        
+        // Actualizar texto e icono
+        if (toggleText) toggleText.textContent = 'Compactar';
+        if (toggleSubtitle) toggleSubtitle.textContent = 'Mostrar menos documentos';
+        if (toggleIcon) toggleIcon.setAttribute('data-icon', 'material-symbols:expand-less-rounded');
+    } else {
+        // Ocultar cards mayores a 5
+        allCards.forEach(card => {
+            const cardIndex = parseInt(card.getAttribute('data-card-index'));
+            if (cardIndex > 5) {
+                card.classList.add('hidden');
+            }
+        });
+        
+        // Mover el botón después de la card 5
+        const card5 = document.querySelector('[data-card-index="5"]');
+        if (card5 && toggleButton) {
+            card5.insertAdjacentElement('afterend', toggleButton);
+        }
+        
+        // Actualizar texto e icono
+        if (toggleText) toggleText.textContent = 'Ver todos';
+        if (toggleSubtitle) toggleSubtitle.textContent = 'Mostrar 4 documentos más';
+        if (toggleIcon) toggleIcon.setAttribute('data-icon', 'material-symbols:expand-more-rounded');
+    }
+}
+
+function toggleCards() {
+    const allCards = document.querySelectorAll('.doc-type-card');
+    const toggleButton = document.getElementById('toggleButton');
+    const toggleText = document.getElementById('toggleText');
+    const toggleSubtitle = document.getElementById('toggleSubtitle');
+    const toggleIcon = toggleButton.querySelector('.iconify');
+    const documentContent = document.getElementById('documentContent');
+
+    if (!isExpanded) {
+        // Expandir - mostrar todas las cards
+        allCards.forEach(card => {
+            card.classList.remove('hidden');
+        });
+        
+        // Mover el botón al final
+        documentContent.appendChild(toggleButton);
+        
+        // Cambiar texto e icono
+        toggleText.textContent = 'Compactar';
+        toggleSubtitle.textContent = 'Mostrar menos documentos';
+        toggleIcon.setAttribute('data-icon', 'material-symbols:expand-less-rounded');
+        
+        isExpanded = true;
+    } else {
+        // Compactar - ocultar cards con índice mayor a 5
+        allCards.forEach(card => {
+            const cardIndex = parseInt(card.getAttribute('data-card-index'));
+            if (cardIndex > 5) {
+                card.classList.add('hidden');
+            }
+        });
+        
+        // Mover el botón después de la card 5
+        const card5 = document.querySelector('[data-card-index="5"]');
+        card5.insertAdjacentElement('afterend', toggleButton);
+        
+        // Cambiar texto e icono
+        toggleText.textContent = 'Ver todos';
+        toggleSubtitle.textContent = 'Mostrar 4 documentos más';
+        toggleIcon.setAttribute('data-icon', 'material-symbols:expand-more-rounded');
+        
+        isExpanded = false;
+    }
+            
+            // Guardar el estado en sessionStorage
+            sessionStorage.setItem('cardsExpanded', isExpanded);
+        }
 
         function toggleSidebar() {
             const sidebar = document.getElementById('sidebar');
