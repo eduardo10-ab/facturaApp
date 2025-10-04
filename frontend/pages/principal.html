@@ -45,7 +45,6 @@
 
             <div class="menu-section">
                 <div class="menu-section-title">Otros</div>
-
                 <button class="menu-item" onclick="editProfile()">
                     <span class="iconify" data-icon="material-symbols:settings-outline" data-width="22" data-height="22"></span>
                     <span>Configuración</span>
@@ -111,33 +110,105 @@
         <div id="dashboardSection" class="section">
             <div class="dashboard">
                 <div class="dashboard-content">
-                    <div class="recent-section">
-                        <span class="bienvenido">Últimas facturas enviadas</span>
-                        <div class="recent-item">
-                            <div class="recent-avatar">DG</div>
-                            <div class="recent-info">
-                                <div class="recent-name">David Gálvez</div>
-                                <div class="recent-type">Comprobante de crédito fiscal</div>
-                            </div>
-                            <div class="recent-date">6/Sep/2025</div>
+
+                    <!-- Sección de tabla detallada -->
+                    <div class="table-section">
+                        <div class="table-header">
+                            <h3>Facturas emitidas: 4 Octubre (Hoy)</h3>
+                            <button class="filter-btn">
+                                Todos
+                                <span class="iconify" data-icon="material-symbols:arrow-drop-down" data-width="20" data-height="20"></span>
+                            </button>
                         </div>
-                        <div class="recent-item">
-                            <div class="recent-avatar">JF</div>
-                            <div class="recent-info">
-                                <div class="recent-name">Joel Fuentes</div>
-                                <div class="recent-type">Factura</div>
-                            </div>
-                            <div class="recent-date">6/Sep/2025</div>
-                        </div>
-                        <div class="recent-item">
-                            <div class="recent-avatar">SG</div>
-                            <div class="recent-info">
-                                <div class="recent-name">Son Goku</div>
-                                <div class="recent-type">Declaración de renta</div>
-                            </div>
-                            <div class="recent-date">6/Sep/2025</div>
-                        </div>
+
+                        <div class="info-text">3 Clientes</div>
+
+                        <table class="data-table">
+                            <thead>
+                                <tr>
+                                    <th></th>
+                                    <th>Nombre del cliente</th>
+                                    <th>Hora de inicio</th>
+                                    <th>Documento solicitado</th>
+                                    <th>duracion de tramite</th>
+                                    
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>
+                                        <div class="table-avatar">
+                                        <span class="avatar-initials">DG</span>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div class="doc-info">
+                                            <div class="doc-name">David Gálvez</div>
+                                          
+                                        </div>
+                                    </td>
+                                    <td class="time-col">5:06 AM</td>
+                                    <td class="time-col">Comprobante de credito fiscal</td>
+                                    <td class="duration-col">6 min</td>
+                                    <td>
+
+                                    </td>
+                                    <td>
+                                        <button class="details-btn">VER DETALLES</button>
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <td>
+                                        <div class="table-avatar">
+                                         <span class="avatar-initials">JF</span>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div class="doc-info">
+                                            <div class="doc-name">Joel Fuentes</div>
+                                 
+                                        </div>
+                                    </td>
+                                    <td class="time-col">5:13 AM</td>
+                                    <td class="time-col">Declaracion de renta</td>
+                                    <td class=" duration-col">10 min</td>
+                                    <td>
+                                
+
+                                    </td>
+                                    <td>
+                                        <button class="details-btn">VER DETALLES</button>
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <td>
+                                        <div class="table-avatar">
+                                         <span class="avatar-initials">SG</span>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div class="doc-info">
+                                            <div class="doc-name">Son Goku</div>
+                                           
+                                        </div>
+                                    </td>
+                                    <td class="time-col">6:45 AM</td>
+                                    <td class="time-col">Factura</td>
+                                    <td class="duration-col">11 min</td>
+                                    <td>
+
+                                    </td>
+                                    <td>
+                                        <button class="details-btn">VER DETALLES</button>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
                     </div>
+
                 </div>
             </div>
         </div>
@@ -154,7 +225,6 @@
             dropdown.classList.toggle('active');
         }
 
-        // Cerrar dropdown al hacer clic fuera
         document.addEventListener('click', function(event) {
             const userMenu = document.querySelector('.user-menu-sidebar');
             const dropdown = document.getElementById('userDropdownSidebar');
