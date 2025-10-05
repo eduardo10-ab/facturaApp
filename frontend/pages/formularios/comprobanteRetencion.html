@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Formulario de Documento - Sistema DTE</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.5.0/axios.min.js"></script>
+    <link rel="stylesheet" href="../../css/styles.css">
+    <link rel="stylesheet" href="../../css/sidebar.css">
+    <link rel="stylesheet" href="../../css/formularios.css">
+    <script src="https://code.iconify.design/3/3.1.0/iconify.min.js"></script>
+</head>
+<body>
+    <!-- SIDEBAR -->
+    <div class="sidebar" id="sidebar">
+        <div class="sidebar-header">
+            <span class="iconify" data-icon="mdi:domain" data-width="28" data-height="28"></span>
+            <span class="company-name">Sistema DTE</span>
+        </div>
+
+        <div class="sidebar-menu">
+            <div class="menu-section">
+                <div class="menu-section-title">Principal</div>
+                <button class="menu-item" onclick="navigateToPage('../principal.html')">
+                    <span class="iconify" data-icon="material-symbols:dashboard" data-width="22" data-height="22"></span>
+                    <span>Inicio</span>
+                </button>
+            </div>
+
+            <div class="menu-section">
+                <div class="menu-section-title">Módulos</div>
+                <button class="menu-item active" onclick="navigateToPage('../seleccion.html')">
+                    <span class="iconify" data-icon="material-symbols:order-approve-rounded" data-width="22" data-height="22"></span>
+                    <span>Facturación</span>
+                </button>
+                <button class="menu-item" onclick="alert('Función de clientes en desarrollo')">
+                    <span class="iconify" data-icon="mdi:user-group" data-width="22" data-height="22"></span>
+                    <span>Clientes</span>
+                </button>
+                <button class="menu-item" onclick="alert('Función de inventario en desarrollo')">
+                    <span class="iconify" data-icon="material-symbols:assignment-add" data-width="22" data-height="22"></span>
+                    <span>Inventario</span>
+                </button>
+            </div>
+
+            <div class="menu-section">
+                <div class="menu-section-title">Otros</div>
+
+                <button class="menu-item" onclick="editProfile()">
+                    <span class="iconify" data-icon="material-symbols:settings-outline" data-width="22" data-height="22"></span>
+                    <span>Configuración</span>
+                </button>
+            </div>
+        </div>
+
+        <div class="sidebar-footer">
+            <button class="menu-item" onclick="logout()">
+                <span class="iconify" data-icon="material-symbols:logout-rounded" data-width="22" data-height="22"></span>
+                <span>Cerrar sesión</span>
+            </button>
+        </div>
+    </div>
+
+    <!-- HEADER SUPERIOR -->
+    <div class="header-with-sidebar">
+        <button class="mobile-menu-toggle" onclick="toggleSidebar()">
+            <span class="iconify" data-icon="material-symbols:menu-rounded" data-width="24" data-height="24"></span>
+        </button>
+
+        <div class="header-title">
+            <h1 id="documentTitle">Comprobante de retención</h1>
+            <p>Completa la información del documento</p>
+        </div>
+
+        <div class="header-actions">
+            <div class="search-box">
+                <span class="iconify" data-icon="material-symbols:search" data-width="20" data-height="20"></span>
+                <input type="text" placeholder="Buscar...">
+            </div>
+
+            <button class="notification-btn">
+                <span class="iconify" data-icon="material-symbols:notifications-outline" data-width="22" data-height="22"></span>
+                <span class="notification-badge">4</span>
+            </button>
+
+            <div class="user-menu-sidebar">
+                <div class="user-info-sidebar" onclick="toggleUserMenuSidebar()">
+                    <div class="user-avatar">
+                        <span class="iconify" data-icon="mingcute:user-4-fill" data-width="20" data-height="20"></span>
+                    </div>
+                    <span>Ing. Joel</span>
+                    <span class="iconify" data-icon="material-symbols:arrow-drop-down" data-width="20" data-height="20"></span>
+                </div>
+
+                <div id="userDropdownSidebar" class="user-dropdown-sidebar">
+                    <button class="dropdown-item" onclick="editProfile()">
+                        <span class="iconify" data-icon="material-symbols:person-edit-rounded" data-width="20" data-height="20"></span>
+                        <span>Editar información del emisor</span>
+                    </button>
+                    <button class="dropdown-item1" onclick="logout()">
+                        <span class="iconify" data-icon="material-symbols:logout-rounded" data-width="20" data-height="20"></span>
+                        <span>Cerrar sesión</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- CONTENIDO PRINCIPAL -->
+    <div class="main-content-with-sidebar">
+        <div id="documentFormSection" class="formulario">
+            <div class="document-form active">
+
+
+                <div id="documentFormAlert" class="alert alert-success hidden"></div>
+
+                <form id="dteForm">
+                    <div class="form-columns">
+                        <!-- Left Column - Datos del receptor -->
+                        <div class="form-section">
+                            <div class="section-header">Datos del receptor</div>
+                            
+                            <div class="caja1">
+                                <div class="form-row">
+                                    <div class="form-group">
+                                        <label>NIT</label>
+                                        <input type="text" name="nit" class="form-input" placeholder="0000-000000-000-0" required>
+                                    </div>
+                                    <div class="form-group">
+                                        <label>NRC</label>
+                                        <input type="text" name="nrc" class="form-input" placeholder="000000000000000">
+                                    </div>
+                                </div>
+                                <div class="form-row full">
+                                    <div class="form-group">
+                                        <label>Nombre del cliente</label>
+                                        <input type="text" name="clientName" class="form-input" placeholder="Nombre del cliente" required>
+                                    </div>
+                                </div>
+
+                                <div class="form-row full">
+                                    <div class="form-group">
+                                        <label>Nombre comercial</label>
+                                        <input type="text" name="commercialName" class="form-input" placeholder="Nombre comercial">
+                                    </div>
+                                </div>
+
+                                <div class="form-row full">
+                                    <div class="form-group">
+                                        <label>Actividad económica</label>
+                                        <input type="text" name="economicActivity" class="form-input" placeholder="Actividad económica">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-row2">
+                                <div class="form-group">
+                                    <label>Departamento</label>
+                                    <select name="department" class="form-input" required>
+                                        <option value="">Elija una opción</option>
+                                        <option value="01">Ahuachapán</option>
+                                        <option value="02">Cabañas</option>
+                                        <option value="03">Chalatenango</option>
+                                        <option value="04">Cuscatlán</option>
+                                        <option value="05">La Libertad</option>
+                                        <option value="06">La Paz</option>
+                                        <option value="07">La Unión</option>
+                                        <option value="08">Morazán</option>
+                                        <option value="09">San Miguel</option>
+                                        <option value="10">San Salvador</option>
+                                        <option value="11">San Vicente</option>
+                                        <option value="12">Santa Ana</option>
+                                        <option value="13">Sonsonate</option>
+                                        <option value="14">Usulután</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label>Distrito</label>
+                                    <select name="municipality" class="form-input" required>
+                                        <option value="">Elija una opción</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="form-row full">
+                                <div class="form-group">
+                                    <label>Complemento de dirección</label>
+                                    <input type="text" name="address" class="form-input" placeholder="Complemento de dirección">
+                                </div>
+                            </div>
+                            <div class="caja3">
+                                <div class="form-row full">
+                                    <div class="form-group">
+                                        <label>Correo electrónico</label>
+                                        <input type="email" name="email" class="form-input" placeholder="receptor@correo.com">
+                                    </div>
+                                </div>
+
+                                <div class="form-row full">
+                                    <div class="form-group">
+                                        <label>Teléfono</label>
+                                        <input type="tel" name="phone" class="form-input" placeholder="0000-0000">
+                                    </div>
+                                </div>
+                            </div>
+                            <button type="button" class="login-btn" onclick="saveReceiverInfo()">
+                                Guardar información
+                            </button>
+                        </div>
+
+                        <!-- Right Column - Products and Totals -->
+                        <div class="form-section2">
+                            <div class="section-header">Productos y Servicios</div>
+                            
+                            <table class="products-table">
+                                <thead>
+                                    <tr>
+                                        <th>Cantidad</th>
+                                        <th>Unidad de medida</th>
+                                        <th>Producto</th>
+                                        <th>Tipo de venta</th>
+                                        <th>Precio</th>
+                                        <th></th>
+                                    </tr>
+                                </thead>
+                                <tbody id="productsTableBody">
+                                    <tr>
+                                        <td><input type="number" name="quantity[]" value="1" min="1" step="1" onchange="calculateTotals()"></td>
+                                        <td><input type="text" name="unit[]" placeholder="Unidad"></td>
+                                        <td><input type="text" name="product[]" placeholder="Descripción" required></td>
+                                        <td>
+                                            <select name="saleType[]" onchange="calculateTotals()" required>
+                                                <option value="">Seleccionar</option>
+                                                <option value="1">Gravado</option>
+                                                <option value="2">Exento</option>
+                                            </select>
+                                        </td>
+                                        <td><input type="number" name="price[]" step="0.01" min="0" placeholder="0.00" onchange="calculateTotals()" required></td>
+                                        <td></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+
+                            <button type="button" class="add-product-btn" onclick="addProductRow()">+</button>
+
+                            <div style="text-align: center; color: #6b7280; margin: 20px 0;">
+                                Suma total de operaciones
+                            </div>
+
+                            <div style="text-align: center; margin: 20px 0;">
+                                <strong>IVA: <span id="ivaAmount">$0.00</span></strong>
+                            </div>
+
+                            <div class="totals-section">
+                                <div class="total-row">
+                                    <span>Subtotal:</span>
+                                    <span id="subtotalAmount">$0.00</span>
+                                </div>
+                                <div class="total-row">
+                                    <span>(-) IVA exento:</span>
+                                    <span id="exemptAmount">$0.00</span>
+                                </div>
+                                <div class="total-row final">
+                                    <span>Total a pagar:</span>
+                                    <span id="totalAmount">$0.00</span>
+                                </div>
+                            </div>
+
+                            <div class="form-group" style="margin-top: 30px;">
+                                <label>Forma de pago</label>
+                                <select name="paymentMethod" class="form-input" required>
+                                    <option value="">Elija una opción</option>
+                                    <option value="01">Efectivo</option>
+                                    <option value="02">Cheque</option>
+                                    <option value="03">Transferencia</option>
+                                    <option value="04">Tarjeta de crédito</option>
+                                    <option value="05">Tarjeta de débito</option>
+                                </select>
+                            </div>
+
+                            <div class="form-row3">
+                                <div class="form-group">
+                                    <label>N° de documento del emisor</label>
+                                    <input type="text" name="issuerDocNum" class="form-input" placeholder="N° de documento del emisor">
+                                </div>
+                                <div class="form-group">
+                                    <label>Nombre del emisor</label>
+                                    <input type="text" name="issuerName" class="form-input" placeholder="Nombre del emisor">
+                                </div>
+                            </div>
+
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label>N° de documento del receptor</label>
+                                    <input type="text" name="receiverDocNum" class="form-input" placeholder="N° de documento del receptor">
+                                </div>
+                                <div class="form-group">
+                                    <label>Nombre del receptor</label>
+                                    <input type="text" name="receiverName" class="form-input" placeholder="Nombre del receptor">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+                <div class="button-group">
+                    
+                    <button type="button" class="submit-btn cancel-btn" onclick="navigateToPage('../seleccion.html')">
+                        Cancelar
+                    </button>
+                    
+                    <button type="submit" class="submit-btn" id="submitDocumentBtn">
+                        Generar documento
+                    </button>
+                    
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function toggleSidebar() {
+            const sidebar = document.getElementById('sidebar');
+            sidebar.classList.toggle('active');
+        }
+
+        function toggleUserMenuSidebar() {
+            const dropdown = document.getElementById('userDropdownSidebar');
+            dropdown.classList.toggle('active');
+        }
+
+        document.addEventListener('click', function(event) {
+            const userMenu = document.querySelector('.user-menu-sidebar');
+            const dropdown = document.getElementById('userDropdownSidebar');
+            
+            if (userMenu && !userMenu.contains(event.target)) {
+                dropdown.classList.remove('active');
+            }
+        });
+    </script>
+    
+    <script src="../../js/utils.js"></script>
+    <script src="../../js/auth.js"></script>
+    <script src="../../js/products.js"></script>
+    <script src="../../js/dte.js"></script>
+    <script src="../../js/main.js"></script>
+</body>
+</html>

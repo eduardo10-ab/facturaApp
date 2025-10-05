@@ -46,7 +46,14 @@ function createDocument(type) {
     const titles = {
         'ccf': 'Comprobante de crédito fiscal',
         'factura': 'Factura',
-        'declaracion': 'Declaración de renta'
+        'declaracion': 'Declaración de renta',
+        'nota-remision': 'Nota de remisión',
+        'nota-credito': 'Nota de crédito',
+        'nota-debito': 'Nota de débito',
+        'comprobante-retencion': 'Comprobante de retención',
+        'factura-exportacion': 'Factura de exportación',
+        'factura-excluido': 'Factura de sujeto excluido'
+      
     };
     
     // Guardar información para la siguiente página

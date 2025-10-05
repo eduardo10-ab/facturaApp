@@ -113,71 +113,56 @@
                 <div class="document-card">
                     <div class="document-content" id="documentContent">
                         <!-- Card 1: Comprobante de crédito fiscal -->
-                        <div class="doc-type-card" data-card-index="1" onclick="createDocument('ccf')">
-                           
-                            
+                        <div class="doc-type-card doc-type-btn" data-card-index="1" data-doc-type="ccf">
                             <div class="card-content">
                                 <h3 class="card-title">Comprobante de crédito fiscal</h3>
                                 <p class="card-subtitle">Documento oficial para operaciones con IVA</p>
                             </div>
-                            
-                            <button class="card-cta" onclick="event.stopPropagation(); createDocument('ccf')">
+                            <button class="card-cta">
                                 Crear documento
                             </button>
                         </div>
 
                         <!-- Card 2: Factura -->
-                        <div class="doc-type-card" data-card-index="2" onclick="createDocument('factura')">
-                 
-                            
+                        <div class="doc-type-card doc-type-btn" data-card-index="2" data-doc-type="factura">
                             <div class="card-content">
                                 <h3 class="card-title">Factura</h3>
                                 <p class="card-subtitle">Comprobante de venta estándar</p>
                             </div>
-                            
-                            <button class="card-cta" onclick="event.stopPropagation(); createDocument('factura')">
+                            <button class="card-cta">
                                 Crear documento
                             </button>
                         </div>
 
                         <!-- Card 3: Declaración de renta -->
-                        <div class="doc-type-card" data-card-index="3" onclick="createDocument('declaracion')">
-                     
-                            
+                        <div class="doc-type-card doc-type-btn" data-card-index="3" data-doc-type="declaracionRenta">
                             <div class="card-content">
                                 <h3 class="card-title">Declaración de renta</h3>
                                 <p class="card-subtitle">Documento tributario oficial</p>
                             </div>
-                            
-                            <button class="card-cta" onclick="event.stopPropagation(); createDocument('declaracion')">
+                            <button class="card-cta" >
                                 Crear documento
                             </button>
                         </div>
 
                         <!-- Card 4: Nota de remisión -->
-                        <div class="doc-type-card" data-card-index="4" onclick="createDocument('nota-remision')">
-                            
-                            
+                        <div class="doc-type-card doc-type-btn" data-card-index="4" data-doc-type="nota-remision">
                             <div class="card-content">
                                 <h3 class="card-title">Nota de remisión</h3>
                                 <p class="card-subtitle">Documento que verifica una entrega</p>
                             </div>
-                            
-                            <button class="card-cta" onclick="event.stopPropagation(); createDocument('nota-remision')">
+                            <button class="card-cta">
                                 Crear documento
                             </button>
                         </div>
 
                         <!-- Card 5: Nota de crédito -->
-                        <div class="doc-type-card" data-card-index="5" onclick="createDocument('nota-credito')">
-                   
-                            
+                        <div class="doc-type-card doc-type-btn" data-card-index="5" data-doc-type="notaCredito">
                             <div class="card-content">
                                 <h3 class="card-title">Nota de crédito</h3>
                                 <p class="card-subtitle">Reducción de factura</p>
                             </div>
-                            
-                            <button class="card-cta" onclick="event.stopPropagation(); createDocument('nota-credito')">
+                            <button class="card-cta" >
                                 Crear documento
                             </button>
                         </div>
@@ -190,57 +175,45 @@
                         </div>
 
                         <!-- Card 6: Nota de débito -->
-                        <div class="doc-type-card hidden" data-card-index="6" onclick="createDocument('nota-debito')">
-                            
-                            
+                        <div class="doc-type-card doc-type-btn hidden" data-card-index="6" data-doc-type="notaDebito">
                             <div class="card-content">
                                 <h3 class="card-title">Nota de débito</h3>
                                 <p class="card-subtitle">Aumento del valor facturado</p>
                             </div>
-                            
-                            <button class="card-cta" onclick="event.stopPropagation(); createDocument('nota-debito')">
+                            <button class="card-cta" >
                                 Crear documento
                             </button>
                         </div>
 
                         <!-- Card 7: Comprobante de retención -->
-                        <div class="doc-type-card hidden" data-card-index="7" onclick="createDocument('comprobante-retencion')">
-                          
-                            
+                        <div class="doc-type-card doc-type-btn hidden" data-card-index="7" data-doc-type="comprobanteRetencion">
                             <div class="card-content">
                                 <h3 class="card-title">Comprobante de retención</h3>
                                 <p class="card-subtitle">Constancia de impuestos retenidos</p>
                             </div>
-                            
-                            <button class="card-cta" onclick="event.stopPropagation(); createDocument('comprobante-retencion')">
+                            <button class="card-cta">
                                 Crear documento
                             </button>
                         </div>
 
                         <!-- Card 8: Factura de exportación -->
-                        <div class="doc-type-card hidden" data-card-index="8" onclick="createDocument('factura-exportacion')">
-                           
-                            
+                        <div class="doc-type-card doc-type-btn hidden" data-card-index="8" data-doc-type="facturaExportacion">
                             <div class="card-content">
                                 <h3 class="card-title">Factura de exportación</h3>
                                 <p class="card-subtitle">Documento de venta internacional</p>
                             </div>
-                            
-                            <button class="card-cta" onclick="event.stopPropagation(); createDocument('factura-exportacion')">
+                            <button class="card-cta" >
                                 Crear documento
                             </button>
                         </div>
 
                         <!-- Card 9: Factura de sujeto excluido-->
-                        <div class="doc-type-card hidden" data-card-index="9" onclick="createDocument('factura-excluido')">
-                          
-                            
+                        <div class="doc-type-card doc-type-btn hidden" data-card-index="9" data-doc-type="facturaExcluido">
                             <div class="card-content">
                                 <h3 class="card-title">Factura de sujeto excluido</h3>
                                 <p class="card-subtitle">Factura sin débito fiscal</p>
                             </div>
-                            
-                            <button class="card-cta" onclick="event.stopPropagation(); createDocument('factura-excluido')">
+                            <button class="card-cta" >
                                 Crear documento
                             </button>
                         </div>
@@ -347,28 +320,28 @@ function toggleCards() {
         isExpanded = false;
     }
             
-            // Guardar el estado en sessionStorage
-            sessionStorage.setItem('cardsExpanded', isExpanded);
-        }
+    // Guardar el estado en sessionStorage
+    sessionStorage.setItem('cardsExpanded', isExpanded);
+}
 
-        function toggleSidebar() {
-            const sidebar = document.getElementById('sidebar');
-            sidebar.classList.toggle('active');
-        }
+function toggleSidebar() {
+    const sidebar = document.getElementById('sidebar');
+    sidebar.classList.toggle('active');
+}
 
-        function toggleUserMenuSidebar() {
-            const dropdown = document.getElementById('userDropdownSidebar');
-            dropdown.classList.toggle('active');
-        }
+function toggleUserMenuSidebar() {
+    const dropdown = document.getElementById('userDropdownSidebar');
+    dropdown.classList.toggle('active');
+}
 
-        document.addEventListener('click', function(event) {
-            const userMenu = document.querySelector('.user-menu-sidebar');
-            const dropdown = document.getElementById('userDropdownSidebar');
-            
-            if (userMenu && !userMenu.contains(event.target)) {
-                dropdown.classList.remove('active');
-            }
-        });
+document.addEventListener('click', function(event) {
+    const userMenu = document.querySelector('.user-menu-sidebar');
+    const dropdown = document.getElementById('userDropdownSidebar');
+    
+    if (userMenu && !userMenu.contains(event.target)) {
+        dropdown.classList.remove('active');
+    }
+});
     </script>
     
     <script src="../js/utils.js"></script>
