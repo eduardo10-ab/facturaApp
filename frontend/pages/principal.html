@@ -13,9 +13,11 @@
 <body>
     <!-- SIDEBAR -->
     <div class="sidebar" id="sidebar">
-        <div class="sidebar-header">
-            <span class="iconify" data-icon="mdi:domain" data-width="28" data-height="28"></span>
-            <span class="company-name">Sistema DTE</span>
+        <div class="sidebar-header" onclick="toggleSidebar()" title="Colapsar menú">
+            <div class="sidebar-brand">
+                <span class="iconify" data-icon="mdi:domain" data-width="28" data-height="28"></span>
+                <span class="company-name">Sistema DTE</span>
+            </div>
         </div>
 
         <div class="sidebar-menu">
@@ -63,7 +65,7 @@
     <!-- HEADER SUPERIOR -->
     <div class="header-with-sidebar">
         <button class="mobile-menu-toggle" onclick="toggleSidebar()">
-            <span class="iconify" data-icon="material-symbols:menu-rounded" data-width="24" data-height="24"></span>
+            <span class="iconify" data-icon="mdi:domain" data-width="20" data-height="20"></span>
         </button>
 
         <div class="header-title">
@@ -76,7 +78,6 @@
                 <span class="iconify" data-icon="material-symbols:search" data-width="20" data-height="20"></span>
                 <input type="text" placeholder="Buscar...">
             </div>
-
 
             <div class="user-menu-sidebar">
                 <div class="user-info-sidebar" onclick="toggleUserMenuSidebar()">
@@ -127,7 +128,6 @@
                                     <th>Hora de inicio</th>
                                     <th>Documento solicitado</th>
                                     <th>duracion de tramite</th>
-                                    
                                     <th></th>
                                 </tr>
                             </thead>
@@ -141,15 +141,12 @@
                                     <td>
                                         <div class="doc-info">
                                             <div class="doc-name">David Gálvez</div>
-                                          
                                         </div>
                                     </td>
                                     <td class="time-col">5:06 AM</td>
                                     <td class="time-col">Comprobante de credito fiscal</td>
                                     <td class="duration-col">6 min</td>
-                                    <td>
-
-                                    </td>
+                                    <td></td>
                                     <td>
                                         <button class="details-btn">VER DETALLES</button>
                                     </td>
@@ -164,16 +161,12 @@
                                     <td>
                                         <div class="doc-info">
                                             <div class="doc-name">Joel Fuentes</div>
-                                 
                                         </div>
                                     </td>
                                     <td class="time-col">5:13 AM</td>
                                     <td class="time-col">Declaracion de renta</td>
                                     <td class=" duration-col">10 min</td>
-                                    <td>
-                                
-
-                                    </td>
+                                    <td></td>
                                     <td>
                                         <button class="details-btn">VER DETALLES</button>
                                     </td>
@@ -188,15 +181,12 @@
                                     <td>
                                         <div class="doc-info">
                                             <div class="doc-name">Son Goku</div>
-                                           
                                         </div>
                                     </td>
                                     <td class="time-col">6:45 AM</td>
                                     <td class="time-col">Factura</td>
                                     <td class="duration-col">11 min</td>
-                                    <td>
-
-                                    </td>
+                                    <td></td>
                                     <td>
                                         <button class="details-btn">VER DETALLES</button>
                                     </td>
@@ -213,7 +203,14 @@
     <script>
         function toggleSidebar() {
             const sidebar = document.getElementById('sidebar');
-            sidebar.classList.toggle('active');
+            const body = document.body;
+            
+            sidebar.classList.toggle('collapsed');
+            body.classList.toggle('sidebar-collapsed');
+            
+            // Guardar el estado en localStorage
+            const isCollapsed = sidebar.classList.contains('collapsed');
+            localStorage.setItem('sidebarCollapsed', isCollapsed);
         }
 
         function toggleUserMenuSidebar() {
@@ -221,6 +218,7 @@
             dropdown.classList.toggle('active');
         }
 
+        // Cerrar el menú de usuario al hacer clic fuera
         document.addEventListener('click', function(event) {
             const userMenu = document.querySelector('.user-menu-sidebar');
             const dropdown = document.getElementById('userDropdownSidebar');
@@ -228,6 +226,30 @@
             if (userMenu && !userMenu.contains(event.target)) {
                 dropdown.classList.remove('active');
             }
+        });
+
+        // Cerrar sidebar en móviles al hacer clic en un item
+        document.addEventListener('DOMContentLoaded', function() {
+            const menuItems = document.querySelectorAll('.menu-item');
+            const sidebar = document.getElementById('sidebar');
+            
+            // Restaurar estado del sidebar desde localStorage (solo en desktop)
+            if (window.innerWidth > 1024) {
+                const sidebarCollapsed = localStorage.getItem('sidebarCollapsed') === 'true';
+                if (sidebarCollapsed) {
+                    sidebar.classList.add('collapsed');
+                    document.body.classList.add('sidebar-collapsed');
+                }
+            }
+            
+            menuItems.forEach(item => {
+                item.addEventListener('click', function() {
+                    // En móviles, cerrar el sidebar después de hacer clic
+                    if (window.innerWidth <= 1024) {
+                        sidebar.classList.remove('active');
+                    }
+                });
+            });
         });
     </script>
 

@@ -13,9 +13,11 @@
 <body>
     <!-- SIDEBAR -->
     <div class="sidebar" id="sidebar">
-        <div class="sidebar-header">
-            <span class="iconify" data-icon="mdi:domain" data-width="28" data-height="28"></span>
-            <span class="company-name">Sistema DTE</span>
+        <div class="sidebar-header" onclick="toggleSidebar()" title="Colapsar menú">
+            <div class="sidebar-brand">
+                <span class="iconify" data-icon="mdi:domain" data-width="28" data-height="28"></span>
+                <span class="company-name">Sistema DTE</span>
+            </div>
         </div>
 
         <div class="sidebar-menu">
@@ -112,6 +114,31 @@
                 <div id="documentFormAlert" class="alert alert-success hidden"></div>
 
                 <form id="dteForm">
+                                         <!-- hora y fecha -->
+                    <div class="entry-info-container">
+                        <div class="entry-info-content">
+                            <div class="entry-date-time">
+                                <div class="entry-date-wrapper">
+                                    <span class="iconify entry-icon" data-icon="material-symbols:calendar-today" data-width="20" data-height="20"></span>
+                                    <div class="entry-date-info">
+                                        <span class="entry-label">Fecha de entrada</span>
+                                        <span class="entry-value" id="entryDate">--/--/----</span>
+                                    </div>
+                                </div>
+                                <div class="entry-time-wrapper">
+                                    <span class="iconify entry-icon" data-icon="material-symbols:schedule" data-width="20" data-height="20"></span>
+                                    <div class="entry-time-info">
+                                        <span class="entry-label">Hora de entrada</span>
+                                        <span class="entry-value" id="entryTime">--:--:-- --</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <button type="button" class="entry-cancel-btn" onclick="navigateToPage('../seleccion.html')">
+                                
+                                Cancelar
+                            </button>
+                        </div>
+                    </div>
                     <div class="form-columns">
                         <!-- Left Column - Datos del receptor -->
                         <div class="form-section">
@@ -317,7 +344,14 @@
     <script>
         function toggleSidebar() {
             const sidebar = document.getElementById('sidebar');
-            sidebar.classList.toggle('active');
+            const body = document.body;
+            
+            sidebar.classList.toggle('collapsed');
+            body.classList.toggle('sidebar-collapsed');
+            
+            // Guardar el estado en localStorage
+            const isCollapsed = sidebar.classList.contains('collapsed');
+            localStorage.setItem('sidebarCollapsed', isCollapsed);
         }
 
         function toggleUserMenuSidebar() {
@@ -332,6 +366,59 @@
             if (userMenu && !userMenu.contains(event.target)) {
                 dropdown.classList.remove('active');
             }
+        });
+        
+        // Cerrar sidebar en móviles al hacer clic en un item
+        document.addEventListener('DOMContentLoaded', function() {
+            const menuItems = document.querySelectorAll('.menu-item');
+            const sidebar = document.getElementById('sidebar');
+            
+            // Restaurar estado del sidebar desde localStorage (solo en desktop)
+            if (window.innerWidth > 1024) {
+                const sidebarCollapsed = localStorage.getItem('sidebarCollapsed') === 'true';
+                if (sidebarCollapsed) {
+                    sidebar.classList.add('collapsed');
+                    document.body.classList.add('sidebar-collapsed');
+                }
+            }
+            
+            menuItems.forEach(item => {
+                item.addEventListener('click', function() {
+                    // En móviles, cerrar el sidebar después de hacer clic
+                    if (window.innerWidth <= 1024) {
+                        sidebar.classList.remove('active');
+                    }
+                });
+            });
+        });
+
+                // Capturar fecha y hora de entrada
+        document.addEventListener('DOMContentLoaded', function() {
+            const now = new Date();
+            
+            // Formatear fecha: DD/MM/YYYY
+            const day = String(now.getDate()).padStart(2, '0');
+            const month = String(now.getMonth() + 1).padStart(2, '0');
+            const year = now.getFullYear();
+            const formattedDate = `${day}/${month}/${year}`;
+            
+            // Formatear hora: HH:MM:SS AM/PM
+            let hours = now.getHours();
+            const minutes = String(now.getMinutes()).padStart(2, '0');
+            const seconds = String(now.getSeconds()).padStart(2, '0');
+            const ampm = hours >= 12 ? 'PM' : 'AM';
+            hours = hours % 12;
+            hours = hours ? hours : 12; // Si es 0, mostrar 12
+            const formattedTime = `${String(hours).padStart(2, '0')}:${minutes}:${seconds} ${ampm}`;
+            
+            // Establecer valores en los campos
+            const dateElement = document.getElementById('entryDate');
+            const timeElement = document.getElementById('entryTime');
+            
+            if (dateElement) dateElement.textContent = formattedDate;
+            if (timeElement) timeElement.textContent = formattedTime;
+            
+            console.log('Entrada registrada:', formattedDate, formattedTime);
         });
     </script>
     

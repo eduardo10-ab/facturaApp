@@ -13,9 +13,11 @@
 <body>
     <!-- SIDEBAR -->
     <div class="sidebar" id="sidebar">
-        <div class="sidebar-header">
-            <span class="iconify" data-icon="mdi:domain" data-width="28" data-height="28"></span>
-            <span class="company-name">Sistema DTE</span>
+        <div class="sidebar-header" onclick="toggleSidebar()" title="Colapsar menú">
+            <div class="sidebar-brand">
+                <span class="iconify" data-icon="mdi:domain" data-width="28" data-height="28"></span>
+                <span class="company-name">Sistema DTE</span>
+            </div>
         </div>
 
         <div class="sidebar-menu">
@@ -323,7 +325,14 @@ function toggleCards() {
 
 function toggleSidebar() {
     const sidebar = document.getElementById('sidebar');
-    sidebar.classList.toggle('active');
+    const body = document.body;
+            
+    sidebar.classList.toggle('collapsed');
+    body.classList.toggle('sidebar-collapsed');
+            
+            // Guardar el estado en localStorage
+    const isCollapsed = sidebar.classList.contains('collapsed');
+    localStorage.setItem('sidebarCollapsed', isCollapsed);
 }
 
 function toggleUserMenuSidebar() {
@@ -339,6 +348,31 @@ document.addEventListener('click', function(event) {
         dropdown.classList.remove('active');
     }
 });
+
+
+        // Cerrar sidebar en móviles al hacer clic en un item
+        document.addEventListener('DOMContentLoaded', function() {
+            const menuItems = document.querySelectorAll('.menu-item');
+            const sidebar = document.getElementById('sidebar');
+            
+            // Restaurar estado del sidebar desde localStorage (solo en desktop)
+            if (window.innerWidth > 1024) {
+                const sidebarCollapsed = localStorage.getItem('sidebarCollapsed') === 'true';
+                if (sidebarCollapsed) {
+                    sidebar.classList.add('collapsed');
+                    document.body.classList.add('sidebar-collapsed');
+                }
+            }
+            
+            menuItems.forEach(item => {
+                item.addEventListener('click', function() {
+                    // En móviles, cerrar el sidebar después de hacer clic
+                    if (window.innerWidth <= 1024) {
+                        sidebar.classList.remove('active');
+                    }
+                });
+            });
+        });
     </script>
     
     <script src="../js/utils.js"></script>
