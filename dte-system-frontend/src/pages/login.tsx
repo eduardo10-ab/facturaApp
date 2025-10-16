@@ -1,15 +1,10 @@
-// ==================== src/pages/Login.tsx ====================
-// Migración completa de login.html + auth.js
+// src/pages/login.tsx
 import React, { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
-import { Lock, User } from 'lucide-react';
 import { useAuth } from '@/hooks/useAuth';
-import { Button } from '@/components/ui/Button';
-import { Input } from '@/components/ui/Input';
-import { Alert } from '@/components/ui/Alert';
 
 // Schema de validación del formulario
 const loginSchema = z.object({
@@ -23,7 +18,6 @@ export const Login: React.FC = () => {
   const navigate = useNavigate();
   const { login, isAuthenticated, isLoading, error } = useAuth();
 
-  // React Hook Form con validación Zod
   const {
     register,
     handleSubmit,
@@ -51,145 +45,105 @@ export const Login: React.FC = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100 flex items-center justify-center p-4">
-      <div className="w-full max-w-5xl bg-white rounded-2xl shadow-2xl overflow-hidden">
-        <div className="flex flex-col md:flex-row">
+    <div className="login-page">
+      <div className="login-container">
+        <div className="login-card">
           {/* Panel Izquierdo */}
-          <div className="md:w-1/2 bg-gradient-to-br from-blue-600 to-indigo-700 p-12 text-white flex flex-col justify-center">
-            <div className="mb-8">
-              <div className="w-20 h-20 bg-white rounded-2xl flex items-center justify-center mb-6">
-                <img 
-                  src="/logo.png" 
-                  alt="Logo" 
-                  className="w-16 h-16 object-contain"
-                  onError={(e) => {
-                    // Fallback si no hay logo
-                    e.currentTarget.style.display = 'none';
-                  }}
-                />
-              </div>
-              <h1 className="text-3xl font-bold mb-2">
-                Sistema de Facturación Electrónica
-              </h1>
-              <p className="text-blue-100 text-lg">
-                Documentos Tributarios Electrónicos - El Salvador
-              </p>
-            </div>
-
-            <div className="space-y-4">
-              <div className="flex items-start space-x-3">
-                <div className="w-8 h-8 bg-blue-500 rounded-lg flex items-center justify-center flex-shrink-0">
-                  ✓
-                </div>
-                <div>
-                  <h3 className="font-semibold">Emisión instantánea</h3>
-                  <p className="text-sm text-blue-100">
-                    Genera tus DTEs en segundos
-                  </p>
-                </div>
-              </div>
-
-              <div className="flex items-start space-x-3">
-                <div className="w-8 h-8 bg-blue-500 rounded-lg flex items-center justify-center flex-shrink-0">
-                  ✓
-                </div>
-                <div>
-                  <h3 className="font-semibold">100% Seguro</h3>
-                  <p className="text-sm text-blue-100">
-                    Cumplimiento con el Ministerio de Hacienda
-                  </p>
-                </div>
-              </div>
-
-              <div className="flex items-start space-x-3">
-                <div className="w-8 h-8 bg-blue-500 rounded-lg flex items-center justify-center flex-shrink-0">
-                  ✓
-                </div>
-                <div>
-                  <h3 className="font-semibold">Gestión simplificada</h3>
-                  <p className="text-sm text-blue-100">
-                    Administra todos tus documentos en un solo lugar
-                  </p>
-                </div>
-              </div>
+          <div className="login-left">
+            <span className="titulo-app">Sistema de facturación electrónica</span>
+            <div className="company-logo">
+              <img 
+                src="/logo.png" 
+                alt="Logo" 
+                className="logo"
+                onError={(e) => {
+                  e.currentTarget.style.display = 'none';
+                }}
+              />
             </div>
           </div>
 
           {/* Panel Derecho - Formulario */}
-          <div className="md:w-1/2 p-12">
-            <div className="max-w-md mx-auto">
-              <h2 className="text-2xl font-bold text-gray-900 mb-2">
-                Bienvenido
-              </h2>
-              <p className="text-gray-600 mb-8">
-                Ingresa tus credenciales para continuar
-              </p>
-
-              {/* Alerta de error */}
-              {error && (
-                <Alert 
-                  message={error} 
-                  type="error" 
-                  autoClose={false}
-                  onClose={() => {}}
-                />
-              )}
-
-              <form onSubmit={handleSubmit(onSubmit)} className="space-y-6 mt-6">
-                {/* Campo Usuario */}
-                <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-2">
-                    <User className="inline w-4 h-4 mr-2" />
-                    Usuario
-                  </label>
-                  <Input
-                    {...register('username')}
-                    type="text"
-                    placeholder="Ingrese su usuario"
-                    error={errors.username?.message}
-                    className="w-full"
-                  />
-                </div>
-
-                {/* Campo Contraseña */}
-                <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-2">
-                    <Lock className="inline w-4 h-4 mr-2" />
-                    Contraseña
-                  </label>
-                  <Input
-                    {...register('password')}
-                    type="password"
-                    placeholder="Ingrese su contraseña"
-                    error={errors.password?.message}
-                    className="w-full"
-                  />
-                </div>
-
-                {/* Botón Submit */}
-                <Button
-                  type="submit"
-                  variant="primary"
-                  isLoading={isLoading}
-                  disabled={isLoading}
-                  className="w-full"
-                >
-                  {isLoading ? 'Iniciando sesión...' : 'Iniciar sesión'}
-                </Button>
-
-                {/* Texto de ayuda */}
-                <p className="text-sm text-gray-600 text-center mt-4">
-                  En caso de olvidar la contraseña comuníquese con soporte técnico.
-                </p>
-              </form>
-
-              {/* Footer */}
-              <div className="mt-8 pt-6 border-t border-gray-200">
-                <p className="text-xs text-gray-500 text-center">
-                  © 2025 Sistema DTE - Ministerio de Hacienda El Salvador
-                </p>
+          <div className="login-right">
+            <span className="bienvenido">Bienvenido</span>
+            
+            {/* Alerta de error */}
+            {error && (
+              <div className="alert alert-error" style={{ marginBottom: '20px' }}>
+                {error}
               </div>
-            </div>
+            )}
+
+            <form onSubmit={handleSubmit(onSubmit)}>
+              {/* Campo Usuario */}
+              <div className="form-group-login">
+                <label htmlFor="username" className="conta">
+                  <svg 
+                    width="20" 
+                    height="20" 
+                    viewBox="0 0 24 24" 
+                    fill="currentColor"
+                    style={{ display: 'inline-block', verticalAlign: 'middle' }}
+                  >
+                    <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/>
+                  </svg>
+                  {' '}Usuario
+                </label>
+                <input
+                  {...register('username')}
+                  type="text"
+                  id="username"
+                  className="form-input-login"
+                  placeholder="Ingrese su usuario"
+                />
+                {errors.username && (
+                  <span style={{ color: '#dc2626', fontSize: '14px', marginTop: '4px', display: 'block' }}>
+                    {errors.username.message}
+                  </span>
+                )}
+              </div>
+
+              {/* Campo Contraseña */}
+              <div className="form-group-login">
+                <label htmlFor="password">
+                  <svg 
+                    width="20" 
+                    height="20" 
+                    viewBox="0 0 24 24" 
+                    fill="currentColor"
+                    style={{ display: 'inline-block', verticalAlign: 'middle' }}
+                  >
+                    <path d="M18 8h-1V6c0-2.76-2.24-5-5-5S7 3.24 7 6v2H6c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V10c0-1.1-.9-2-2-2zm-6 9c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2zm3.1-9H8.9V6c0-1.71 1.39-3.1 3.1-3.1 1.71 0 3.1 1.39 3.1 3.1v2z"/>
+                  </svg>
+                  {' '}Contraseña
+                </label>
+                <input
+                  {...register('password')}
+                  type="password"
+                  id="password"
+                  className="form-input-login"
+                  placeholder="Ingrese su contraseña"
+                />
+                {errors.password && (
+                  <span style={{ color: '#dc2626', fontSize: '14px', marginTop: '4px', display: 'block' }}>
+                    {errors.password.message}
+                  </span>
+                )}
+              </div>
+
+              {/* Botón Submit */}
+              <button
+                type="submit"
+                className="login-btn"
+                disabled={isLoading}
+              >
+                {isLoading ? 'Iniciando sesión...' : 'Iniciar sesión'}
+              </button>
+
+              <p className="remember-text">
+                En caso de olvidar la contraseña comuníquese con soporte técnico.
+              </p>
+            </form>
           </div>
         </div>
       </div>
