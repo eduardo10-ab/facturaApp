@@ -1,8 +1,37 @@
+// src/components/layout/Header.tsx
 import React, { useState, useRef, useEffect } from 'react';
-import { Search, ChevronDown, User as UserIcon } from 'lucide-react';
 import { useAuth } from '@/hooks/useAuth';
 import { useNavigate } from 'react-router-dom';
-import { LogOut } from 'lucide-react';
+
+const SearchIcon = () => (
+  <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+    <path d="M9.5,3A6.5,6.5 0 0,1 16,9.5C16,11.11 15.41,12.59 14.44,13.73L14.71,14H15.5L20.5,19L19,20.5L14,15.5V14.71L13.73,14.44C12.59,15.41 11.11,16 9.5,16A6.5,6.5 0 0,1 3,9.5A6.5,6.5 0 0,1 9.5,3M9.5,5C7,5 5,7 5,9.5C5,12 7,14 9.5,14C12,14 14,12 14,9.5C14,7 12,5 9.5,5Z"/>
+  </svg>
+);
+
+const UserIcon = () => (
+  <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+    <path d="M12,4A4,4 0 0,1 16,8A4,4 0 0,1 12,12A4,4 0 0,1 8,8A4,4 0 0,1 12,4M12,14C16.42,14 20,15.79 20,18V20H4V18C4,15.79 7.58,14 12,14Z"/>
+  </svg>
+);
+
+const ArrowDownIcon = () => (
+  <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+    <path d="M7,10L12,15L17,10H7Z"/>
+  </svg>
+);
+
+const EditIcon = () => (
+  <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+    <path d="M20.71,7.04C21.1,6.65 21.1,6 20.71,5.63L18.37,3.29C18,2.9 17.35,2.9 16.96,3.29L15.12,5.12L18.87,8.87M3,17.25V21H6.75L17.81,9.93L14.06,6.18L3,17.25Z"/>
+  </svg>
+);
+
+const LogoutIcon = () => (
+  <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+    <path d="M16,17V14H9V10H16V7L21,12L16,17M14,2A2,2 0 0,1 16,4V6H14V4H5V20H14V18H16V20A2,2 0 0,1 14,22H5A2,2 0 0,1 3,20V4A2,2 0 0,1 5,2H14Z"/>
+  </svg>
+);
 
 interface HeaderProps {
   title: string;
@@ -15,7 +44,6 @@ export const Header: React.FC<HeaderProps> = ({ title, subtitle }) => {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
 
-  // Cerrar dropdown al hacer click fuera
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
       if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
@@ -23,8 +51,8 @@ export const Header: React.FC<HeaderProps> = ({ title, subtitle }) => {
       }
     };
 
-    document.addEventListener('mousedown', handleClickOutside);
-    return () => document.removeEventListener('mousedown', handleClickOutside);
+    document.addEventListener('click', handleClickOutside);
+    return () => document.removeEventListener('click', handleClickOutside);
   }, []);
 
   const handleLogout = () => {
@@ -37,74 +65,53 @@ export const Header: React.FC<HeaderProps> = ({ title, subtitle }) => {
   const displayName = user?.companyName || user?.user || 'Usuario';
 
   return (
-    <header className="h-16 bg-white border-b border-gray-200 px-6 flex items-center justify-between">
-      {/* Título */}
-      <div>
-        <h1 className="text-xl font-semibold text-gray-900">
-          {title}
-        </h1>
-        {subtitle && (
-          <p className="text-sm text-gray-600">{subtitle}</p>
-        )}
+    <div className="header-with-sidebar">
+      <div className="header-title">
+        <h1>{title}</h1>
+        {subtitle && <p>{subtitle}</p>}
       </div>
 
-      {/* Acciones del header */}
-      <div className="flex items-center gap-4">
-        {/* Búsqueda */}
-        <div className="relative hidden md:block">
-          <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5" />
-          <input
-            type="text"
-            placeholder="Buscar..."
-            className="pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent w-64"
-          />
+      <div className="header-actions">
+        <div className="search-box">
+          <SearchIcon />
+          <input type="text" placeholder="Buscar..." />
         </div>
 
-        {/* Menú de usuario */}
-        <div className="relative" ref={dropdownRef}>
-          <button
+        <div className="user-menu-sidebar" ref={dropdownRef}>
+          <div 
+            className="user-info-sidebar" 
             onClick={() => setIsDropdownOpen(!isDropdownOpen)}
-            className="flex items-center gap-3 px-3 py-2 rounded-lg hover:bg-gray-50 transition-colors"
           >
-            <div className="w-8 h-8 bg-blue-100 rounded-full flex items-center justify-center">
-              <UserIcon className="w-5 h-5 text-blue-600" />
+            <div className="user-avatar">
+              <UserIcon />
             </div>
-            <span className="font-medium text-gray-700 hidden sm:block">
-              {displayName}
-            </span>
-            <ChevronDown className="w-4 h-4 text-gray-500" />
-          </button>
+            <span>{displayName}</span>
+            <ArrowDownIcon />
+          </div>
 
-          {/* Dropdown */}
           {isDropdownOpen && (
-            <div className="absolute right-0 mt-2 w-56 bg-white rounded-lg shadow-lg border border-gray-200 py-1 z-50">
-              <div className="px-4 py-3 border-b border-gray-200">
-                <p className="text-sm font-medium text-gray-900">{displayName}</p>
-                <p className="text-xs text-gray-500">{user?.user}</p>
-              </div>
-              
-              <button
+            <div className="user-dropdown-sidebar active">
+              <button 
+                className="dropdown-item"
                 onClick={() => {
                   setIsDropdownOpen(false);
                   navigate('/settings');
                 }}
-                className="w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-50 flex items-center gap-2"
               >
-                <UserIcon className="w-4 h-4" />
-                Editar información del emisor
+                <EditIcon />
+                <span>Editar información del emisor</span>
               </button>
-              
-              <button
+              <button 
+                className="dropdown-item1"
                 onClick={handleLogout}
-                className="w-full text-left px-4 py-2 text-sm text-red-600 hover:bg-red-50 flex items-center gap-2"
               >
-                <LogOut className="w-4 h-4" />
-                Cerrar sesión
+                <LogoutIcon />
+                <span>Cerrar sesión</span>
               </button>
             </div>
           )}
         </div>
       </div>
-    </header>
+    </div>
   );
 };
