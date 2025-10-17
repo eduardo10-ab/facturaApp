@@ -4,6 +4,13 @@
 @import './styles/sidebar.css';
 @import './styles/header.css';
 @import './styles/dashboard.css';
+/* Importar todos los estilos en orden */
+@import './styles/global.css';
+@import './styles/login.css';
+@import './styles/sidebar.css';
+@import './styles/header.css';
+@import './styles/dashboard.css';
+@import './styles/forms.css';  /* ← AGREGAR ESTA LÍNEA */
 
 /* ============ GLOBAL STYLES ============ */
 * {

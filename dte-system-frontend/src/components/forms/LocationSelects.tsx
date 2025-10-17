@@ -1,6 +1,6 @@
+// src/components/forms/LocationSelects.tsx
 import React, { useEffect } from 'react';
 import { UseFormRegister, UseFormSetValue, UseFormWatch, FieldErrors } from 'react-hook-form';
-import { Select } from '@/components/ui/Select';
 import { DEPARTAMENTOS_MUNICIPIOS } from '@/utils/constants';
 import type { DteDocument } from '@/types/dte.types';
 
@@ -40,22 +40,49 @@ export const LocationSelects: React.FC<LocationSelectsProps> = ({
     : [];
 
   return (
-    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-      <Select
-        {...register('receiver.department')}
-        label="Departamento"
-        options={departmentOptions}
-        required
-        error={errors.receiver?.department?.message}
-      />
-      <Select
-        {...register('receiver.municipality')}
-        label="Municipio"
-        options={municipalityOptions}
-        required
-        disabled={!selectedDepartment}
-        error={errors.receiver?.municipality?.message}
-      />
-    </div>
+    <>
+      <div className="form-group">
+        <label>Departamento</label>
+        <select
+          {...register('receiver.department')}
+          className="form-input"
+          required
+        >
+          <option value="">Elija una opción</option>
+          {departmentOptions.map(opt => (
+            <option key={opt.value} value={opt.value}>
+              {opt.label}
+            </option>
+          ))}
+        </select>
+        {errors.receiver?.department && (
+          <span style={{ color: '#dc2626', fontSize: '12px', display: 'block', marginTop: '4px' }}>
+            {errors.receiver.department.message}
+          </span>
+        )}
+      </div>
+      
+      <div className="form-group">
+        <label>Municipio</label>
+        <select
+          {...register('receiver.municipality')}
+          className="form-input"
+          required
+          disabled={!selectedDepartment}
+        >
+          <option value="">Elija una opción</option>
+          {municipalityOptions.map(opt => (
+            <option key={opt.value} value={opt.value}>
+              {opt.label}
+            </option>
+          ))}
+        </select>
+        {errors.receiver?.municipality && (
+          <span style={{ color: '#dc2626', fontSize: '12px', display: 'block', marginTop: '4px' }}>
+            {errors.receiver.municipality.message}
+          </span>
+        )}
+      </div>
+    </>
   );
 };
