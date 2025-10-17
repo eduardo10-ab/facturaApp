@@ -88,10 +88,77 @@ function App() {
             } 
           />
 
-          {/* Redirect root to dashboard or login */}
+          {/* Redirect root to factura */}
           <Route 
-            path="/" 
-            element={<Navigate to="/dashboard" replace />} 
+            path="/documents/factura" 
+            element={
+              <ProtectedRoute>
+                <CreditoFiscalForm />
+              </ProtectedRoute>
+            } 
+          />
+
+                    <Route 
+            path="/documents/declaracionRenta" 
+            element={
+              <ProtectedRoute>
+                <CreditoFiscalForm />
+              </ProtectedRoute>
+            } 
+          />
+
+                    <Route 
+            path="/documents/notaCredito" 
+            element={
+              <ProtectedRoute>
+                <CreditoFiscalForm />
+              </ProtectedRoute>
+            } 
+          />
+
+                    <Route 
+            path="/documents/notaDebito" 
+            element={
+              <ProtectedRoute>
+                <CreditoFiscalForm />
+              </ProtectedRoute>
+            } 
+          />
+
+                    <Route 
+            path="/documents/comprobanteRetencion" 
+            element={
+              <ProtectedRoute>
+                <CreditoFiscalForm />
+              </ProtectedRoute>
+            } 
+          />
+
+                    <Route 
+            path="/documents/facturaExportacion" 
+            element={
+              <ProtectedRoute>
+                <CreditoFiscalForm />
+              </ProtectedRoute>
+            } 
+          />
+
+                    <Route 
+            path="/documents/facturaExcluido" 
+            element={
+              <ProtectedRoute>
+                <CreditoFiscalForm />
+              </ProtectedRoute>
+            } 
+          />
+
+                    <Route 
+            path="/documents/notaRemision" 
+            element={
+              <ProtectedRoute>
+                <CreditoFiscalForm />
+              </ProtectedRoute>
+            } 
           />
 
           {/* 404 - Redirect to dashboard */}

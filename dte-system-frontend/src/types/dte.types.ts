@@ -25,7 +25,7 @@ export interface Product {
   quantity: number;
   unit?: string;
   description: string;
-  saleType: string; // ⭐ CAMBIO: de '1' | '2' a string
+  saleType: string; // CAMBIO: de '1' | '2' a string
   unitPrice: number;
 }
 

@@ -35,7 +35,7 @@ const documentCards: DocumentTypeCard[] = [
     type: DOCUMENT_TYPES.DECLARACION_RENTA.code,
     title: DOCUMENT_TYPES.DECLARACION_RENTA.name,
     subtitle: 'Documento tributario oficial',
-    path: '/documents/declaracion-renta',
+    path: '/documents/declaracionRenta',
     index: 3,
     highlighted: true
   },
@@ -43,42 +43,42 @@ const documentCards: DocumentTypeCard[] = [
     type: DOCUMENT_TYPES.NOTA_REMISION.code,
     title: DOCUMENT_TYPES.NOTA_REMISION.name,
     subtitle: 'Documento que verifica una entrega',
-    path: '/documents/nota-remision',
+    path: '/documents/notaRemision',
     index: 4
   },
   {
     type: DOCUMENT_TYPES.NOTA_CREDITO.code,
     title: DOCUMENT_TYPES.NOTA_CREDITO.name,
     subtitle: 'Reducción de factura',
-    path: '/documents/nota-credito',
+    path: '/documents/notaCredito',
     index: 5
   },
   {
     type: DOCUMENT_TYPES.NOTA_DEBITO.code,
     title: DOCUMENT_TYPES.NOTA_DEBITO.name,
     subtitle: 'Aumento del valor facturado',
-    path: '/documents/nota-debito',
+    path: '/documents/notaDebito',
     index: 6
   },
   {
     type: DOCUMENT_TYPES.COMPROBANTE_RETENCION.code,
     title: DOCUMENT_TYPES.COMPROBANTE_RETENCION.name,
     subtitle: 'Constancia de impuestos retenidos',
-    path: '/documents/comprobante-retencion',
+    path: '/documents/comprobanteRetencion',
     index: 7
   },
   {
     type: DOCUMENT_TYPES.FACTURA_EXPORTACION.code,
     title: DOCUMENT_TYPES.FACTURA_EXPORTACION.name,
     subtitle: 'Documento de venta internacional',
-    path: '/documents/factura-exportacion',
+    path: '/documents/facturaExportacion',
     index: 8
   },
   {
     type: DOCUMENT_TYPES.FACTURA_EXCLUIDO.code,
     title: DOCUMENT_TYPES.FACTURA_EXCLUIDO.name,
     subtitle: 'Factura sin débito fiscal',
-    path: '/documents/factura-excluido',
+    path: '/documents/facturaExcluido',
     index: 9
   }
 ];
