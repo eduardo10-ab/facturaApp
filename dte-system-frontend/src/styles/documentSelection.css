@@ -1,0 +1,258 @@
+/* ==================== Document Selection Styles ==================== */
+
+/* Container principal */
+.document-selection-grid {
+  display: grid;
+  grid-template-columns: repeat(1, minmax(0, 1fr));
+  gap: 1.75rem;
+  padding: 1.25rem;
+  margin: 30px 20px 20px 20px;
+}
+
+@media (min-width: 768px) {
+  .document-selection-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (min-width: 1024px) {
+  .document-selection-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+/* Card base de documento  */
+.doc-card {
+  position: relative;
+  overflow: hidden;
+  cursor: pointer;
+  border-radius: 30px;
+  padding: 1.5rem;
+  transition: all 0.4s ease;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+  height: 220px; /* Reducido de 225px a 190px */
+  background: rgba(255, 255, 255, 0.95);
+  border: 2px solid transparent;
+}
+
+/* ELIMINAR card destacada - todas iguales ahora */
+.doc-card--highlighted {
+  background: rgba(255, 255, 255, 0.95);
+  border-color: transparent;
+}
+
+/* ELIMINAR barra superior - comentar o eliminar */
+/*
+.doc-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: linear-gradient(90deg, #6366f1, #8b5cf6);
+  transform: scaleX(0);
+  transition: transform 0.4s ease;
+}
+
+.doc-card:hover::before {
+  transform: scaleX(1);
+}
+*/
+
+/* Hover effects */
+.doc-card:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 20px 40px rgba(99, 102, 241, 0.3);
+  border-color: rgba(99, 102, 241, 0.3);
+  background: rgba(99, 102, 241, 0.15);
+}
+
+/* Contenido de la card */
+.doc-card__content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  gap: 0.75rem; /*Reducido de 0.875rem */
+  z-index: 10;
+  
+}
+
+/* Título -TAMAÑO REDUCIDO */
+.doc-card__title {
+  font-size: 24px; /* Reducido de 27px */
+  font-weight: 700;
+  line-height: 1.2;
+  transition: color 0.3s ease;
+  min-height: 55px; /*Reducido de 60px */
+  max-height: 55px;
+  display: flex;
+  align-items: center;
+  color: #1e293b;
+  margin: 0;
+}
+
+/* TODAS las cards tienen texto oscuro por defecto */
+.doc-card--highlighted .doc-card__title {
+  color: #1e293b; /* Cambiar de white a oscuro */
+}
+
+.doc-card:hover .doc-card__title {
+  color: white;
+}
+
+/* Subtítulo */
+.doc-card__subtitle {
+  font-size: 13px; /* Reducido de 14px */
+  transition: color 0.3s ease;
+  color: #64748b;
+  margin: 0;
+}
+
+/* TODAS las cards tienen subtítulo gris */
+.doc-card--highlighted .doc-card__subtitle {
+  color: #64748b; /* Cambiar de blanco a gris */
+}
+
+.doc-card:hover .doc-card__subtitle {
+  color: white;
+}
+
+/* Botón - TAMAÑO REDUCIDO */
+.doc-card__button {
+  padding: 0.65rem 1.25rem; /* Reducido */
+  border-radius: 12px;
+  font-weight: 600;
+  font-size: 14px; /* Reducido de 15px */
+  transition: all 0.3s ease;
+  z-index: 10;
+  border: 2px solid;
+  cursor: pointer;
+}
+
+
+.doc-card__button--normal {
+  background: transparent;
+  color: #475569;
+  border-color: #e2e8f0;
+}
+
+.doc-card:hover .doc-card__button--normal {
+  background: #4B4471;
+  color: white;
+  border-color: #4B4471;
+  transform: scale(1.05);
+}
+
+/*  Botón destacado ahora igual al normal */
+.doc-card__button--highlighted {
+  background: transparent;
+  color: #475569;
+  border-color: #e2e8f0;
+}
+
+.doc-card:hover .doc-card__button--highlighted {
+  background: #4B4471;
+  color: white;
+  border-color: #4B4471;
+  transform: scale(1.05);
+}
+
+/* Toggle card (Ver todos / Compactar) -  ALTURA REDUCIDA */
+.toggle-card {
+  cursor: pointer;
+  border-radius: 30px;
+  padding: 1.5rem;
+  background: linear-gradient(135deg, rgba(99, 102, 241, 0.08), rgba(139, 92, 246, 0.12));
+  border: 2px dashed rgba(99, 102, 241, 0.3);
+  transition: all 0.4s ease;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.875rem; /*  Reducido de 1rem */
+  height: 220px; /*  Reducido de 225px a 190px */
+}
+
+.toggle-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 15px 30px rgba(99, 102, 241, 0.2);
+  border-color: rgba(99, 102, 241, 0.5);
+  background: linear-gradient(135deg, rgba(99, 102, 241, 0.15), rgba(139, 92, 246, 0.18));
+}
+
+.toggle-card__icon {
+  width: 2.75rem; /*  Reducido de 3rem */
+  height: 2.75rem;
+  color: #4B4471;
+  transition: transform 0.3s ease;
+}
+
+.toggle-card:hover .toggle-card__icon {
+  transform: scale(1.1);
+}
+
+.toggle-card__title {
+  font-size: 19px; /*  Reducido de 20px */
+  font-weight: 700;
+  color: #4B4471;
+  margin: 0;
+}
+
+.toggle-card__subtitle {
+  font-size: 15px; /*  Reducido de 16px */
+  color: #64748b;
+  margin: 0;
+}
+
+/* Toggle card expandida (full width) */
+.toggle-card--expanded {
+  grid-column: 1 / -1;
+}
+
+@media (min-width: 768px) {
+  .toggle-card--expanded {
+    grid-column: span 2;
+  }
+}
+
+@media (min-width: 1024px) {
+  .toggle-card--expanded {
+    grid-column: span 3;
+  }
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .doc-card {
+    height: 180px; /*  Más pequeña en móvil */
+  }
+
+  .doc-card__title {
+    font-size: 20px;
+    min-height: 45px;
+    max-height: 45px;
+  }
+
+  .doc-card__subtitle {
+    font-size: 12px;
+  }
+
+  .toggle-card {
+    height: 180px;
+  }
+
+  .toggle-card__title {
+    font-size: 17px;
+  }
+
+  .toggle-card__subtitle {
+    font-size: 14px;
+  }
+}

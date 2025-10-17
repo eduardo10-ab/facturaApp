@@ -1,10 +1,11 @@
+// Reemplaza COMPLETO src/pages/documentSelection.tsx
 import React, { useState } from 'react';
 import { Layout } from '@/components/layout/Layout';
 import { useNavigate } from 'react-router-dom';
 import { ChevronDown, ChevronUp } from 'lucide-react';
-import { Card } from '@/components/ui/Card';
 import { useDteStore } from '@/store/dteStore';
 import { DOCUMENT_TYPES } from '@/utils/constants';
+import '@/styles/documentSelection.css';
 
 interface DocumentTypeCard {
   type: string;
@@ -12,6 +13,7 @@ interface DocumentTypeCard {
   subtitle: string;
   path: string;
   index: number;
+  highlighted?: boolean;
 }
 
 const documentCards: DocumentTypeCard[] = [
@@ -34,7 +36,8 @@ const documentCards: DocumentTypeCard[] = [
     title: DOCUMENT_TYPES.DECLARACION_RENTA.name,
     subtitle: 'Documento tributario oficial',
     path: '/documents/declaracion-renta',
-    index: 3
+    index: 3,
+    highlighted: true
   },
   {
     type: DOCUMENT_TYPES.NOTA_REMISION.code,
@@ -98,58 +101,60 @@ const DocumentSelection: React.FC = () => {
       title="Selección de Documento"
       subtitle="Elige el tipo de documento que deseas generar"
     >
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+      <div className="document-selection-grid">
         {/* Cards de documentos */}
         {visibleCards.map((card) => (
-          <Card
+          <div
             key={card.type}
-            className="p-6 cursor-pointer hover:shadow-lg hover:border-blue-500 transition-all"
             onClick={() => handleDocumentClick(card)}
+            className={`doc-card ${card.highlighted ? 'doc-card--highlighted' : ''}`}
           >
-            <div className="mb-4">
-              <h3 className="text-lg font-semibold text-gray-900 mb-2">
+            {/* Contenido */}
+            <div className="doc-card__content">
+              <h3 className="doc-card__title">
                 {card.title}
               </h3>
-              <p className="text-sm text-gray-600">
+              <p className="doc-card__subtitle">
                 {card.subtitle}
               </p>
             </div>
-            <button className="w-full py-2 px-4 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors font-medium">
+
+            {/* Botón */}
+            <button 
+              className={`doc-card__button ${
+                card.highlighted 
+                  ? 'doc-card__button--highlighted' 
+                  : 'doc-card__button--normal'
+              }`}
+            >
               Crear documento
             </button>
-          </Card>
+          </div>
         ))}
 
-        {/* Card para expandir/contraer */}
-        {!isExpanded && (
-          <Card
-            className="p-6 cursor-pointer hover:shadow-lg border-dashed flex flex-col items-center justify-center"
+        {/* Botón Ver todos / Compactar */}
+        {!isExpanded ? (
+          <div
             onClick={() => setIsExpanded(true)}
+            className="toggle-card"
           >
-            <ChevronDown className="w-12 h-12 text-gray-400 mb-2" />
-            <p className="text-lg font-semibold text-gray-700 mb-1">
-              Ver todos
-            </p>
-            <p className="text-sm text-gray-500">
+            <ChevronDown className="toggle-card__icon" />
+            <p className="toggle-card__title">Ver todos</p>
+            <p className="toggle-card__subtitle">
               Mostrar {hiddenCount} documentos más
             </p>
-          </Card>
-        )}
-
-        {/* Card para contraer cuando está expandido */}
-        {isExpanded && (
-          <Card
-            className="p-6 cursor-pointer hover:shadow-lg border-dashed flex flex-col items-center justify-center md:col-span-2 lg:col-span-3"
+          </div>
+        ) : (
+          <div
             onClick={() => setIsExpanded(false)}
+            className="toggle-card toggle-card--expanded"
           >
-            <ChevronUp className="w-12 h-12 text-gray-400 mb-2" />
-            <p className="text-lg font-semibold text-gray-700 mb-1">
-              Compactar
-            </p>
-            <p className="text-sm text-gray-500">
+            <ChevronUp className="toggle-card__icon" />
+            <p className="toggle-card__title">Compactar</p>
+            <p className="toggle-card__subtitle">
               Mostrar menos documentos
             </p>
-          </Card>
+          </div>
         )}
       </div>
     </Layout>
