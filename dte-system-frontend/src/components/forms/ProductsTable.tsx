@@ -62,7 +62,7 @@ export const ProductsTable: React.FC<ProductsTableProps> = ({
             <th>Producto</th>
             <th>Tipo de venta</th>
             <th>Precio</th>
-            <th>Subtotal</th> {/* ⭐ Nueva columna */}
+            <th>Subtotal</th>
             <th></th>
           </tr>
         </thead>
@@ -139,7 +139,6 @@ export const ProductsTable: React.FC<ProductsTableProps> = ({
                     </span>
                   )}
                 </td>
-                {/* ⭐ Nueva celda de subtotal */}
                 <td>
                   <div style={{ 
                     padding: '8px 12px', 
@@ -183,22 +182,26 @@ export const ProductsTable: React.FC<ProductsTableProps> = ({
         Suma total de operaciones
       </div>
 
-      <div style={{ textAlign: 'center', margin: '20px 0' }}>
-        <strong>IVA: {formatters.currency(totals.iva)}</strong>
-      </div>
-
       <div className="totals-section">
+        <div className="total-row">
+          <span>Retención IVA:</span>
+          <span>{formatters.currency(totals.retencionIVA)}</span>
+        </div>
+        <div className="total-row">
+          <span>Retención Renta:</span>
+          <span>{formatters.currency(totals.retencionRenta)}</span>
+        </div>
         <div className="total-row">
           <span>Subtotal:</span>
           <span>{formatters.currency(totals.subtotal)}</span>
         </div>
         <div className="total-row">
-          <span>(-) IVA exento:</span>
-          <span>{formatters.currency(totals.subtotalExento)}</span>
+          <span>Monto Total de la operación:</span>
+          <span>{formatters.currency(totals.montoTotal)}</span>
         </div>
         <div className="total-row final">
           <span>Total a pagar:</span>
-          <span>{formatters.currency(totals.total)}</span>
+          <span>{formatters.currency(totals.totalAPagar)}</span>
         </div>
       </div>
     </>
