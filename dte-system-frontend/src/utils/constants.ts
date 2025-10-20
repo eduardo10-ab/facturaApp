@@ -114,7 +114,6 @@ export const DEPARTAMENTOS_MUNICIPIOS = {
       "02": "La Unión Sur"
     }
   }
-  // Agregar resto de departamentos según necesidad
 } as const;
 
 export const DOCUMENT_TYPES = {

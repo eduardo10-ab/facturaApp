@@ -1,4 +1,4 @@
-// src/pages/forms/creditoFiscal.tsx
+// src/pages/forms/factura.tsx
 import React, { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
@@ -31,6 +31,7 @@ const CreditoFiscalForm: React.FC = () => {
   const [entryDate, setEntryDate] = useState('');
   const [entryTime, setEntryTime] = useState('');
   const [alert, setAlert] = useState<{ message: string; type: 'success' | 'error' } | null>(null);
+  const [isInitialized, setIsInitialized] = useState(false);
 
   const {
     register,
@@ -44,13 +45,7 @@ const CreditoFiscalForm: React.FC = () => {
     resolver: zodResolver(dteSchema),
     defaultValues: {
       documentType: 'factura',
-      products: [{
-        quantity: 1,
-        unit: '',
-        description: '',
-        saleType: '1',
-        unitPrice: 0
-      }],
+      products: [], // Array vacío
       receiver: {
         nit: '',
         nrc: '',
@@ -66,6 +61,31 @@ const CreditoFiscalForm: React.FC = () => {
       paymentMethod: ''
     }
   });
+
+  // Limpiar productos al montar el componente - MEJORADO
+  useEffect(() => {
+    if (!isInitialized) {
+      // Resetear completamente el formulario con productos vacíos
+      reset({
+        documentType: 'factura',
+        products: [],
+        receiver: {
+          nit: '',
+          nrc: '',
+          name: '',
+          commercialName: '',
+          economicActivity: '',
+          department: '',
+          municipality: '',
+          address: '',
+          email: '',
+          phone: ''
+        },
+        paymentMethod: ''
+      });
+      setIsInitialized(true);
+    }
+  }, [reset, isInitialized]);
 
   // Capturar fecha y hora de entrada
   useEffect(() => {
@@ -86,6 +106,12 @@ const CreditoFiscalForm: React.FC = () => {
 
   const onSubmit = async (data: DteDocument) => {
     try {
+      // Validar que haya al menos un producto
+      if (!data.products || data.products.length === 0) {
+        setAlert({ message: 'Debe agregar al menos un producto antes de generar el documento', type: 'error' });
+        return;
+      }
+
       console.log('Enviando DTE:', data);
       const response = await dteApi.create(data);
       

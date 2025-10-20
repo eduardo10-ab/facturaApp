@@ -27,7 +27,7 @@ export const productSchema = z.object({
 export const dteSchema = z.object({
   documentType: z.string().min(1),
   receiver: receiverSchema,
-  products: z.array(productSchema).min(1, 'Debe agregar al menos un producto'),
+  products: z.array(productSchema).min(0), // CAMBIADO: de min(1) a min(0) para permitir array vacío
   paymentMethod: z.string().min(1, 'Método de pago requerido'),
   issuer: z.object({
     docNumber: z.string().optional(),
