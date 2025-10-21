@@ -6,7 +6,7 @@ import { useAuth } from '@/hooks/useAuth';
 // Iconos SVG inline
 const DashboardIcon = () => (
   <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor">
-    <path d="M13 3v6h8V3m-8 18h8V11h-8M3 21h8v-6H3m0-2h8V3H3v10z"/>
+    <path d="M4 19v-9q0-.475.213-.9t.587-.7l6-4.5q.525-.4 1.2-.4t1.2.4l6 4.5q.375.275.588.7T20 10v9q0 .825-.588 1.413T18 21h-3q-.425 0-.712-.288T14 20v-5q0-.425-.288-.712T13 14h-2q-.425 0-.712.288T10 15v5q0 .425-.288.713T9 21H6q-.825 0-1.412-.587T4 19"/>
   </svg>
 );
 
@@ -188,7 +188,11 @@ export const Sidebar: React.FC = () => {
 
         {/* Footer */}
         <div className="sidebar-footer">
-          <button className="menu-item" onClick={handleLogout}>
+          <button 
+            className="menu-item logout-button" 
+            onClick={handleLogout}
+            title="Cerrar sesión"
+          >
             <LogoutIcon />
             <span>Cerrar sesión</span>
           </button>
