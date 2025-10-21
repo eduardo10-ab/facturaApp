@@ -25,7 +25,7 @@ const ClockIcon = () => (
   </svg>
 );
 
-const CreditoFiscalForm: React.FC = () => {
+const ComprobanteRetencionForm: React.FC = () => {
   const navigate = useNavigate();
   const { documentTitle } = useDteStore();
   const [entryDate, setEntryDate] = useState('');
@@ -375,4 +375,4 @@ const CreditoFiscalForm: React.FC = () => {
   );
 };
 
-export default CreditoFiscalForm;
+export default ComprobanteRetencionForm;

@@ -8,6 +8,14 @@ import Login from '@/pages/login';
 import Dashboard from '@/pages/Dashboard';
 import DocumentSelection from '@/pages/documentSelection';
 import CreditoFiscalForm from '@/pages/forms/creditoFiscal';
+import FacturaForm from '@/pages/forms/factura';
+import NotaCreditoForm from '@/pages/forms/notaCredito';
+import FacturaExcluidoForm from '@/pages/forms/facturaExcluido';
+import FacturaExportacionForm from '@/pages/forms/facturaExportacion';
+import NotaDebitoForm from '@/pages/forms/notaDebito';
+import NotaRemisionForm from '@/pages/forms/notaRemision';
+import ComprobanteRetencionForm from '@/pages/forms/comprobanteRetencion';
+import DeclaracionRentaForm from '@/pages/forms/declaracionRenta';
 
 // Create QueryClient instance
 const queryClient = new QueryClient({
@@ -93,7 +101,7 @@ function App() {
             path="/documents/factura" 
             element={
               <ProtectedRoute>
-                <CreditoFiscalForm />
+                <FacturaForm  />
               </ProtectedRoute>
             } 
           />
@@ -102,7 +110,7 @@ function App() {
             path="/documents/declaracionRenta" 
             element={
               <ProtectedRoute>
-                <CreditoFiscalForm />
+                <DeclaracionRentaForm />
               </ProtectedRoute>
             } 
           />
@@ -111,7 +119,7 @@ function App() {
             path="/documents/notaCredito" 
             element={
               <ProtectedRoute>
-                <CreditoFiscalForm />
+                <NotaCreditoForm />
               </ProtectedRoute>
             } 
           />
@@ -120,7 +128,7 @@ function App() {
             path="/documents/notaDebito" 
             element={
               <ProtectedRoute>
-                <CreditoFiscalForm />
+                <NotaDebitoForm />
               </ProtectedRoute>
             } 
           />
@@ -129,7 +137,7 @@ function App() {
             path="/documents/comprobanteRetencion" 
             element={
               <ProtectedRoute>
-                <CreditoFiscalForm />
+                <ComprobanteRetencionForm />
               </ProtectedRoute>
             } 
           />
@@ -138,7 +146,7 @@ function App() {
             path="/documents/facturaExportacion" 
             element={
               <ProtectedRoute>
-                <CreditoFiscalForm />
+                <FacturaExportacionForm />
               </ProtectedRoute>
             } 
           />
@@ -147,7 +155,7 @@ function App() {
             path="/documents/facturaExcluido" 
             element={
               <ProtectedRoute>
-                <CreditoFiscalForm />
+                <FacturaExcluidoForm />
               </ProtectedRoute>
             } 
           />
@@ -156,7 +164,7 @@ function App() {
             path="/documents/notaRemision" 
             element={
               <ProtectedRoute>
-                <CreditoFiscalForm />
+                <NotaRemisionForm />
               </ProtectedRoute>
             } 
           />

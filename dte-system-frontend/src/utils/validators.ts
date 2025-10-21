@@ -27,7 +27,7 @@ export const productSchema = z.object({
 export const dteSchema = z.object({
   documentType: z.string().min(1),
   receiver: receiverSchema,
-  products: z.array(productSchema).min(0), // CAMBIADO: de min(1) a min(0) para permitir array vacío
+  products: z.array(productSchema).min(0),
   paymentMethod: z.string().min(1, 'Método de pago requerido'),
   issuer: z.object({
     docNumber: z.string().optional(),
@@ -39,16 +39,56 @@ export const dteSchema = z.object({
   }).optional()
 });
 
-// Funciones de validación individuales (para uso directo)
+// Funciones de validación y formato
 export const validators = {
+  // NIT: Solo números, máximo 9 dígitos
+  formatNIT: (value: string): string => {
+    const numbersOnly = value.replace(/[^\d]/g, '');
+    return numbersOnly.slice(0, 9);
+  },
+
+  // NRC: Solo números, máximo 7 dígitos
+  formatNRC: (value: string): string => {
+    const numbersOnly = value.replace(/[^\d]/g, '');
+    return numbersOnly.slice(0, 7);
+  },
+
+  // Teléfono: Solo números y guiones, máximo 8 dígitos (sin contar guiones)
+  formatPhone: (value: string): string => {
+    // Eliminar todo excepto números y guiones
+    let formatted = value.replace(/[^\d-]/g, '');
+    
+    // Contar solo los números (sin guiones)
+    const numbersOnly = formatted.replace(/-/g, '');
+    
+    // Si hay más de 8 números, recortar
+    if (numbersOnly.length > 8) {
+      const numbers = numbersOnly.slice(0, 8);
+      // Reformatear con guión si es necesario
+      if (numbers.length >= 4) {
+        formatted = numbers.slice(0, 4) + '-' + numbers.slice(4);
+      } else {
+        formatted = numbers;
+      }
+    }
+    
+    return formatted;
+  },
+
+  // Solo permite letras, espacios y caracteres especiales del español
+  formatLettersOnly: (value: string): string => {
+    return value.replace(/[^a-záéíóúñüA-ZÁÉÍÓÚÑÜ\s]/g, '');
+  },
+
+  // Validaciones completas
   validateNIT: (nit: string): boolean => {
     if (!nit) return true;
-    return /^\d{4}-\d{6}-\d{3}-\d{1}$/.test(nit);
+    return /^\d{1,9}$/.test(nit);
   },
 
   validateNRC: (nrc: string): boolean => {
     if (!nrc) return true;
-    return /^\d{8,15}$/.test(nrc);
+    return /^\d{1,7}$/.test(nrc);
   },
 
   validateEmail: (email: string): boolean => {
@@ -58,14 +98,16 @@ export const validators = {
 
   validatePhone: (phone: string): boolean => {
     if (!phone) return true;
-    return /^\d{4}-\d{4}$/.test(phone);
+    const numbersOnly = phone.replace(/-/g, '');
+    return numbersOnly.length <= 8;
   },
 
   validateLettersOnly: (value: string): boolean => {
+    if (!value) return true;
     return /^[a-záéíóúñüA-ZÁÉÍÓÚÑÜ\s]+$/.test(value);
   },
 
   validateNumbersOnly: (value: string): boolean => {
-    return /^[\d-]+$/.test(value);
+    return /^\d+$/.test(value);
   }
 };

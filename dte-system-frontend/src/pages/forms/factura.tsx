@@ -1,12 +1,12 @@
 // src/pages/forms/factura.tsx
 import React, { useEffect, useState } from 'react';
-import { useForm } from 'react-hook-form';
+import { useForm, Controller } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useNavigate } from 'react-router-dom';
 import { Layout } from '@/components/layout/Layout';
 import { ProductsTable } from '@/components/forms/ProductsTable';
 import { LocationSelects } from '@/components/forms/LocationSelects';
-import { dteSchema } from '@/utils/validators';
+import { dteSchema, validators } from '@/utils/validators';
 import { PAYMENT_METHODS } from '@/utils/constants';
 import { dteApi } from '@/api/dte.api';
 import { useDteStore } from '@/store/dteStore';
@@ -25,7 +25,7 @@ const ClockIcon = () => (
   </svg>
 );
 
-const CreditoFiscalForm: React.FC = () => {
+const FacturaForm: React.FC = () => {
   const navigate = useNavigate();
   const { documentTitle } = useDteStore();
   const [entryDate, setEntryDate] = useState('');
@@ -45,7 +45,7 @@ const CreditoFiscalForm: React.FC = () => {
     resolver: zodResolver(dteSchema),
     defaultValues: {
       documentType: 'factura',
-      products: [], // Array vacío
+      products: [],
       receiver: {
         nit: '',
         nrc: '',
@@ -62,10 +62,9 @@ const CreditoFiscalForm: React.FC = () => {
     }
   });
 
-  // Limpiar productos al montar el componente - MEJORADO
+  // Limpiar productos al montar el componente
   useEffect(() => {
     if (!isInitialized) {
-      // Resetear completamente el formulario con productos vacíos
       reset({
         documentType: 'factura',
         products: [],
@@ -106,7 +105,6 @@ const CreditoFiscalForm: React.FC = () => {
 
   const onSubmit = async (data: DteDocument) => {
     try {
-      // Validar que haya al menos un producto
       if (!data.products || data.products.length === 0) {
         setAlert({ message: 'Debe agregar al menos un producto antes de generar el documento', type: 'error' });
         return;
@@ -191,40 +189,82 @@ const CreditoFiscalForm: React.FC = () => {
               
               <div className="caja1">
                 <div className="form-row">
-                  <div className="form-group">
-                    <label>NIT</label>
-                    <input
-                      {...register('receiver.nit')}
-                      type="text"
-                      className="form-input"
-                      placeholder="0000-000000-000-0"
-                    />
-                    {errors.receiver?.nit && (
-                      <span style={{ color: '#dc2626', fontSize: '12px' }}>
-                        {errors.receiver.nit.message}
-                      </span>
+                  {/* NIT - Solo números, máximo 9 dígitos */}
+                <div className="form-group">
+                  <label>NIT</label>
+                  <Controller
+                    name="receiver.nit"
+                    control={control}
+                    render={({ field }) => (
+                      <input
+                        {...field}
+                        type="text"
+                        className="form-input"
+                        placeholder="123456789"
+                        maxLength={9}
+                        onChange={(e) => {
+                          const value = validators.formatNIT(e.target.value);
+                          field.onChange(value);
+                        }}
+                        value={field.value || ''}
+                      />
                     )}
-                  </div>
+                  />
+                  {errors.receiver?.nit && (
+                    <span style={{ color: '#dc2626', fontSize: '12px' }}>
+                      {errors.receiver.nit.message}
+                    </span>
+                  )}
+                </div>
+
                   <div className="form-group">
                     <label>NRC</label>
-                    <input
-                      {...register('receiver.nrc')}
-                      type="text"
-                      className="form-input"
-                      placeholder="000000000000000"
+                    <Controller
+                      name="receiver.nrc"
+                      control={control}
+                      render={({ field }) => (
+                        <input
+                          {...field}
+                          type="text"
+                          className="form-input"
+                          placeholder="0000000"
+                          maxLength={8}
+                          onChange={(e) => {
+                            const value = validators.formatNRC(e.target.value);
+                            field.onChange(value);
+                          }}
+                          value={field.value || ''}
+                        />
+                      )}
                     />
+                    {errors.receiver?.nrc && (
+                      <span style={{ color: '#dc2626', fontSize: '12px' }}>
+                        {errors.receiver.nrc.message}
+                      </span>
+                    )}
                   </div>
                 </div>
 
                 <div className="form-row full">
                   <div className="form-group">
                     <label>Nombre del cliente</label>
-                    <input
-                      {...register('receiver.name')}
-                      type="text"
-                      className="form-input"
-                      placeholder="Nombre del cliente"
-                      required
+                    <Controller
+                      name="receiver.name"
+                      control={control}
+                      render={({ field }) => (
+                        <input
+                          {...field}
+                          type="text"
+                          className="form-input"
+                          placeholder="Nombre del cliente"
+                          required
+                          onChange={(e) => {
+                            const value = validators.formatLettersOnly(e.target.value);
+                            field.onChange(value);
+                          }}
+                          value={field.value || ''}
+                        />
+                      )}
                     />
                     {errors.receiver?.name && (
                       <span style={{ color: '#dc2626', fontSize: '12px' }}>
@@ -237,24 +277,56 @@ const CreditoFiscalForm: React.FC = () => {
                 <div className="form-row full">
                   <div className="form-group">
                     <label>Nombre comercial</label>
-                    <input
-                      {...register('receiver.commercialName')}
-                      type="text"
-                      className="form-input"
-                      placeholder="Nombre comercial"
+                    <Controller
+                      name="receiver.commercialName"
+                      control={control}
+                      render={({ field }) => (
+                        <input
+                          {...field}
+                          type="text"
+                          className="form-input"
+                          placeholder="Nombre comercial"
+                          onChange={(e) => {
+                            const value = validators.formatLettersOnly(e.target.value);
+                            field.onChange(value);
+                          }}
+                          value={field.value || ''}
+                        />
+                      )}
                     />
+                    {errors.receiver?.commercialName && (
+                      <span style={{ color: '#dc2626', fontSize: '12px' }}>
+                        {errors.receiver.commercialName.message}
+                      </span>
+                    )}
                   </div>
                 </div>
 
                 <div className="form-row full">
                   <div className="form-group">
                     <label>Actividad económica</label>
-                    <input
-                      {...register('receiver.economicActivity')}
-                      type="text"
-                      className="form-input"
-                      placeholder="Actividad económica"
+                    <Controller
+                      name="receiver.economicActivity"
+                      control={control}
+                      render={({ field }) => (
+                        <input
+                          {...field}
+                          type="text"
+                          className="form-input"
+                          placeholder="Actividad económica"
+                          onChange={(e) => {
+                            const value = validators.formatLettersOnly(e.target.value);
+                            field.onChange(value);
+                          }}
+                          value={field.value || ''}
+                        />
+                      )}
                     />
+                    {errors.receiver?.economicActivity && (
+                      <span style={{ color: '#dc2626', fontSize: '12px' }}>
+                        {errors.receiver.economicActivity.message}
+                      </span>
+                    )}
                   </div>
                 </div>
               </div>
@@ -277,6 +349,11 @@ const CreditoFiscalForm: React.FC = () => {
                     className="form-input"
                     placeholder="Complemento de dirección"
                   />
+                  {errors.receiver?.address && (
+                    <span style={{ color: '#dc2626', fontSize: '12px' }}>
+                      {errors.receiver.address.message}
+                    </span>
+                  )}
                 </div>
               </div>
 
@@ -290,18 +367,40 @@ const CreditoFiscalForm: React.FC = () => {
                       className="form-input"
                       placeholder="receptor@correo.com"
                     />
+                    {errors.receiver?.email && (
+                      <span style={{ color: '#dc2626', fontSize: '12px' }}>
+                        {errors.receiver.email.message}
+                      </span>
+                    )}
                   </div>
                 </div>
 
                 <div className="form-row full">
                   <div className="form-group">
                     <label>Teléfono</label>
-                    <input
-                      {...register('receiver.phone')}
-                      type="tel"
-                      className="form-input"
-                      placeholder="0000-0000"
+                    <Controller
+                      name="receiver.phone"
+                      control={control}
+                      render={({ field }) => (
+                        <input
+                          {...field}
+                          type="tel"
+                          className="form-input"
+                          placeholder="0000-0000"
+                          maxLength={9}
+                          onChange={(e) => {
+                            const value = validators.formatPhone(e.target.value);
+                            field.onChange(value);
+                          }}
+                          value={field.value || ''}
+                        />
+                      )}
                     />
+                    {errors.receiver?.phone && (
+                      <span style={{ color: '#dc2626', fontSize: '12px' }}>
+                        {errors.receiver.phone.message}
+                      </span>
+                    )}
                   </div>
                 </div>
               </div>
@@ -401,4 +500,4 @@ const CreditoFiscalForm: React.FC = () => {
   );
 };
 
-export default CreditoFiscalForm;
+export default FacturaForm;
