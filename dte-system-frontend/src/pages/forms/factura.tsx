@@ -200,8 +200,8 @@ const FacturaForm: React.FC = () => {
                         {...field}
                         type="text"
                         className="form-input"
-                        placeholder="123456789"
-                        maxLength={9}
+                        placeholder="000-000000-000-0"
+                        maxLength={17}
                         onChange={(e) => {
                           const value = validators.formatNIT(e.target.value);
                           field.onChange(value);

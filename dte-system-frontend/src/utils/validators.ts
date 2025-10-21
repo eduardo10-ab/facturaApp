@@ -41,11 +41,35 @@ export const dteSchema = z.object({
 
 // Funciones de validación y formato
 export const validators = {
-  // NIT: Solo números, máximo 9 dígitos
-  formatNIT: (value: string): string => {
-    const numbersOnly = value.replace(/[^\d]/g, '');
-    return numbersOnly.slice(0, 9);
-  },
+  // NIT: Solo números y guiones, formato 0000-000000-000-0
+
+formatNIT: (value: string): string => {
+  const numbersOnly = value.replace(/[^\d]/g, '');
+  
+  let formatted = '';
+  
+  if (numbersOnly.length > 0) {
+    // Primeros 4 dígitos
+    formatted = numbersOnly.slice(0, 4);
+    
+    if (numbersOnly.length > 4) {
+      // Siguientes 6 dígitos
+      formatted += '-' + numbersOnly.slice(4, 10);
+      
+      if (numbersOnly.length > 10) {
+        // Siguientes 3 dígitos
+        formatted += '-' + numbersOnly.slice(10, 13);
+        
+        if (numbersOnly.length > 13) {
+          // Último dígito
+          formatted += '-' + numbersOnly.slice(13, 14);
+        }
+      }
+    }
+  }
+  
+  return formatted;
+},
 
   // NRC: Solo números, máximo 7 dígitos
   formatNRC: (value: string): string => {
@@ -54,26 +78,23 @@ export const validators = {
   },
 
   // Teléfono: Solo números y guiones, máximo 8 dígitos (sin contar guiones)
-  formatPhone: (value: string): string => {
-    // Eliminar todo excepto números y guiones
-    let formatted = value.replace(/[^\d-]/g, '');
+formatPhone: (value: string): string => {
+  const numbersOnly = value.replace(/[^\d]/g, '');
+  
+  let formatted = '';
+  
+  if (numbersOnly.length > 0) {
+    // Primeros 4 dígitos
+    formatted = numbersOnly.slice(0, 4);
     
-    // Contar solo los números (sin guiones)
-    const numbersOnly = formatted.replace(/-/g, '');
-    
-    // Si hay más de 8 números, recortar
-    if (numbersOnly.length > 8) {
-      const numbers = numbersOnly.slice(0, 8);
-      // Reformatear con guión si es necesario
-      if (numbers.length >= 4) {
-        formatted = numbers.slice(0, 4) + '-' + numbers.slice(4);
-      } else {
-        formatted = numbers;
-      }
+    if (numbersOnly.length > 4) {
+      // Siguientes 4 dígitos
+      formatted += '-' + numbersOnly.slice(4, 8);
     }
-    
-    return formatted;
-  },
+  }
+  
+  return formatted;
+},
 
   // Solo permite letras, espacios y caracteres especiales del español
   formatLettersOnly: (value: string): string => {
@@ -81,10 +102,13 @@ export const validators = {
   },
 
   // Validaciones completas
-  validateNIT: (nit: string): boolean => {
-    if (!nit) return true;
-    return /^\d{1,9}$/.test(nit);
-  },
+// Reemplaza validateNIT:
+
+validateNIT: (nit: string): boolean => {
+  if (!nit) return true;
+  const numbersOnly = nit.replace(/-/g, '');
+  return /^\d{1,14}$/.test(numbersOnly); // Máximo 14 dígitos
+},
 
   validateNRC: (nrc: string): boolean => {
     if (!nrc) return true;
